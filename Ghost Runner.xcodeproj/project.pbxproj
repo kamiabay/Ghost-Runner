@@ -56,15 +56,39 @@
 		3C4D6BE425D5D1C2009CEBE1 /* Ghost Runner */ = {
 			isa = PBXGroup;
 			children = (
-				3C4D6BE525D5D1C2009CEBE1 /* AppDelegate.swift */,
-				3C4D6BE725D5D1C2009CEBE1 /* SceneDelegate.swift */,
-				3C4D6BE925D5D1C2009CEBE1 /* ViewController.swift */,
-				3C4D6BEB25D5D1C2009CEBE1 /* Main.storyboard */,
+				3C4D6BFE25D5D512009CEBE1 /* storyBoard */,
+				3C4D6BFD25D5D4C5009CEBE1 /* controller */,
+				3C4D6BFC25D5D48A009CEBE1 /* support */,
 				3C4D6BEE25D5D1C4009CEBE1 /* Assets.xcassets */,
-				3C4D6BF025D5D1C4009CEBE1 /* LaunchScreen.storyboard */,
 				3C4D6BF325D5D1C4009CEBE1 /* Info.plist */,
 			);
 			path = "Ghost Runner";
+			sourceTree = "<group>";
+		};
+		3C4D6BFC25D5D48A009CEBE1 /* support */ = {
+			isa = PBXGroup;
+			children = (
+				3C4D6BE725D5D1C2009CEBE1 /* SceneDelegate.swift */,
+				3C4D6BE525D5D1C2009CEBE1 /* AppDelegate.swift */,
+			);
+			path = support;
+			sourceTree = "<group>";
+		};
+		3C4D6BFD25D5D4C5009CEBE1 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				3C4D6BE925D5D1C2009CEBE1 /* ViewController.swift */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		3C4D6BFE25D5D512009CEBE1 /* storyBoard */ = {
+			isa = PBXGroup;
+			children = (
+				3C4D6BF025D5D1C4009CEBE1 /* LaunchScreen.storyboard */,
+				3C4D6BEB25D5D1C2009CEBE1 /* Main.storyboard */,
+			);
+			path = storyBoard;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
