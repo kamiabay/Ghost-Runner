@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseFirestore
 
-class GeoData {
+class RunDb {
     private var user: User?;
     private var path: Path?;
     
@@ -17,6 +17,10 @@ class GeoData {
         self.path = Path.init(user: user);
         
     }
+    
+    func saveRunSnapShot() {
+    }
+    
     
     
     

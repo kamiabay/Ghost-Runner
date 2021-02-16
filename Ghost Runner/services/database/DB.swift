@@ -9,11 +9,11 @@ import Foundation
 
 class DB {
     private var user: User;
-    public var test : GeoData;
+    public var test : RunDb;
     
     init() {
         self.user = LocalStorage().getUser();
-        self.test = GeoData.init(user: user);
+        self.test = RunDb.init(user: user);
     }
     
     
