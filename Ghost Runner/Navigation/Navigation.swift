@@ -7,7 +7,16 @@
 
 import Foundation
 
-// takes care of navigation to other screens 
+struct RouteNames {
+    let login = "loginRoute"
+    let home = "homeRoute"
+    let run = "runRoute"
+}
+// takes care of navigation to other screens
 class Navigator {
+    let route = RouteNames();
     
+    init() {
+    
+    }
 }
