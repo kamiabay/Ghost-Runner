@@ -18,10 +18,20 @@ class UserDb {
     }
     
     func updateProfilePic(photoURL: String) {
+        let ref = path.userPrivate();
+        
+        ref.setData([
+            "photoURL": photoURL,
+        ], merge: true);
         
     }
     
-    func updateInfo() {
+    func updateInfo(name: String) {
+        let ref = path.userPrivate();
+        
+        ref.setData([
+            "name": name,
+        ], merge: true);
         
     }
     

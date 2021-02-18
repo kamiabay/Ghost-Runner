@@ -9,11 +9,11 @@ import Foundation
 
 class DB {
     private var user: User;
-    public var test : RunDb;
+    public var runDb : RunDb;
     
     init() {
         self.user = LocalStorage().getUser();
-        self.test = RunDb.init(user: user);
+        self.runDb = RunDb.init(user: user);
     }
     
     

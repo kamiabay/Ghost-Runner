@@ -6,10 +6,14 @@
 //
 
 import Foundation
+import CoreLocation
 
 class Run {
-    var runID: String;
+    private var runID: String;
     private var runSnapshotList : [RunSnapshot];
+    private let CALORIE_PER_SECONDS = 0.5;
+    private let date = Date();
+    private var currentLocationIndex = 0;
     
     init(runSnapshotList: [RunSnapshot], runID: String) {
         self.runSnapshotList = runSnapshotList;
@@ -18,28 +22,56 @@ class Run {
     }
     
     
-    
-    
     // FUNCTIONS
     
-    func avgSpeed() {
-        
+    func avgSpeed() -> Double {
+        let calendar = Calendar.current
+        let time = totalDuration();
+        let second = calendar.component(.second, from: time)
+        return totalDistance() / Double(second);  // check later
     }
     
-    func distance() {
+    func totalDistance() -> Double {
+        var prevCordinate: CLLocation?;
+        var distance = 0.0;
+        runSnapshotList.forEach{ (runSnapshot) in
+            prevCordinate = runSnapshot.getCordinate();
+            // WRONG => NO !
+            let distanceInMeters = prevCordinate!.distance(from: prevCordinate!)
+            distance = distance + distanceInMeters;
+        };
         
+        return distance;
+    }
+    
+    // gets the location of runner
+    func getNextRunLocation() -> RunSnapshot {
+        var currentSnapshot: RunSnapshot;
+        if (currentLocationIndex == runSnapshotList.count) {
+            currentSnapshot = runSnapshotList[currentLocationIndex];
+        }
+        else {
+            currentSnapshot = runSnapshotList[runSnapshotList.count - 1];
+        }
+        currentLocationIndex += 1;
+        return currentSnapshot;
     }
     
     func caloriesBurned() {
+       // totalDistance()
+    }
+    
+    func avgHeartRate() { // might not need it
         
     }
     
-    func avgHeartRate(){
+    func totalDuration() -> Date {
+        let startTime = runSnapshotList[0].time;
+        let endTime = runSnapshotList[runSnapshotList.count - 1].time;
         
+        return Date.init(timeInterval: startTime.timeIntervalSince1970, since: endTime); // wrong
     }
     
-    func totalDuration() {
-        
-    }
+
     
 }
