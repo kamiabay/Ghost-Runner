@@ -30,7 +30,11 @@ class Navigator: UIViewController {
     }
     
     func goToMain() {
-        
+        guard let homeVC = storyboard?.instantiateViewController(identifier: route.login) as? HomeVC else {
+            assertionFailure("couldnt find this controller")
+            return
+        }
+        navigationController?.pushViewController(homeVC, animated: true)
     }
     
     func goToRun() {
