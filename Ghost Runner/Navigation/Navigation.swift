@@ -18,9 +18,7 @@ struct RouteNames {
 class Navigator: UIViewController {
     let route = RouteNames();
     
-    
 
-    
     func goToLogin() { // NEEDS TESTING
         guard let loginVC = storyboard?.instantiateViewController(identifier: route.login) as? LoginVC else {
             assertionFailure("couldnt find this controller")
@@ -30,14 +28,20 @@ class Navigator: UIViewController {
     }
     
     func goToMain() {
-        guard let homeVC = storyboard?.instantiateViewController(identifier: route.login) as? HomeVC else {
+        guard let homeVC = storyboard?.instantiateViewController(identifier: route.home) as? HomeVC else {
             assertionFailure("couldnt find this controller")
             return
         }
         navigationController?.pushViewController(homeVC, animated: true)
     }
     
-    func goToRun() {
+    func goToRun(opponentRun: Run) {
+        guard let runVC = storyboard?.instantiateViewController(identifier: route.run) as? RunVC else {
+            assertionFailure("couldnt find this controller")
+            return
+        }
+        runVC.opponentRun = opponentRun;
+        navigationController?.pushViewController(runVC, animated: true)
         
     }
     

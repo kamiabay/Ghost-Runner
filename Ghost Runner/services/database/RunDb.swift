@@ -17,14 +17,15 @@ class RunDb {
         self.path = Path.init(user: user);
     }
     
-    // CALL EVERY INTERVAL 
-    func saveRunSnapShot(runSnapShot: [RunSnapshot], runID: String) {
+    // CALL AT THE END OF THE RUN
+    func saveRunSnapShot(runSnapShotList: [RunSnapshot], runID: String) {
         let ref = path.userEachRun(runID: runID);
-        let list = runSnapShot.map { (runlist) -> [String: Any] in
-           return runlist.toJSON()
+        let jsonList = runSnapShotList.map { (runSnapShot) -> [String: Any] in
+           return runSnapShot.toJSON()
         };
         ref.setData([
-            "runData": FieldValue.arrayUnion(list) // MIGHT NOT WORK
+            "runData": FieldValue.arrayUnion(jsonList), // MIGHT NOT WORK
+            "creationTime": FieldValue.serverTimestamp(),
         ], merge: true);
     }
 

@@ -29,6 +29,7 @@
 		3CDFE92625DF0BA800742EF2 /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDFE92525DF0BA800742EF2 /* Navigation.swift */; };
 		3CDFE92925DF15CB00742EF2 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDFE92825DF15CB00742EF2 /* LoginVC.swift */; };
 		3CDFE92C25DF16D600742EF2 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDFE92B25DF16D600742EF2 /* HomeVC.swift */; };
+		3CDFE93125DF1F9600742EF2 /* RunVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDFE93025DF1F9600742EF2 /* RunVC.swift */; };
 		5023811574EF1E5C3359D874 /* Pods_Ghost_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4A245072B07B61AE8759005 /* Pods_Ghost_Runner.framework */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +58,7 @@
 		3CDFE92525DF0BA800742EF2 /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
 		3CDFE92825DF15CB00742EF2 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		3CDFE92B25DF16D600742EF2 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
+		3CDFE93025DF1F9600742EF2 /* RunVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunVC.swift; sourceTree = "<group>"; };
 		766E69240DE493E8126D4C20 /* Pods-Ghost Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ghost Runner.release.xcconfig"; path = "Target Support Files/Pods-Ghost Runner/Pods-Ghost Runner.release.xcconfig"; sourceTree = "<group>"; };
 		A4104646307D6E68F33AE0EB /* Pods-Ghost Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ghost Runner.debug.xcconfig"; path = "Target Support Files/Pods-Ghost Runner/Pods-Ghost Runner.debug.xcconfig"; sourceTree = "<group>"; };
 		E4A245072B07B61AE8759005 /* Pods_Ghost_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Ghost_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -141,6 +143,7 @@
 				3C4D6BE925D5D1C2009CEBE1 /* ViewController.swift */,
 				3CDFE92825DF15CB00742EF2 /* LoginVC.swift */,
 				3CDFE92B25DF16D600742EF2 /* HomeVC.swift */,
+				3CDFE93025DF1F9600742EF2 /* RunVC.swift */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -364,6 +367,7 @@
 				3C4D6BE625D5D1C2009CEBE1 /* AppDelegate.swift in Sources */,
 				3CDFE92625DF0BA800742EF2 /* Navigation.swift in Sources */,
 				3C4D6BE825D5D1C2009CEBE1 /* SceneDelegate.swift in Sources */,
+				3CDFE93125DF1F9600742EF2 /* RunVC.swift in Sources */,
 				3CB5250325DB24DF004421D9 /* CloudStorage.swift in Sources */,
 				3CB5250A25DB3F51004421D9 /* Path.swift in Sources */,
 				3CDFE92925DF15CB00742EF2 /* LoginVC.swift in Sources */,
