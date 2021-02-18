@@ -18,7 +18,6 @@ class Run {
     init(runSnapshotList: [RunSnapshot], runID: String) {
         self.runSnapshotList = runSnapshotList;
         self.runID = runID;
-        
     }
     
     
@@ -55,6 +54,16 @@ class Run {
         }
         currentLocationIndex += 1;
         return currentSnapshot;
+    }
+    
+    func isRunFinished() -> Bool {
+        
+        if (currentLocationIndex == runSnapshotList.count) {
+            return true;
+        }
+        else {
+            return false
+        }
     }
     
     func caloriesBurned() {

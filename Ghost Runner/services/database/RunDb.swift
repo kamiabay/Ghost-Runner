@@ -18,11 +18,13 @@ class RunDb {
     }
     
     // CALL EVERY INTERVAL 
-    func saveRunSnapShot(runSnapShot: RunSnapshot, runID: String) {
+    func saveRunSnapShot(runSnapShot: [RunSnapshot], runID: String) {
         let ref = path.userEachRun(runID: runID);
-        
+        let list = runSnapShot.map { (runlist) -> [String: Any] in
+           return runlist.toJSON()
+        };
         ref.setData([
-            "runData": FieldValue.arrayUnion([runSnapShot.toJSON()])
+            "runData": FieldValue.arrayUnion(list) // MIGHT NOT WORK
         ], merge: true);
     }
 
