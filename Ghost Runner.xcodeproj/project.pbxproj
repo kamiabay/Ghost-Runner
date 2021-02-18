@@ -26,6 +26,7 @@
 		3CB5250825DB3B2C004421D9 /* RunDb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB5250725DB3B2C004421D9 /* RunDb.swift */; };
 		3CB5250A25DB3F51004421D9 /* Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB5250925DB3F51004421D9 /* Path.swift */; };
 		3CDFE92125DE82C600742EF2 /* dataChanges.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDFE92025DE82C600742EF2 /* dataChanges.swift */; };
+		3CDFE92625DF0BA800742EF2 /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDFE92525DF0BA800742EF2 /* Navigation.swift */; };
 		5023811574EF1E5C3359D874 /* Pods_Ghost_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4A245072B07B61AE8759005 /* Pods_Ghost_Runner.framework */; };
 /* End PBXBuildFile section */
 
@@ -51,6 +52,7 @@
 		3CB5250725DB3B2C004421D9 /* RunDb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunDb.swift; sourceTree = "<group>"; };
 		3CB5250925DB3F51004421D9 /* Path.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Path.swift; sourceTree = "<group>"; };
 		3CDFE92025DE82C600742EF2 /* dataChanges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dataChanges.swift; sourceTree = "<group>"; };
+		3CDFE92525DF0BA800742EF2 /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
 		766E69240DE493E8126D4C20 /* Pods-Ghost Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ghost Runner.release.xcconfig"; path = "Target Support Files/Pods-Ghost Runner/Pods-Ghost Runner.release.xcconfig"; sourceTree = "<group>"; };
 		A4104646307D6E68F33AE0EB /* Pods-Ghost Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ghost Runner.debug.xcconfig"; path = "Target Support Files/Pods-Ghost Runner/Pods-Ghost Runner.debug.xcconfig"; sourceTree = "<group>"; };
 		E4A245072B07B61AE8759005 /* Pods_Ghost_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Ghost_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,6 +108,7 @@
 		3C4D6BE425D5D1C2009CEBE1 /* Ghost Runner */ = {
 			isa = PBXGroup;
 			children = (
+				3CDFE92425DF0B9600742EF2 /* Navigation */,
 				3CDFE91F25DE823C00742EF2 /* Data */,
 				3CB524F725DB23DD004421D9 /* model */,
 				3CB524F625DB23B1004421D9 /* services */,
@@ -207,6 +210,14 @@
 				3CDFE92025DE82C600742EF2 /* dataChanges.swift */,
 			);
 			path = Data;
+			sourceTree = "<group>";
+		};
+		3CDFE92425DF0B9600742EF2 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				3CDFE92525DF0BA800742EF2 /* Navigation.swift */,
+			);
+			path = Navigation;
 			sourceTree = "<group>";
 		};
 		AEFEDFB950DDE4D64D1C282C /* Pods */ = {
@@ -344,6 +355,7 @@
 				3CB5250825DB3B2C004421D9 /* RunDb.swift in Sources */,
 				3CDFE92125DE82C600742EF2 /* dataChanges.swift in Sources */,
 				3C4D6BE625D5D1C2009CEBE1 /* AppDelegate.swift in Sources */,
+				3CDFE92625DF0BA800742EF2 /* Navigation.swift in Sources */,
 				3C4D6BE825D5D1C2009CEBE1 /* SceneDelegate.swift in Sources */,
 				3CB5250325DB24DF004421D9 /* CloudStorage.swift in Sources */,
 				3CB5250A25DB3F51004421D9 /* Path.swift in Sources */,
