@@ -18,7 +18,7 @@
 		3C4D6BEF25D5D1C4009CEBE1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C4D6BEE25D5D1C4009CEBE1 /* Assets.xcassets */; };
 		3C4D6BF225D5D1C4009CEBE1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C4D6BF025D5D1C4009CEBE1 /* LaunchScreen.storyboard */; };
 		3CB524F525DB1B03004421D9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3CB524F425DB1B03004421D9 /* GoogleService-Info.plist */; };
-		3CB524F925DB23FA004421D9 /* user.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB524F825DB23FA004421D9 /* user.swift */; };
+		3CB524F925DB23FA004421D9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB524F825DB23FA004421D9 /* User.swift */; };
 		3CB524FC25DB2443004421D9 /* DB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB524FB25DB2443004421D9 /* DB.swift */; };
 		3CB5250125DB24C2004421D9 /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB5250025DB24C2004421D9 /* LocalStorage.swift */; };
 		3CB5250325DB24DF004421D9 /* CloudStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB5250225DB24DF004421D9 /* CloudStorage.swift */; };
@@ -43,7 +43,7 @@
 		3C4D6BF125D5D1C4009CEBE1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3C4D6BF325D5D1C4009CEBE1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3CB524F425DB1B03004421D9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		3CB524F825DB23FA004421D9 /* user.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = user.swift; sourceTree = "<group>"; };
+		3CB524F825DB23FA004421D9 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		3CB524FB25DB2443004421D9 /* DB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DB.swift; sourceTree = "<group>"; };
 		3CB5250025DB24C2004421D9 /* LocalStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorage.swift; sourceTree = "<group>"; };
 		3CB5250225DB24DF004421D9 /* CloudStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudStorage.swift; sourceTree = "<group>"; };
@@ -160,7 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				3C13A8E425DB770E00C9D7F6 /* Run */,
-				3CB524F825DB23FA004421D9 /* user.swift */,
+				3CB524F825DB23FA004421D9 /* User.swift */,
 				3C13A8E125DB76D100C9D7F6 /* GPS.swift */,
 			);
 			path = model;
@@ -337,7 +337,7 @@
 				3C13A8E225DB76D100C9D7F6 /* GPS.swift in Sources */,
 				3C13A8ED25DB77C500C9D7F6 /* UserDb.swift in Sources */,
 				3C13A8E725DB772500C9D7F6 /* RunModel.swift in Sources */,
-				3CB524F925DB23FA004421D9 /* user.swift in Sources */,
+				3CB524F925DB23FA004421D9 /* User.swift in Sources */,
 				3C4D6BEA25D5D1C2009CEBE1 /* ViewController.swift in Sources */,
 				3CB524FC25DB2443004421D9 /* DB.swift in Sources */,
 				3CB5250125DB24C2004421D9 /* LocalStorage.swift in Sources */,

@@ -7,17 +7,60 @@
 
 import Foundation
 
-// RUNS HAVE TO BE SAVE AT THE SAME EXAT INTERVAL
+// RUNS HAVE TO BE SAVE AT THE SAME EXAT INTERVAL => we can play with this idea more
+
 class RunCalculation {
     private var opponentRun: Run;
     private var ownRunList = [RunSnapshot](); // EMPRY LIST ??
     init (otherRunner: Run) {
         self.opponentRun = otherRunner;
     }
+
+    
+    // DYLAN'S FUNCTIONS
     
     
-    // FUNCTIONS
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    // KAMI FUNCTIONS
     func isOpponentBehind() -> Bool {
         // check distance traveled by OWN and OPONNENT
         return true;
@@ -34,10 +77,10 @@ class RunCalculation {
         return opponentRun.getNextRunLocation();
     }
     
-    
     func getOwnFinalRunList() -> [RunSnapshot] {
         return ownRunList;
     }
     
     
 }
+ 

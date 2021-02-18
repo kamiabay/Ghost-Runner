@@ -8,10 +8,11 @@
 import Foundation
 import CoreLocation
 
+// this is the run that we read from the Database
 class Run {
     private var runID: String;
     private var runSnapshotList : [RunSnapshot];
-    private let CALORIE_PER_SECONDS = 0.5;
+    private let CALORIE_PER_SECONDS = 0.5; // just an idea
     private let date = Date();
     private var currentLocationIndex = 0;
     
@@ -20,9 +21,82 @@ class Run {
         self.runID = runID;
     }
     
+    // DYLAN'S FUNCTIONS
+  
     
-    // FUNCTIONS
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    // KAMI FUNCTIONS
     func avgSpeed() -> Double {
         let calendar = Calendar.current
         let time = totalDuration();
