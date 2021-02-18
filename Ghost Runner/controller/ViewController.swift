@@ -13,6 +13,14 @@ class ViewController: UIViewController {
         view.backgroundColor =  .systemOrange
         // Do any additional setup after loading the view.
     }
+    func go() {
+        guard let UserAccountViewController = storyboard?.instantiateViewController(identifier: "userAccount") as? ViewController else {
+            assertionFailure("couldnt find this controller")
+            return
+        }
+        navigationController?.pushViewController(UserAccountViewController, animated: true)
+    }
+
 
 }
 
