@@ -17,13 +17,16 @@ struct RouteNames {
 // takes care of navigation to other screens
 class Navigator: UIViewController {
     let route = RouteNames();
+    
+    
 
+    
     func goToLogin() { // NEEDS TESTING
-        guard let UserAccountViewController = storyboard?.instantiateViewController(identifier: route.login) as? ViewController else {
+        guard let loginVC = storyboard?.instantiateViewController(identifier: route.login) as? LoginVC else {
             assertionFailure("couldnt find this controller")
             return
         }
-        navigationController?.pushViewController(UserAccountViewController, animated: true)
+        navigationController?.pushViewController(loginVC, animated: true)
     }
     
     func goToMain() {
