@@ -25,6 +25,14 @@ Week 0 + 1 Brief Assignments (these are found in more detail in the meeting note
 - Main UI (Nikita): design main UI, MapKit implementation, time-sector UI element, create theme and graphics
 - Login/Auth (Ziyu): login framework, login UI
 
+Week 2 Brief Assignments (see 18 February's meeting notes for details/elaboration):
+- Backend (Kami): develop user login data pipeline; develop cloud function regarding best detection; work with Dylan on algorithm
+- Algorithm (Dylan): continue developing the run algorithm
+- Main UI (Nikita): fully implement main UI and test the full data pipeline
+- Login/Auth (Ziyu): implement user sign-in and sign-up in the login UI
+
 ### Meeting Notes:
 
 11 February 2021 - [Sprint Planning 1 and Proposal](https://docs.google.com/document/d/1Y4POqneNCZ1JXG9e6VGOsLXFdwB2L2I7I2TDs0K9TpU/edit?usp=sharing)
+
+18 February 2021 - [Sprint Planning 2](https://docs.google.com/document/d/1WIuyM43pmhlOwvQq3lfGjFDhGgT85jWmO40kayEHhEU/edit?usp=sharing)
