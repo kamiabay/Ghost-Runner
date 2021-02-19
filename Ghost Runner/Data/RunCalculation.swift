@@ -7,7 +7,7 @@
 
 import Foundation
 
-// RUNS HAVE TO BE SAVE AT THE SAME EXAT INTERVAL => we can play with this idea more
+// RUNS HAVE TO BE SAVE AT THE SAME EXACT INTERVAL => we can play with this idea more
 
 class RunCalculation {
     private var opponentRun: Run;
