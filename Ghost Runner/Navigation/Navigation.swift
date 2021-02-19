@@ -8,17 +8,19 @@
 import Foundation
 import UIKit
 
-struct RouteNames {
-    let login = "loginRoute"
-    let home = "homeRoute"
-    let run = "runRoute"
-}
+
 
 // takes care of navigation to other screens
 class Navigator: UIViewController {
+   
+    struct RouteNames {
+        let login = "loginRoute"
+        let home = "homeRoute"
+        let run = "runRoute"
+    }
+    
     let route = RouteNames();
     
-
     func goToLogin() { // NEEDS TESTING
         guard let loginVC = storyboard?.instantiateViewController(identifier: route.login) as? LoginVC else {
             assertionFailure("couldnt find this controller")
@@ -42,7 +44,6 @@ class Navigator: UIViewController {
         }
         runVC.opponentRun = opponentRun;
         navigationController?.pushViewController(runVC, animated: true)
-        
     }
     
 }

@@ -21,8 +21,6 @@ class HomeVC: UIViewController {
     }
 
     
-    
-    
     // FUNCTIONS
     
     func getUserData()  {
