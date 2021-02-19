@@ -26,7 +26,7 @@ class HomeVC: UIViewController {
     // FUNCTIONS
     
     func getUserData()  {
-        
+        print("here")
     }
     
     func getUserRunData()  {

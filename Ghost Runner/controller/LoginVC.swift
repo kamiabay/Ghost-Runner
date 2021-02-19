@@ -9,6 +9,8 @@ import Foundation
 
 import UIKit
 class LoginVC: UIViewController {
+    
+    let navigation = Navigator()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,6 +18,11 @@ class LoginVC: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-
+    @IBAction func loginButtonAction(_ sender: UIButton) {
+        
+        navigation.goToMain()
+    }
+    
+    
 }
 
