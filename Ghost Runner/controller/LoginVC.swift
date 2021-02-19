@@ -10,17 +10,17 @@ import Foundation
 import UIKit
 class LoginVC: UIViewController {
     
-    let navigation = Navigator()
-
+   
+    var navigation: Navigator?;
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor =  .systemOrange
+         navigation = Navigator(currentViewController: self)
+         view.backgroundColor =  .systemOrange
         // Do any additional setup after loading the view.
     }
 
     @IBAction func loginButtonAction(_ sender: UIButton) {
-        
-        navigation.goToMain()
+        navigation?.goToMain()
     }
     
     

@@ -6,36 +6,37 @@
 //
 
 import Foundation
-
 import UIKit
+
 class HomeVC: UIViewController {
     var runList = [Run](); // EMPTYLIST ?
     var db = DB(); // THE USER MUST BE SAVED ON THE LOCAL STORAGE BEFORE THIS
-    var navigation = Navigator();
+    var navigation: Navigator?;
     
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor =  .systemOrange
+        view.backgroundColor =  .red
+        navigation = Navigator(currentViewController: self)
         getUserData();
-        getUserRunData();
+       // getUserRunData();
     }
 
     
     // FUNCTIONS
-    
     func getUserData()  {
         
     }
     
     func getUserRunData()  {
         DispatchQueue.main.async {
-            self.runList = self.db.runDb.getUserRunList();
+           // self.runList = self.db.runDb.getUserRunList();
             // RELOAD THE VIEW AFTER
             }
     }
     
     func goToRunView(opponentRun: Run) {
-        navigation.goToRunView(opponentRun: opponentRun)
+        navigation?.goToRunView(opponentRun: opponentRun)
     }
 
 }
