@@ -9,13 +9,27 @@ import Foundation
 
 import UIKit
 class HomeVC: UIViewController {
-
+    var runList = [Run](); // EMPTYLIST ?
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor =  .systemOrange
-        // Do any additional setup after loading the view.
+    
+        
+        getUserData();
+        getUserRunData();
     }
 
+    
+    
+    func getUserData()  {
+        
+    }
+    
+    func getUserRunData()  {
+        DispatchQueue.main.async {
+  
+            }
+    }
 
 }
 

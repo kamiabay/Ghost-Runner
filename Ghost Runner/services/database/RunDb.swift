@@ -28,5 +28,27 @@ class RunDb {
             "creationTime": FieldValue.serverTimestamp(),
         ], merge: true);
     }
+    
+    func getUserRunList() -> [Run] {
+        let ref = path.userAllRuns();
+        var runList = [Run]();
+        ref.getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+//                let runList = querySnapshot.map { (QuerySnapshot) -> [Run] in
+//                    let list: [RunSnapshot] = QuerySnapshot.documents.map { (QueryDocumentSnapshot) -> RunSnapshot in
+//                        return RunSnapshot(doc: QueryDocumentSnapshot.data());
+//                    }
+//
+//                    return Run(runSnapshotList: list, runID: "String")
+//                }
+
+            }
+        }
+        
+        return runList;
+        
+    }
 
 }
