@@ -35,7 +35,7 @@ class Navigator: UIViewController {
         navigationController?.pushViewController(homeVC, animated: true)
     }
     
-    func goToRun(opponentRun: Run) {
+    func goToRunView(opponentRun: Run) {
         guard let runVC = storyboard?.instantiateViewController(identifier: route.run) as? RunVC else {
             assertionFailure("couldnt find this controller")
             return
