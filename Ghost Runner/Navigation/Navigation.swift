@@ -8,14 +8,17 @@
 import Foundation
 import UIKit
 
-struct RouteNames {
-    let login = "loginRoute"
-    let home = "homeRoute"
-    let run = "runRoute"
-}
+
 
 // takes care of navigation to other screens
 class Navigator: UIViewController {
+   
+    struct RouteNames {
+        let login = "loginRoute"
+        let home = "homeRoute"
+        let run = "runRoute"
+    }
+    
     let route = RouteNames();
 
     func goToLogin() { // NEEDS TESTING
@@ -65,7 +68,6 @@ class Navigator: UIViewController {
         }
         runVC.opponentRun = opponentRun;
         navigationController?.pushViewController(runVC, animated: true)
-        
     }
     
 }
