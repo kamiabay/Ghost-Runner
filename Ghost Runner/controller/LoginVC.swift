@@ -6,8 +6,8 @@
 //
 
 import Foundation
-
 import UIKit
+
 class LoginVC: UIViewController {
     
    
@@ -15,7 +15,7 @@ class LoginVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
          navigation = Navigator(currentViewController: self)
-         view.backgroundColor =  .systemOrange
+         view.backgroundColor = .systemOrange
         // Do any additional setup after loading the view.
     }
 
