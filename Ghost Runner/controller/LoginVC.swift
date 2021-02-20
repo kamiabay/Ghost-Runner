@@ -10,32 +10,63 @@ import UIKit
 
 class LoginVC: UIViewController {
     
-   
-    var navigation: Navigator?;
+    @IBOutlet weak var emailField: UITextField!
+    @IBOutlet weak var passwordField: UITextField!
+
+    @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var signUpButton: UIButton!
+    @IBOutlet weak var appleLoginButton: UIButton!
+    @IBOutlet weak var googleLoginButton: UIButton!
+    @IBOutlet weak var facebookLoginButton: UIButton!
+    
+    var navigation: Navigator?
     
     var tester = Tester()
     
+    let gradientLayer = CAGradientLayer()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-         navigation = Navigator(currentViewController: self)
-         view.backgroundColor = .systemOrange
-        // Do any additional setup after loading the view.
+        navigation = Navigator(currentViewController: self)
+        navigation?.currentViewController?.navigationController?.navigationBar.isHidden = true
         
-        //let jsonData = tester.readFile() ?? Data()
-        //let testData = tester.testParse(jsonData: jsonData)
+        emailField.tintColor = UIColor.white
+        emailField.setIcon(#imageLiteral(resourceName: "email_icon"))
+        passwordField.tintColor = UIColor.white
+        passwordField.setIcon(#imageLiteral(resourceName: "pw_icon"))
         
-        
+        loginButton.layer.cornerRadius = 20.0
+        appleLoginButton.layer.cornerRadius = 20.0
+        googleLoginButton.layer.cornerRadius = 20.0
+        facebookLoginButton.layer.cornerRadius = 20.0
+
+
+        gradientLayer.colors = [UIColor(#colorLiteral(red: 0.3098039329, green: 0.01568627544, blue: 0.1294117719, alpha: 1)).cgColor, UIColor(#colorLiteral(red: 0, green: 0.749853909, blue: 0.7112129927, alpha: 1)).cgColor]
+        gradientLayer.locations = [0.0, 1.0]
+        gradientLayer.frame = self.view.bounds
+        self.view.layer.insertSublayer(gradientLayer, at:0)
     }
 
-    @IBAction func loginButtonAction(_ sender: UIButton) {
-        navigation?.goToHome()
-    }
-    
-    @IBAction func signupButtonAction(_ sender: UIButton) {
+    @IBAction func signup() {
         navigation?.goToSignUp()
     }
     
+    @IBAction func login() {
+        navigation?.goToHome()
+    }
     
     
 }
 
+extension UITextField {
+    func setIcon(_ image: UIImage) {
+       let iconView = UIImageView(frame:
+                      CGRect(x: 10, y: 5, width: 20, height: 20))
+       iconView.image = image
+       let iconContainerView: UIView = UIView(frame:
+                      CGRect(x: 20, y: 0, width: 30, height: 30))
+       iconContainerView.addSubview(iconView)
+       leftView = iconContainerView
+       leftViewMode = .always
+    }
+}
