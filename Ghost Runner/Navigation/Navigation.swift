@@ -33,7 +33,7 @@ class Navigator  {
     
     // Note: Main.storyboard refers to the login view; we may want to refactor
     func goToLogin() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let storyboard = UIStoryboard(name: "Login", bundle: nil)
         guard let loginVC = storyboard.instantiateViewController(identifier: route.login) as? LoginVC else {
             assertionFailure("couldnt find this controller")
             return
