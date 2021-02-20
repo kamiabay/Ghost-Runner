@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class HomeVC: UIViewController, UITableViewDataSource {
+class HomeVC: UIViewController {
 
     
     var runList = [Run](); // EMPTYLIST ?
@@ -35,6 +35,16 @@ class HomeVC: UIViewController, UITableViewDataSource {
         
     }
 
+    // BUTTONS
+    @IBAction func runViewButtonPress(_ sender: UIButton) {
+        navigation?.goToRunView(opponentRun: nil)
+    }
+    @IBAction func logoutButtonPress(_ sender: UIButton) {
+        navigation?.goToLogin()
+    }
+    
+    
+    
     
     // FUNCTIONS
     func getUserData()  {
@@ -48,9 +58,15 @@ class HomeVC: UIViewController, UITableViewDataSource {
             }
     }
     
-    func goToRunView(opponentRun: Run) {
-        navigation?.goToRunView(opponentRun: opponentRun)
-    }
+
+    
+
+}
+
+
+
+// TABLE VIEW
+extension HomeVC: UITableViewDataSource {
     
     // UI Table protocols for displaying runs
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -68,11 +84,4 @@ class HomeVC: UIViewController, UITableViewDataSource {
         
     }
 
-    @IBAction func runViewButtonPress(_ sender: UIButton) {
-        navigation?.goToRunView(opponentRun: nil)
-    }
-    @IBAction func logoutButtonPress(_ sender: UIButton) {
-        navigation?.goToLogin()
-    }
 }
-
