@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		118B4DC425E0AD8900A8628C /* tester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118B4DC325E0AD8900A8628C /* tester.swift */; };
+		118B4DCC25E0B4B900A8628C /* test_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 118B4DCB25E0B4B900A8628C /* test_data.json */; };
+		118B4DD225E0C82E00A8628C /* SignUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 118B4DD125E0C82E00A8628C /* SignUp.storyboard */; };
+		118B4DD625E0C87100A8628C /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 118B4DD525E0C87100A8628C /* Home.storyboard */; };
+		118B4DD925E0C87F00A8628C /* Run.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 118B4DD825E0C87F00A8628C /* Run.storyboard */; };
 		3C13A8E225DB76D100C9D7F6 /* GPS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C13A8E125DB76D100C9D7F6 /* GPS.swift */; };
 		3C13A8E725DB772500C9D7F6 /* RunModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C13A8E625DB772500C9D7F6 /* RunModel.swift */; };
 		3C13A8EA25DB774B00C9D7F6 /* RunSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C13A8E925DB774B00C9D7F6 /* RunSnapshot.swift */; };
@@ -35,6 +40,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		118B4DC325E0AD8900A8628C /* tester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tester.swift; sourceTree = "<group>"; };
+		118B4DCB25E0B4B900A8628C /* test_data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = test_data.json; sourceTree = "<group>"; };
+		118B4DD125E0C82E00A8628C /* SignUp.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignUp.storyboard; sourceTree = "<group>"; };
+		118B4DD525E0C87100A8628C /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
+		118B4DD825E0C87F00A8628C /* Run.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Run.storyboard; sourceTree = "<group>"; };
 		3C13A8E125DB76D100C9D7F6 /* GPS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPS.swift; sourceTree = "<group>"; };
 		3C13A8E625DB772500C9D7F6 /* RunModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunModel.swift; sourceTree = "<group>"; };
 		3C13A8E925DB774B00C9D7F6 /* RunSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunSnapshot.swift; sourceTree = "<group>"; };
@@ -116,6 +126,7 @@
 		3C4D6BE425D5D1C2009CEBE1 /* Ghost Runner */ = {
 			isa = PBXGroup;
 			children = (
+				118B4DCB25E0B4B900A8628C /* test_data.json */,
 				3CDFE92425DF0B9600742EF2 /* Navigation */,
 				3CDFE91F25DE823C00742EF2 /* Data */,
 				3CB524F725DB23DD004421D9 /* model */,
@@ -126,6 +137,7 @@
 				3C4D6BEE25D5D1C4009CEBE1 /* Assets.xcassets */,
 				3CB524F425DB1B03004421D9 /* GoogleService-Info.plist */,
 				3C4D6BF325D5D1C4009CEBE1 /* Info.plist */,
+				118B4DC325E0AD8900A8628C /* tester.swift */,
 			);
 			path = "Ghost Runner";
 			sourceTree = "<group>";
@@ -156,6 +168,9 @@
 			children = (
 				3C4D6BF025D5D1C4009CEBE1 /* LaunchScreen.storyboard */,
 				3C4D6BEB25D5D1C2009CEBE1 /* Main.storyboard */,
+				118B4DD125E0C82E00A8628C /* SignUp.storyboard */,
+				118B4DD525E0C87100A8628C /* Home.storyboard */,
+				118B4DD825E0C87F00A8628C /* Run.storyboard */,
 			);
 			path = storyBoard;
 			sourceTree = "<group>";
@@ -300,10 +315,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				118B4DD625E0C87100A8628C /* Home.storyboard in Resources */,
 				3C4D6BF225D5D1C4009CEBE1 /* LaunchScreen.storyboard in Resources */,
+				118B4DD925E0C87F00A8628C /* Run.storyboard in Resources */,
 				3CB524F525DB1B03004421D9 /* GoogleService-Info.plist in Resources */,
+				118B4DD225E0C82E00A8628C /* SignUp.storyboard in Resources */,
 				3C4D6BEF25D5D1C4009CEBE1 /* Assets.xcassets in Resources */,
 				3C4D6BED25D5D1C2009CEBE1 /* Main.storyboard in Resources */,
+				118B4DCC25E0B4B900A8628C /* test_data.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -363,6 +382,7 @@
 				3C13A8E725DB772500C9D7F6 /* RunModel.swift in Sources */,
 				3CB524F925DB23FA004421D9 /* User.swift in Sources */,
 				3C4D6BEA25D5D1C2009CEBE1 /* ViewController.swift in Sources */,
+				118B4DC425E0AD8900A8628C /* tester.swift in Sources */,
 				3CB524FC25DB2443004421D9 /* DB.swift in Sources */,
 				3CB5250125DB24C2004421D9 /* LocalStorage.swift in Sources */,
 				3CDFE93525DF8C6F00742EF2 /* SignUp.swift in Sources */,
