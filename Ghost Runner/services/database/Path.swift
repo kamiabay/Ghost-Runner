@@ -19,13 +19,14 @@ class Path {
     
     // USER
     func userPrivate() -> FirebaseFirestore.DocumentReference{
-        return db.collection("user").document(user.uid)
+        return db.collection("user").document("user.uid")
     }
     
     // RUNS
     func userAllRuns() -> FirebaseFirestore.CollectionReference {
         return self.userPrivate().collection("run");
     }
+    
     func userEachRun(runID: String) -> FirebaseFirestore.DocumentReference {
         return self.userPrivate().collection("run").document(runID);
     }

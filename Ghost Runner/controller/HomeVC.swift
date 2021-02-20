@@ -7,14 +7,14 @@
 
 import Foundation
 import UIKit
+import CoreLocation
 
 class HomeVC: UIViewController {
 
     
     var runList = [Run](); // EMPTYLIST ?
-    var db = DB(); // THE USER MUST BE SAVED ON THE LOCAL STORAGE BEFORE THIS
+    let db = DB(); // THE USER MUST BE SAVED ON THE LOCAL STORAGE BEFORE THIS
     var navigation: Navigator?;
-    
     var totalRuns: Int? = 0
     //var runsList: [Run]? = []
     
@@ -28,23 +28,22 @@ class HomeVC: UIViewController {
         super.viewDidLoad()
         view.backgroundColor =  .white
         navigation = Navigator(currentViewController: self)
+        
+        // data request
         getUserData();
        // getUserRunData();
         
+        // LOCATION authorization
+        let locationManager = CLLocationManager()
+        locationManager.requestAlwaysAuthorization()
+        
+        // delegates
+        locationManager.delegate = self
         runsTable.dataSource = self
         
     }
 
-    // BUTTONS
-    @IBAction func runViewButtonPress(_ sender: UIButton) {
-        navigation?.goToRunView(opponentRun: nil)
-    }
-    @IBAction func logoutButtonPress(_ sender: UIButton) {
-        navigation?.goToLogin()
-    }
-    
-    
-    
+
     
     // FUNCTIONS
     func getUserData()  {
@@ -58,12 +57,47 @@ class HomeVC: UIViewController {
             }
     }
     
-
+    // BUTTONS
+    @IBAction func runViewButtonPress(_ sender: UIButton) {
+        navigation?.goToRunView(opponentRun: nil)
+    }
+    @IBAction func logoutButtonPress(_ sender: UIButton) {
+        navigation?.goToLogin()
+    }
+    
+    
+    
     
 
 }
 
-
+extension HomeVC: CLLocationManagerDelegate {
+  // handle delegate methods of location manager here
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        print("location manager authorization status changed")
+        
+        switch status {
+        case .authorizedAlways:
+            print("user allow app to get location data when app is active or in background")
+        case .authorizedWhenInUse:
+            print("user allow app to get location data only when app is active")
+        case .denied:
+            print("user tap 'disallow' on the permission dialog, cant get location data")
+        case .restricted:
+            print("parental control setting disallow location data")
+        case .notDetermined:
+            print("the location permission dialog haven't shown before, user haven't tap allow/disallow")
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        print("update")
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("error")
+    }
+}
 
 // TABLE VIEW
 extension HomeVC: UITableViewDataSource {

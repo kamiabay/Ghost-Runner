@@ -52,6 +52,7 @@ class LoginVC: UIViewController {
     }
     
     @IBAction func login() {
+        // TODO: SAVE USER IN LOCAL STORAGE
         navigation?.goToHome()
     }
     
