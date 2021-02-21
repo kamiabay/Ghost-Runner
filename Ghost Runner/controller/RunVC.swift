@@ -61,6 +61,7 @@ class RunVC: UIViewController {
             
             self.locationManager.startUpdatingLocation()
             self.mapView.showsUserLocation = true
+            self.setInitialZoom()
             self.startObservingUser()
             print("began observing user")
             
@@ -74,6 +75,13 @@ class RunVC: UIViewController {
     
     @objc func resumeObservingUser() {
         self.startObservingUser()
+    }
+    
+    func setInitialZoom() {
+        if let currLoc = locationManager.location?.coordinate {
+            let zoomRegion = MKCoordinateRegion(center: currLoc, latitudinalMeters: CLLocationDistance(exactly: 1000) ?? 0, longitudinalMeters: CLLocationDistance(exactly: 1000) ?? 0)
+            mapView.setRegion(mapView.regionThatFits(zoomRegion), animated: false)
+        }
     }
     
     func startObservingUser() {
