@@ -17,7 +17,7 @@ class HomeVC: UIViewController {
     var navigation: Navigator?;
     var totalRuns: Int? = 0
     //var runsList: [Run]? = []
-    
+    let locationManager = CLLocationManager()
     
     @IBOutlet weak var logoutButton: UIButton!
     @IBOutlet weak var runViewButton: UIButton!
@@ -34,15 +34,21 @@ class HomeVC: UIViewController {
         getUserRunData();
         
         // LOCATION authorization
-        let locationManager = CLLocationManager()
+       
         locationManager.requestAlwaysAuthorization()
-        
+        locationManager.allowsBackgroundLocationUpdates = true
         // delegates
         locationManager.delegate = self
         runsTable.dataSource = self
         
+        alwaysAuthorization()
     }
 
+    func alwaysAuthorization(){
+        if CLLocationManager.locationServicesEnabled() && CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
+            locationManager.requestAlwaysAuthorization()
+        }
+    }
 
     
     // FUNCTIONS
@@ -71,6 +77,11 @@ class HomeVC: UIViewController {
 
 }
 
+
+
+
+
+// LOCATION MANAGER
 extension HomeVC: CLLocationManagerDelegate {
   // handle delegate methods of location manager here
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {

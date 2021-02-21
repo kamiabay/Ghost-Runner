@@ -21,28 +21,35 @@ class RunVC: UIViewController {
     @IBOutlet weak var stopButton: UIButton!
 
     let locationManager = CLLocationManager();
-    var currentLoc: CLLocation!
+    var currentLoc: CLLocation?
+   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor =  .systemOrange
+        
+        // LOCATION MANAGER 
         locationManager.delegate = self
         locationManager.allowsBackgroundLocationUpdates = true
-        locationManager.startUpdatingLocation()
-//        locationManager.requestTemporaryFullAccuracyAuthorization(withPurposeKey: " to update best") { (Error?) in
-//            print("done")
-//        };
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        
+        if #available(iOS 14.0, *) {
+            locationManager.requestTemporaryFullAccuracyAuthorization(withPurposeKey: "to update best") { (Error) in
+                print("done")
+            }
+        } else {
+            // Fallback on earlier versions
+        };
         
     }
 
     
     @objc
-    func startCollectingGPS()  {
+    func startCollectingGPSData()  {
         
         if(CLLocationManager.authorizationStatus() == .authorizedAlways) {
-           currentLoc = locationManager.location
 
-            let gps = GPS(
-                latitude: currentLoc.coordinate.latitude, longitude: currentLoc.coordinate.longitude);
+            let gps = GPS(locationManager: locationManager);
             runSnapshotList.append(RunSnapshot(gps: gps, elevation: "10"));
             print("\(runSnapshotList.count): saving gps : \(gps)")
         }
@@ -62,20 +69,34 @@ class RunVC: UIViewController {
     
     @IBAction func startPress(_ sender: UIButton) {
         view.backgroundColor =  .systemGreen
+        locationManager.showsBackgroundLocationIndicator = true
         runSnapshotList.removeAll()
-        runTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(startCollectingGPS), userInfo: nil, repeats: true)
+        // enable listner for background GPS change
+        locationManager.startUpdatingLocation()
+        locationManager.startUpdatingHeading()
+        // timer
+        runTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(startCollectingGPSData), userInfo: nil, repeats: true)
 
-        startCollectingGPS()
+        //
+        startCollectingGPSData()
     
     }
     
     @IBAction func stopPress() {
         view.backgroundColor =  .systemOrange
         saveRunData()
+        locationManager.showsBackgroundLocationIndicator = false
+        // disable listner for background GPS change
+        locationManager.stopUpdatingHeading();
+        locationManager.stopUpdatingLocation();
     }
 }
 
 extension RunVC: CLLocationManagerDelegate {
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateHeading heading: CLHeading) {
+        //print(heading.magneticHeading)
+    }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last {
