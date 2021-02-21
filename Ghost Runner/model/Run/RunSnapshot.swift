@@ -37,6 +37,7 @@ class RunSnapshot {
         return [
             "gps": gps.toJSON(),
             "elevation": elevation,
+            "time": "\(time)"
         ]
     }
 }

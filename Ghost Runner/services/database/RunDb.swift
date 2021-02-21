@@ -18,15 +18,16 @@ class RunDb {
     }
     
     // CALL AT THE END OF THE RUN
-    func saveRunSnapShot(runSnapShotList: [RunSnapshot], runID: String) {
-        let ref = path.userEachRun(runID: runID);
+    func saveRunSnapShot(runSnapShotList: [RunSnapshot]) {
+        let ref = path.userAllRuns();
         let jsonList = runSnapShotList.map { (runSnapShot) -> [String: Any] in
            return runSnapShot.toJSON()
         };
-        ref.setData([
+        
+        ref.addDocument(data: [
             "runData": FieldValue.arrayUnion(jsonList), // MIGHT NOT WORK
             "creationTime": FieldValue.serverTimestamp(),
-        ], merge: true);
+        ]);
     }
     
     func getUserRunList() -> [Run] {
