@@ -4,8 +4,8 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -17,26 +17,74 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="SignUp View" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iJN-e4-FF2">
-                                <rect key="frame" x="159" y="438" width="97" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="y3G-FK-bpA">
+                                <rect key="frame" x="20" y="188" width="374" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter Your email." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MnN-Yg-ddh">
+                                <rect key="frame" x="20" y="102" width="234" height="36"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="90G-KN-4XB">
+                                <rect key="frame" x="20" y="44" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="fl5-gN-4Te"/>
+                                    <constraint firstAttribute="height" constant="50" id="mBh-Tl-gqZ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal">
+                                    <imageReference key="image" image="chevron.backward" catalog="system" symbolScale="large"/>
+                                </state>
+                                <connections>
+                                    <action selector="backToLogin" destination="6we-Bt-5a5" eventType="touchUpInside" id="5FG-Ke-tqu"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JcP-V2-CSG">
+                                <rect key="frame" x="20" y="302" width="374" height="45"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="uPv-V3-SgY"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="20"/>
+                                <state key="normal" title="Continue">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="continueSignUp" destination="6we-Bt-5a5" eventType="touchUpInside" id="850-kG-QX9"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ZG4-Sz-k8j"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="y3G-FK-bpA" firstAttribute="top" secondItem="MnN-Yg-ddh" secondAttribute="bottom" constant="50" id="CQE-ur-yUn"/>
+                            <constraint firstItem="JcP-V2-CSG" firstAttribute="top" secondItem="y3G-FK-bpA" secondAttribute="bottom" constant="80" id="Jih-pe-VXB"/>
+                            <constraint firstItem="y3G-FK-bpA" firstAttribute="leading" secondItem="ZG4-Sz-k8j" secondAttribute="leading" constant="20" id="LR0-kb-I1p"/>
+                            <constraint firstItem="JcP-V2-CSG" firstAttribute="leading" secondItem="ZG4-Sz-k8j" secondAttribute="leading" constant="20" id="UbZ-Q6-52L"/>
+                            <constraint firstItem="JcP-V2-CSG" firstAttribute="centerX" secondItem="qHc-Ny-4DG" secondAttribute="centerX" id="b34-90-CD2"/>
+                            <constraint firstItem="90G-KN-4XB" firstAttribute="top" secondItem="ZG4-Sz-k8j" secondAttribute="top" id="ho1-sm-orM"/>
+                            <constraint firstItem="90G-KN-4XB" firstAttribute="leading" secondItem="ZG4-Sz-k8j" secondAttribute="leading" constant="20" id="j3Q-8E-FKL"/>
+                            <constraint firstItem="y3G-FK-bpA" firstAttribute="centerX" secondItem="qHc-Ny-4DG" secondAttribute="centerX" id="lMR-gh-t9B"/>
+                            <constraint firstItem="MnN-Yg-ddh" firstAttribute="leading" secondItem="ZG4-Sz-k8j" secondAttribute="leading" constant="20" id="mUY-7t-nhZ"/>
+                            <constraint firstItem="MnN-Yg-ddh" firstAttribute="top" secondItem="90G-KN-4XB" secondAttribute="bottom" constant="8" symbolic="YES" id="pMH-aB-sTS"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="backButton" destination="90G-KN-4XB" id="3Zt-wi-FZu"/>
+                        <outlet property="continueButton" destination="JcP-V2-CSG" id="ftc-bK-bUi"/>
+                        <outlet property="emailField" destination="y3G-FK-bpA" id="tpQ-wu-4pm"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MLM-U3-eNX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="326" y="99"/>
+            <point key="canvasLocation" x="324.63768115942031" y="98.4375"/>
         </scene>
     </scenes>
     <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <image name="chevron.backward" catalog="system" width="96" height="128"/>
     </resources>
 </document>

@@ -1,11 +1,11 @@
 {
   "images" : [
     {
-      "filename" : "email_icon.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "email_icon.png",
       "idiom" : "universal",
       "scale" : "2x"
     },

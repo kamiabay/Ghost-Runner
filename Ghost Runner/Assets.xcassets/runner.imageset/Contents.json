@@ -1,11 +1,11 @@
 {
   "images" : [
     {
-      "filename" : "runner.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "runner.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
