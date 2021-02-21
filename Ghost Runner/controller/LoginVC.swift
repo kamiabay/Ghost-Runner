@@ -10,11 +10,7 @@ import UIKit
 
 class LoginVC: UIViewController {
     
-//    @IButlet weak var emailField: UITextField!
-//    @IBOutlet weak var passwordField: UITextField!
-
     @IBOutlet weak var loginButton: UIButton!
-//    @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var appleLoginButton: UIButton!
     @IBOutlet weak var googleLoginButton: UIButton!
     @IBOutlet weak var facebookLoginButton: UIButton!
@@ -29,12 +25,6 @@ class LoginVC: UIViewController {
         super.viewDidLoad()
         navigation = Navigator(currentViewController: self)
         navigation?.currentViewController?.navigationController?.navigationBar.isHidden = true
-        
-        let tapGesture = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
-        view.addGestureRecognizer(tapGesture)
-        
-//        emailField.setIcon(#imageLiteral(resourceName: "email_icon"))
-//        passwordField.setIcon(#imageLiteral(resourceName: "pw_icon"))
         
         loginButton.layer.cornerRadius = 20.0
         appleLoginButton.layer.cornerRadius = 20.0

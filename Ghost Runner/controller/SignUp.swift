@@ -25,6 +25,9 @@ class SignUpVC: UIViewController {
         navigation = Navigator(currentViewController: self)
         navigation?.currentViewController?.navigationController?.navigationBar.isHidden = true
         
+        let tapGesture = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
+        view.addGestureRecognizer(tapGesture)
+        
         emailField.setIcon(#imageLiteral(resourceName: "email_icon"))
         
         continueButton.layer.cornerRadius = 20.0
