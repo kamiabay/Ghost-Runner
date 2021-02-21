@@ -74,12 +74,16 @@
                                     <action selector="loginWithApple" destination="BYZ-38-t0r" eventType="touchUpInside" id="uex-Y0-kFh"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ONBOARDING TBD 👻" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ug-xx-0DA">
-                                <rect key="frame" x="113.66666666666669" y="451" width="201" height="24"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <color key="textColor" systemColor="systemBackgroundColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NT9-uH-aYZ">
+                                <rect key="frame" x="20" y="88" width="388" height="458"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <viewLayoutGuide key="contentLayoutGuide" id="0KK-4f-buj"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="2Na-Ha-vRG"/>
+                            </scrollView>
+                            <pageControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="hdI-oG-U4z">
+                                <rect key="frame" x="153" y="554" width="122" height="28"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </pageControl>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -89,7 +93,6 @@
                             <constraint firstItem="FB0-Es-XPe" firstAttribute="height" secondItem="7WM-nf-n0i" secondAttribute="height" id="6DC-3F-TbJ"/>
                             <constraint firstItem="FB0-Es-XPe" firstAttribute="width" secondItem="IYQ-kl-gFl" secondAttribute="width" id="6SJ-Yw-ze4"/>
                             <constraint firstItem="FB0-Es-XPe" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="8Py-4p-Yxq"/>
-                            <constraint firstItem="6ug-xx-0DA" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="94d-H2-Jdr"/>
                             <constraint firstItem="FB0-Es-XPe" firstAttribute="top" secondItem="bYR-ez-dZn" secondAttribute="bottom" constant="8" symbolic="YES" id="9aY-uT-WO7"/>
                             <constraint firstItem="bYR-ez-dZn" firstAttribute="width" secondItem="IYQ-kl-gFl" secondAttribute="width" id="9cB-1C-g0H"/>
                             <constraint firstItem="IYQ-kl-gFl" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Ayt-tC-f0S"/>
@@ -104,7 +107,6 @@
                             <constraint firstItem="nmq-dW-Ki1" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="cmU-F9-Px4"/>
                             <constraint firstItem="bYR-ez-dZn" firstAttribute="height" secondItem="IYQ-kl-gFl" secondAttribute="height" id="etp-S8-kGF"/>
                             <constraint firstItem="IYQ-kl-gFl" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" id="iwv-Z6-vII"/>
-                            <constraint firstItem="6ug-xx-0DA" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="qtk-6M-dRs"/>
                             <constraint firstItem="FB0-Es-XPe" firstAttribute="height" secondItem="IYQ-kl-gFl" secondAttribute="height" id="unP-6e-1qJ"/>
                             <constraint firstItem="7WM-nf-n0i" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="vBZ-KO-1uB"/>
                         </constraints>
@@ -115,6 +117,8 @@
                         <outlet property="facebookLoginButton" destination="FB0-Es-XPe" id="Brk-SC-3Ng"/>
                         <outlet property="googleLoginButton" destination="bYR-ez-dZn" id="N79-Rm-cfM"/>
                         <outlet property="loginButton" destination="IYQ-kl-gFl" id="SZn-D7-Wq4"/>
+                        <outlet property="pageControl" destination="hdI-oG-U4z" id="JII-jY-F5b"/>
+                        <outlet property="scrollView" destination="NT9-uH-aYZ" id="KbT-kZ-izl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -141,13 +145,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="apple-icon" width="225" height="225"/>
-        <image name="email_icon" width="376" height="376"/>
-        <image name="fb-icon" width="617" height="537"/>
-        <image name="google-icon" width="500" height="500"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <image name="apple-icon" width="112.5" height="112.5"/>
+        <image name="email_icon" width="188" height="188"/>
+        <image name="fb-icon" width="308.5" height="268.5"/>
+        <image name="google-icon" width="250" height="250"/>
         <systemColor name="systemGreenColor">
             <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

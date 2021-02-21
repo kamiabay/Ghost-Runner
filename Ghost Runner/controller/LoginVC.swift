@@ -8,12 +8,17 @@
 import Foundation
 import UIKit
 
-class LoginVC: UIViewController {
+class LoginVC: UIViewController, UIScrollViewDelegate {
     
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var appleLoginButton: UIButton!
     @IBOutlet weak var googleLoginButton: UIButton!
     @IBOutlet weak var facebookLoginButton: UIButton!
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var pageControl: UIPageControl!
+    
+    var movies: [String] = ["apple-icon","fb-icon","google-icon"]
+    var frame = CGRect.zero
     
     var navigation: Navigator?
     
@@ -25,6 +30,9 @@ class LoginVC: UIViewController {
         super.viewDidLoad()
         navigation = Navigator(currentViewController: self)
         navigation?.currentViewController?.navigationController?.navigationBar.isHidden = true
+        
+        pageControl.numberOfPages = movies.count
+        setUpScrollView()
         
         loginButton.layer.cornerRadius = 20.0
         appleLoginButton.layer.cornerRadius = 20.0
@@ -51,6 +59,29 @@ class LoginVC: UIViewController {
     
     @IBAction func loginWithFacebook() {
     }
+    
+    // MARK: - Set up scroll view
+    func setUpScrollView() {
+        for index in 0..<movies.count {
+            frame.origin.x = scrollView.frame.size.width * CGFloat(index)
+            frame.size = scrollView.frame.size
+            
+            let imgView = UIImageView(frame: frame)
+            imgView.image = UIImage(named: movies[index])
+
+            self.scrollView.addSubview(imgView)
+        }
+
+        scrollView.contentSize = CGSize(width: (scrollView.frame.size.width * CGFloat(movies.count)), height: scrollView.frame.size.height)
+        scrollView.delegate = self
+    }
+    
+    // MARK: - UIScrollViewDelegate method
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let pageNumber = scrollView.contentOffset.x / scrollView.frame.size.width
+        pageControl.currentPage = Int(pageNumber)
+    }
+    
 }
 
 // MARK: - Text Field extension to add images
