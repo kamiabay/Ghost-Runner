@@ -28,7 +28,7 @@ class RunVC: UIViewController {
         super.viewDidLoad()
         view.backgroundColor =  .systemOrange
         
-        // LOCATION MANAGER 
+        // LOCATION MANAGER
         locationManager.delegate = self
         locationManager.allowsBackgroundLocationUpdates = true
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -48,9 +48,8 @@ class RunVC: UIViewController {
     func startCollectingGPSData()  {
         
         if(CLLocationManager.authorizationStatus() == .authorizedAlways) {
-
             let gps = GPS(locationManager: locationManager);
-            runSnapshotList.append(RunSnapshot(gps: gps, elevation: "10"));
+            runSnapshotList.append(RunSnapshot(gps: gps));
             print("\(runSnapshotList.count): saving gps : \(gps)")
         }
     }
@@ -69,13 +68,16 @@ class RunVC: UIViewController {
     
     @IBAction func startPress(_ sender: UIButton) {
         view.backgroundColor =  .systemGreen
+        
         locationManager.showsBackgroundLocationIndicator = true
         runSnapshotList.removeAll()
+        
         // enable listner for background GPS change
         locationManager.startUpdatingLocation()
         locationManager.startUpdatingHeading()
+        
         // timer
-        runTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(startCollectingGPSData), userInfo: nil, repeats: true)
+        runTimer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(startCollectingGPSData), userInfo: nil, repeats: true)
 
         //
         startCollectingGPSData()
@@ -91,6 +93,7 @@ class RunVC: UIViewController {
         locationManager.stopUpdatingLocation();
     }
 }
+
 
 extension RunVC: CLLocationManagerDelegate {
     

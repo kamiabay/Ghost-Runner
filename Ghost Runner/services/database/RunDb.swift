@@ -32,22 +32,26 @@ class RunDb {
     
     func getUserRunList() -> [Run] {
         let ref = path.userAllRuns();
+       
         var runList = [Run]();
+       
         ref.getDocuments() { (querySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
-//                let runList = querySnapshot.map { (QuerySnapshot) -> [Run] in
-//                    let list: [RunSnapshot] = QuerySnapshot.documents.map { (QueryDocumentSnapshot) -> RunSnapshot in
-//                        return RunSnapshot(doc: QueryDocumentSnapshot.data());
-//                    }
-//
-//                    return Run(runSnapshotList: list, runID: "String")
-//                }
-
+                var snap = [RunSnapshot]();
+                for document in querySnapshot!.documents {
+                  
+                    let runData: [Any] = (document.data()["runData"]) as! [Any];
+                    snap = runData.map { (run) -> RunSnapshot in
+                        return RunSnapshot(doc: run as! [String : Any]);
+                    }
+                    runList.append(Run(runSnapshotList: snap, runID: "rand id"))
+                }
+                print(runList.count);
             }
         }
-        
+      
         return runList;
         
     }

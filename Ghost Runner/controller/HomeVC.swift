@@ -16,7 +16,6 @@ class HomeVC: UIViewController {
     let db = DB(); // THE USER MUST BE SAVED ON THE LOCAL STORAGE BEFORE THIS
     var navigation: Navigator?;
     var totalRuns: Int? = 0
-    //var runsList: [Run]? = []
     let locationManager = CLLocationManager()
     
     @IBOutlet weak var logoutButton: UIButton!
@@ -59,6 +58,7 @@ class HomeVC: UIViewController {
     func getUserRunData()  {
         DispatchQueue.main.async {
            // self.runList = self.db.runDb.getUserRunList();
+            print("\(self.runList.count)")
             // RELOAD THE VIEW AFTER
             }
     }
@@ -109,6 +109,8 @@ extension HomeVC: CLLocationManagerDelegate {
         print("error")
     }
 }
+
+
 
 // TABLE VIEW
 extension HomeVC: UITableViewDataSource {
