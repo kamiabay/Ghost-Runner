@@ -17,6 +17,18 @@ class RunDb {
         self.path = Path.init(user: user);
     }
     
+    struct ApiError: Error {
+        var message: String
+        var code: String
+        
+        init(response: [String: Any]) {
+            self.message = (response["error_message"] as? String) ?? "Network error"
+            self.code = (response["error_code"] as? String) ?? "network_error"
+        }
+    }
+    
+    typealias ApiCompletion = ((_ response: [String: Any]?, _ error: ApiError?) -> Void)
+    
     // CALL AT THE END OF THE RUN
     func saveRunSnapShot(runSnapShotList: [RunSnapshot]) {
         let ref = path.userAllRuns();
@@ -30,14 +42,18 @@ class RunDb {
         ]);
     }
     
-    func getUserRunList() -> [Run] {
+    func getUserRunList(completion:@escaping(([Run]) -> ())) {
         let ref = path.userAllRuns();
        
         var runList = [Run]();
-       
+        let async = DispatchGroup()
+        
+        
         ref.getDocuments() { (querySnapshot, err) in
+            async.enter()
             if let err = err {
                 print("Error getting documents: \(err)")
+                async.leave()
             } else {
                 var snap = [RunSnapshot]();
                 for document in querySnapshot!.documents {
@@ -48,11 +64,19 @@ class RunDb {
                     }
                     runList.append(Run(runSnapshotList: snap, runID: "rand id"))
                 }
-                print(runList.count);
+                print("\( runList.count): before ");
+                async.leave()
+                async.notify(queue: .main) {
+                    print("\( runList.count): after ");
+                      completion(runList)
+                    }
             }
         }
+        
+
+        
+       
       
-        return runList;
         
     }
 

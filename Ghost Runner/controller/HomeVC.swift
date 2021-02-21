@@ -56,11 +56,14 @@ class HomeVC: UIViewController {
     }
     
     func getUserRunData()  {
-        DispatchQueue.main.async {
-           // self.runList = self.db.runDb.getUserRunList();
-            print("\(self.runList.count)")
-            // RELOAD THE VIEW AFTER
-            }
+        self.db.runDb.getUserRunList(completion: { (runList) in
+            DispatchQueue.main.async {
+                self.runList = runList
+                print(" recived value is : \(self.runList.count)")
+                self.runsTable.reloadData()
+                }
+       });
+   
     }
     
     // BUTTONS
@@ -117,7 +120,7 @@ extension HomeVC: UITableViewDataSource {
     
     // UI Table protocols for displaying runs
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return totalRuns ?? 0
+        return self.runList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -125,7 +128,7 @@ extension HomeVC: UITableViewDataSource {
         
         let run_data = runList[indexPath.row]
         
-        cell.textLabel?.text = ""
+        cell.textLabel?.text = "\(run_data.getNextRunLocation().toJSON()) "
         
         return cell
         
