@@ -9,17 +9,20 @@
 import Foundation
 import UIKit
 import CoreLocation
+import MapKit
 
 class RunVC: UIViewController {
     var opponentRun: Run?; // NEEDS TO BE INITIALIZED
     let db = DB()
     var runSnapshotList = [RunSnapshot]();
     var runTimer: Timer?
+    var userTrackTimer: Timer?
   
     
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var stopButton: UIButton!
-
+    @IBOutlet weak var mapView: MKMapView!
+    
     let locationManager = CLLocationManager();
     var currentLoc: CLLocation?
    
@@ -41,6 +44,51 @@ class RunVC: UIViewController {
             // Fallback on earlier versions
         };
         
+        NotificationCenter.default.addObserver(self, selector: #selector(resumeObservingUser), name: UIApplication.willEnterForegroundNotification, object: nil)
+        
+        // Beging to update the user's location on the app after location is authorized
+        let authorizeLocQueue = DispatchQueue(label: "authorizelocation")
+        authorizeLocQueue.async {
+            if !(CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways) {
+                self.locationManager.requestWhenInUseAuthorization()
+                print("asking for auth")
+            }
+        }
+        authorizeLocQueue.async {
+            while !(CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways) {}
+            self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            self.locationManager.distanceFilter = kCLDistanceFilterNone
+            
+            self.locationManager.startUpdatingLocation()
+            self.mapView.showsUserLocation = true
+            self.startObservingUser()
+            print("began observing user")
+            
+        }
+        
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: UIApplication.willEnterForegroundNotification, object: nil)
+    }
+    
+    @objc func resumeObservingUser() {
+        self.startObservingUser()
+    }
+    
+    func startObservingUser() {
+        if(CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways) {
+            userTrackTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateMapCenter), userInfo: nil, repeats: true)
+            updateMapCenter()
+        }
+    }
+    
+    @objc func updateMapCenter() {
+        if(CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways) {
+            if let currLoc = locationManager.location?.coordinate {
+                mapView.setCenter(currLoc, animated: true)
+            }
+        }
     }
 
     
@@ -109,4 +157,3 @@ extension RunVC: CLLocationManagerDelegate {
     
     
 }
-
