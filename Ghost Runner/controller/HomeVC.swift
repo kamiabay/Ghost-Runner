@@ -31,7 +31,7 @@ class HomeVC: UIViewController {
         
         // data request
         getUserData();
-       // getUserRunData();
+        getUserRunData();
         
         // LOCATION authorization
         let locationManager = CLLocationManager()

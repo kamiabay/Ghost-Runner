@@ -15,7 +15,7 @@ class RunVC: UIViewController {
     let db = DB()
     var runSnapshotList = [RunSnapshot]();
     var runTimer: Timer?
-    
+  
     
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var stopButton: UIButton!
@@ -25,6 +25,12 @@ class RunVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor =  .systemOrange
+        locationManager.delegate = self
+        locationManager.allowsBackgroundLocationUpdates = true
+        locationManager.startUpdatingLocation()
+//        locationManager.requestTemporaryFullAccuracyAuthorization(withPurposeKey: " to update best") { (Error?) in
+//            print("done")
+//        };
         
     }
 
@@ -32,16 +38,17 @@ class RunVC: UIViewController {
     @objc
     func startCollectingGPS()  {
         
-        if(CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
-        CLLocationManager.authorizationStatus() == .authorizedAlways) {
+        if(CLLocationManager.authorizationStatus() == .authorizedAlways) {
            currentLoc = locationManager.location
 
             let gps = GPS(
                 latitude: currentLoc.coordinate.latitude, longitude: currentLoc.coordinate.longitude);
             runSnapshotList.append(RunSnapshot(gps: gps, elevation: "10"));
+            print("\(runSnapshotList.count): saving gps : \(gps)")
         }
     }
     
+
     
     func saveRunData()  {
         if (!runSnapshotList.isEmpty) {
@@ -66,5 +73,16 @@ class RunVC: UIViewController {
         view.backgroundColor =  .systemOrange
         saveRunData()
     }
+}
+
+extension RunVC: CLLocationManagerDelegate {
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.last {
+            print("New location is \(location)")
+        }
+    }
+    
+    
 }
 
