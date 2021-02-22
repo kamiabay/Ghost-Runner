@@ -28,7 +28,7 @@
                                 <color key="backgroundColor" systemColor="systemGreenColor"/>
                                 <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="18"/>
                                 <inset key="imageEdgeInsets" minX="10" minY="0.0" maxX="330" maxY="0.0"/>
-                                <state key="normal" title="Login with email" image="email_icon">
+                                <state key="normal" title="LOGIN">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -75,23 +75,44 @@
                                 </connections>
                             </button>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NT9-uH-aYZ">
-                                <rect key="frame" x="20" y="88" width="388" height="458"/>
+                                <rect key="frame" x="20" y="88" width="388" height="367"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <viewLayoutGuide key="contentLayoutGuide" id="0KK-4f-buj"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="2Na-Ha-vRG"/>
                             </scrollView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c3p-PR-fla">
+                                <rect key="frame" x="242" y="588" width="166" height="30"/>
+                                <state key="normal" title="First time user? Sign up.">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="signUp" destination="BYZ-38-t0r" eventType="touchUpInside" id="1Ln-UU-yML"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="u0M-Yg-Loy">
+                                <rect key="frame" x="20" y="504" width="388" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ukM-TL-7Bh">
+                                <rect key="frame" x="20" y="546" width="388" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                             <pageControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="hdI-oG-U4z">
-                                <rect key="frame" x="153" y="554" width="122" height="28"/>
+                                <rect key="frame" x="153" y="463" width="122" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </pageControl>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="ukM-TL-7Bh" firstAttribute="top" secondItem="u0M-Yg-Loy" secondAttribute="bottom" constant="8" symbolic="YES" id="0Fm-L9-n0Z"/>
                             <constraint firstItem="7WM-nf-n0i" firstAttribute="top" secondItem="nmq-dW-Ki1" secondAttribute="bottom" constant="8" symbolic="YES" id="3TY-1E-Y8K"/>
                             <constraint firstItem="nmq-dW-Ki1" firstAttribute="top" secondItem="IYQ-kl-gFl" secondAttribute="bottom" constant="8" symbolic="YES" id="4h8-Um-idX"/>
                             <constraint firstItem="FB0-Es-XPe" firstAttribute="height" secondItem="7WM-nf-n0i" secondAttribute="height" id="6DC-3F-TbJ"/>
                             <constraint firstItem="FB0-Es-XPe" firstAttribute="width" secondItem="IYQ-kl-gFl" secondAttribute="width" id="6SJ-Yw-ze4"/>
+                            <constraint firstItem="u0M-Yg-Loy" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="7bm-Lr-O3g"/>
                             <constraint firstItem="FB0-Es-XPe" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="8Py-4p-Yxq"/>
                             <constraint firstItem="FB0-Es-XPe" firstAttribute="top" secondItem="bYR-ez-dZn" secondAttribute="bottom" constant="8" symbolic="YES" id="9aY-uT-WO7"/>
                             <constraint firstItem="bYR-ez-dZn" firstAttribute="width" secondItem="IYQ-kl-gFl" secondAttribute="width" id="9cB-1C-g0H"/>
@@ -99,26 +120,35 @@
                             <constraint firstItem="bYR-ez-dZn" firstAttribute="width" secondItem="7WM-nf-n0i" secondAttribute="width" id="BgG-fR-5lT"/>
                             <constraint firstItem="7WM-nf-n0i" firstAttribute="height" secondItem="IYQ-kl-gFl" secondAttribute="height" id="DCW-Bt-xMW"/>
                             <constraint firstItem="7WM-nf-n0i" firstAttribute="width" secondItem="IYQ-kl-gFl" secondAttribute="width" id="DpD-V6-CFb"/>
+                            <constraint firstItem="IYQ-kl-gFl" firstAttribute="top" secondItem="c3p-PR-fla" secondAttribute="bottom" constant="8" symbolic="YES" id="EAb-6z-Lth"/>
                             <constraint firstItem="bYR-ez-dZn" firstAttribute="top" secondItem="7WM-nf-n0i" secondAttribute="bottom" constant="8" symbolic="YES" id="L0R-dw-YdO"/>
+                            <constraint firstItem="u0M-Yg-Loy" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="MkU-6c-2XM"/>
                             <constraint firstItem="bYR-ez-dZn" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="RYH-So-PGj"/>
                             <constraint firstItem="bYR-ez-dZn" firstAttribute="height" secondItem="7WM-nf-n0i" secondAttribute="height" id="UdA-p3-2wu"/>
                             <constraint firstItem="FB0-Es-XPe" firstAttribute="width" secondItem="7WM-nf-n0i" secondAttribute="width" id="ZFs-gk-HfW"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="FB0-Es-XPe" secondAttribute="bottom" constant="30" id="arO-FA-X6R"/>
                             <constraint firstItem="nmq-dW-Ki1" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="cmU-F9-Px4"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="c3p-PR-fla" secondAttribute="trailing" constant="20" id="dFG-jG-Gb5"/>
+                            <constraint firstItem="c3p-PR-fla" firstAttribute="top" secondItem="ukM-TL-7Bh" secondAttribute="bottom" constant="8" symbolic="YES" id="eKj-lz-O8d"/>
                             <constraint firstItem="bYR-ez-dZn" firstAttribute="height" secondItem="IYQ-kl-gFl" secondAttribute="height" id="etp-S8-kGF"/>
                             <constraint firstItem="IYQ-kl-gFl" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" id="iwv-Z6-vII"/>
+                            <constraint firstItem="ukM-TL-7Bh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="kqr-8B-5YL"/>
                             <constraint firstItem="FB0-Es-XPe" firstAttribute="height" secondItem="IYQ-kl-gFl" secondAttribute="height" id="unP-6e-1qJ"/>
                             <constraint firstItem="7WM-nf-n0i" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="vBZ-KO-1uB"/>
+                            <constraint firstItem="ukM-TL-7Bh" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="zou-1i-2oP"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Qse-eC-Jau"/>
                     <connections>
                         <outlet property="appleLoginButton" destination="7WM-nf-n0i" id="CfG-VN-0WN"/>
+                        <outlet property="emailField" destination="u0M-Yg-Loy" id="Mrk-hs-GMV"/>
                         <outlet property="facebookLoginButton" destination="FB0-Es-XPe" id="Brk-SC-3Ng"/>
                         <outlet property="googleLoginButton" destination="bYR-ez-dZn" id="N79-Rm-cfM"/>
                         <outlet property="loginButton" destination="IYQ-kl-gFl" id="SZn-D7-Wq4"/>
                         <outlet property="pageControl" destination="hdI-oG-U4z" id="JII-jY-F5b"/>
+                        <outlet property="passwordField" destination="ukM-TL-7Bh" id="mzO-Tg-R0S"/>
                         <outlet property="scrollView" destination="NT9-uH-aYZ" id="KbT-kZ-izl"/>
+                        <outlet property="signUpButton" destination="c3p-PR-fla" id="Jz9-v0-VgM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -146,7 +176,6 @@
     </scenes>
     <resources>
         <image name="apple-icon" width="112.5" height="112.5"/>
-        <image name="email_icon" width="188" height="188"/>
         <image name="fb-icon" width="308.5" height="268.5"/>
         <image name="google-icon" width="250" height="250"/>
         <systemColor name="systemGreenColor">
