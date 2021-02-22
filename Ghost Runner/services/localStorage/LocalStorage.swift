@@ -8,7 +8,7 @@
 import Foundation
 
 class LocalStorage {
-    private var user: User;
+    private var user: User?;
     
     
     private struct Storage {
@@ -33,13 +33,23 @@ class LocalStorage {
         }
     }
     
-    
+    init(name: String , uid: String) {
+        Storage.name = name;
+        Storage.uid = uid;
+    }
     init() {
         self.user = User(doc: ["":""]); // TODO: instantiate
     }
     
     func getUser() -> User {
-        return self.user;
+        let name = Storage.name ?? "no name";
+        let uid = Storage.uid ?? "no uid";
+
+        return User.init(name: name, photoURL: "", uid: uid);
+    }
+    
+    func userExist () -> Bool {
+        return (Storage.uid != nil)
     }
     
 }

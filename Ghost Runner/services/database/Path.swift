@@ -19,7 +19,7 @@ class Path {
     
     // USER
     func userPrivate() -> FirebaseFirestore.DocumentReference{
-        return db.collection("user").document("user.uid")
+        return db.collection("user").document(user.uid)
     }
     
     // RUNS

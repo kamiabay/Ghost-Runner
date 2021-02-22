@@ -13,6 +13,13 @@ class User {
     var photoURL: String = "";
     var uid: String = "";
     
+    // local
+    init(name: String, photoURL: String, uid: String) {
+        self.name = name
+        self.photoURL = photoURL
+        self.uid = uid
+    }
+    
     // from db
     init(doc: [String : Any]) {
         self.name = (doc["name"] as? String) ?? ""

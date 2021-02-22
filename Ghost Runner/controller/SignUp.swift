@@ -58,7 +58,9 @@ class SignUpVC: UIViewController {
             }
             
             if let user = authResult?.user {
-                print(user)
+               
+                LocalStorage.init(name: "kami", uid: user.uid);
+                self.navigation?.goToHome()
             }
             
             self.navigation?.goToLogin()

@@ -25,7 +25,7 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
     var movies: [String] = ["apple-icon","fb-icon","google-icon"]
     var frame = CGRect.zero
     
-    var navigation: Navigator?
+    var navigation: Navigator?;
     
     var tester = Tester()
 
@@ -33,9 +33,13 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigation = Navigator(currentViewController: self)
-        navigation?.currentViewController?.navigationController?.navigationBar.isHidden = true
         
+        
+        navigation = Navigator(currentViewController: self)
+        checkIfUserExist();
+        
+        
+        navigation?.currentViewController?.navigationController?.navigationBar.isHidden = true
         let tapGesture = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tapGesture)
         
@@ -55,6 +59,20 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
         gradientLayer.frame = self.view.bounds
         self.view.layer.insertSublayer(gradientLayer, at:0)
     }
+    
+    func checkIfUserExist() {
+        print(LocalStorage().getUser().toJSON())
+        print(LocalStorage().userExist())
+        if (LocalStorage().userExist()) {
+            self.navigation?.goToHome()
+        }
+    }
+    
+    // tocuh outside of the keypad will dismiss the keypad
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
 
     @IBAction func signUp() {
         navigation?.goToSignUp()
@@ -74,10 +92,12 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
             }
             
             if let user = authResult?.user {
-                print(user)
+                LocalStorage.init(name: "kami", uid: user.uid);
+                self?.navigation?.goToHome()
             }
+        
             
-            self?.navigation?.goToHome()
+          
         }
     }
     
@@ -126,4 +146,8 @@ extension UITextField {
        leftView = iconContainerView
        leftViewMode = .always
     }
+    
+    
+    
+    
 }
