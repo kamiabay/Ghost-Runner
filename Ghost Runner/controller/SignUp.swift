@@ -8,12 +8,14 @@
 
 import Foundation
 import UIKit
+import Firebase
 
 class SignUpVC: UIViewController {
     
     var navigation: Navigator?
     
     @IBOutlet weak var emailField: UITextField!
+    @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var continueButton: UIButton!
     
@@ -29,6 +31,7 @@ class SignUpVC: UIViewController {
         view.addGestureRecognizer(tapGesture)
         
         emailField.setIcon(#imageLiteral(resourceName: "email_icon"))
+        passwordField.setIcon(#imageLiteral(resourceName: "pw_icon"))
         
         continueButton.layer.cornerRadius = 20.0
         
@@ -45,8 +48,23 @@ class SignUpVC: UIViewController {
     }
     
     @IBAction func continueSignUp() {
-        // temporary
-        navigation?.goToHome()
+        let email = emailField.text ?? ""
+        let password = passwordField.text ?? ""
+        
+        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+            if error != nil {
+                print(error as Any)
+                return
+            }
+            
+            if let user = authResult?.user {
+                print(user)
+            }
+            
+            self.navigation?.goToLogin()
+        }
+        
+        
     }
     
 }

@@ -9,7 +9,7 @@ import Foundation
 import FirebaseAuth
 import FirebaseFirestore
 
-class Auth {
+class Authy {
     
     func emailSignIn(email: String, password: String) {
         

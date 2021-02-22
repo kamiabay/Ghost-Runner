@@ -7,15 +7,20 @@
 
 import Foundation
 import UIKit
+import Firebase
 
 class LoginVC: UIViewController, UIScrollViewDelegate {
     
+    @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var appleLoginButton: UIButton!
     @IBOutlet weak var googleLoginButton: UIButton!
     @IBOutlet weak var facebookLoginButton: UIButton!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var pageControl: UIPageControl!
+    
+    @IBOutlet weak var emailField: UITextField!
+    @IBOutlet weak var passwordField: UITextField!
     
     var movies: [String] = ["apple-icon","fb-icon","google-icon"]
     var frame = CGRect.zero
@@ -31,6 +36,12 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
         navigation = Navigator(currentViewController: self)
         navigation?.currentViewController?.navigationController?.navigationBar.isHidden = true
         
+        let tapGesture = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
+        view.addGestureRecognizer(tapGesture)
+        
+        emailField.setIcon(#imageLiteral(resourceName: "email_icon"))
+        passwordField.setIcon(#imageLiteral(resourceName: "pw_icon"))
+        
         pageControl.numberOfPages = movies.count
         setUpScrollView()
         
@@ -45,10 +56,29 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
         self.view.layer.insertSublayer(gradientLayer, at:0)
     }
 
+    @IBAction func signUp() {
+        navigation?.goToSignUp()
+    }
     
     @IBAction func loginWithEmail() {
         // TODO: SAVE USER IN LOCAL STORAGE
-        navigation?.goToSignUp()
+        let email = emailField.text ?? ""
+        let password = passwordField.text ?? ""
+        
+        Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
+            guard self != nil else { return }
+            
+            if error != nil {
+                print(error as Any)
+                return
+            }
+            
+            if let user = authResult?.user {
+                print(user)
+            }
+            
+            self?.navigation?.goToHome()
+        }
     }
     
     @IBAction func loginWithApple() {
