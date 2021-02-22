@@ -54,6 +54,7 @@ class RunVC: UIViewController {
                 print("asking for auth")
             }
         }
+        
         authorizeLocQueue.async {
             while !(CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways) {}
             self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -106,9 +107,8 @@ class RunVC: UIViewController {
     
     func saveRunData()  {
         if (!runSnapshotList.isEmpty) {
-            runTimer?.invalidate()
+            runTimer?.invalidate() // end the timer
             db.runDb.saveRunSnapShot(runSnapShotList: runSnapshotList);
-           
         }
       
     }
