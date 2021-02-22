@@ -117,6 +117,14 @@ class Run {
         return distance;
     }
     
+    
+    func initialSnapshot() -> RunSnapshot {
+       return runSnapshotList.first ?? RunSnapshot(doc: ["" : "Any"]);
+    }
+    
+    func lastSnapshot() -> RunSnapshot {
+        return runSnapshotList.last ?? RunSnapshot(doc: ["" : "Any"]);
+    }
     // gets the location of runner
     func getNextRunLocation() -> RunSnapshot {
         var currentSnapshot: RunSnapshot;
@@ -138,7 +146,7 @@ class Run {
     func isRunFinished() -> Bool {
         
         if (currentLocationIndex == runSnapshotList.count - 3) {
-            print("finished th run")
+            print("finished the run")
             return true;
         }
         else {
