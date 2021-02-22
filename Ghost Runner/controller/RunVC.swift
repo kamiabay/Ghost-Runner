@@ -17,6 +17,7 @@ class RunVC: UIViewController {
     var runSnapshotList = [RunSnapshot]();
     var runTimer: Timer?
     var userTrackTimer: Timer?
+    var opponenetTimer: Timer?
   
     
     @IBOutlet weak var startButton: UIButton!
@@ -31,19 +32,10 @@ class RunVC: UIViewController {
         super.viewDidLoad()
         view.backgroundColor =  .systemOrange
         
-        // LOCATION MANAGER
-        locationManager.delegate = self
-        locationManager.allowsBackgroundLocationUpdates = true
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        setupLocationManagment()
+       
         
-        if #available(iOS 14.0, *) {
-            locationManager.requestTemporaryFullAccuracyAuthorization(withPurposeKey: "to update best") { (Error) in
-                print("done")
-            }
-        } else {
-            // Fallback on earlier versions
-        };
-        
+
         NotificationCenter.default.addObserver(self, selector: #selector(resumeObservingUser), name: UIApplication.willEnterForegroundNotification, object: nil)
         
         // Beging to update the user's location on the app after location is authorized
@@ -54,6 +46,8 @@ class RunVC: UIViewController {
                 print("asking for auth")
             }
         }
+        
+
         
         authorizeLocQueue.async {
             while !(CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways) {}
@@ -101,9 +95,25 @@ class RunVC: UIViewController {
     }
 
     
+    
+    
+    @objc
+    func updateOpponentLocation()  {
+      //  print("\(opponentRun?.getNextRunLocation().toJSON())")
+        mapView.setCenter((opponentRun?.getNextRunLocation().get2DCordinate())!, animated: true)
+        let mkAnnotation: MKPointAnnotation = MKPointAnnotation()
+        mkAnnotation.coordinate = (opponentRun?.getNextRunLocation().get2DCordinate())!
+        mapView.addAnnotation(mkAnnotation)
+       
+    }
+    
+    func startAnimateOpponenrRun() {
+        runTimer = Timer.scheduledTimer(timeInterval: 0.025, target: self, selector: #selector(updateOpponentLocation), userInfo: nil, repeats: true)
+    }
+    
+    
     @objc
     func startCollectingGPSData()  {
-        
         if(CLLocationManager.authorizationStatus() == .authorizedAlways) {
             let gps = GPS(locationManager: locationManager);
             runSnapshotList.append(RunSnapshot(gps: gps));
@@ -113,12 +123,32 @@ class RunVC: UIViewController {
     
 
     
+    func setupLocationManagment() {
+        locationManager.delegate = self
+        locationManager.allowsBackgroundLocationUpdates = true
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        
+        if #available(iOS 14.0, *) {
+            locationManager.requestTemporaryFullAccuracyAuthorization(withPurposeKey: "to update best") { (Error) in
+                print("done")
+            }
+        } else {
+            // Fallback on earlier versions
+        };
+        
+    }
+    
     func saveRunData()  {
         if (!runSnapshotList.isEmpty) {
             runTimer?.invalidate() // end the timer
             db.runDb.saveRunSnapShot(runSnapShotList: runSnapshotList);
         }
       
+    }
+    
+
+    @IBAction func animateOpponent() {
+        startAnimateOpponenrRun();
     }
     
     
@@ -131,6 +161,7 @@ class RunVC: UIViewController {
         // enable listner for background GPS change
         locationManager.startUpdatingLocation()
         locationManager.startUpdatingHeading()
+        
         
         // timer
         runTimer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(startCollectingGPSData), userInfo: nil, repeats: true)
@@ -159,7 +190,7 @@ extension RunVC: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last {
-            print("New location is \(location)")
+          //  print("New location is \(location)")
         }
     }
     

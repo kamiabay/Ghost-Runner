@@ -120,19 +120,25 @@ class Run {
     // gets the location of runner
     func getNextRunLocation() -> RunSnapshot {
         var currentSnapshot: RunSnapshot;
-        if (currentLocationIndex == runSnapshotList.count) {
+        
+        if (!isRunFinished()) {
+            print("curr index = \(currentLocationIndex) ")
             currentSnapshot = runSnapshotList[currentLocationIndex];
+            print("currentSnapshot = \(currentSnapshot.toJSON()) ")
         }
         else {
             currentSnapshot = runSnapshotList[runSnapshotList.count - 1];
         }
+        
+    
         currentLocationIndex += 1;
         return currentSnapshot;
     }
     
     func isRunFinished() -> Bool {
         
-        if (currentLocationIndex == runSnapshotList.count) {
+        if (currentLocationIndex == runSnapshotList.count - 3) {
+            print("finished th run")
             return true;
         }
         else {

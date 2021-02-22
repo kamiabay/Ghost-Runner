@@ -38,6 +38,9 @@ class HomeVC: UIViewController {
         locationManager.allowsBackgroundLocationUpdates = true
         // delegates
         locationManager.delegate = self
+        
+        // Table view
+        runsTable.delegate = self
         runsTable.dataSource = self
         
         alwaysAuthorization()
@@ -116,7 +119,7 @@ extension HomeVC: CLLocationManagerDelegate {
 
 
 // TABLE VIEW
-extension HomeVC: UITableViewDataSource {
+extension HomeVC: UITableViewDataSource  {
     
     // UI Table protocols for displaying runs
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -133,5 +136,19 @@ extension HomeVC: UITableViewDataSource {
         return cell
         
     }
+    
 
+}
+
+
+
+extension HomeVC: UITableViewDelegate {
+
+    // ON TAP
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        let run_data = runList[indexPath.row]
+        print("tapped")
+        navigation?.goToRunView(opponentRun: run_data);
+        }
 }

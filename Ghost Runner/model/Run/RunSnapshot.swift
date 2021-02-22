@@ -29,6 +29,10 @@ class RunSnapshot {
         return CLLocation(latitude: gps.latitude, longitude: gps.longitude);
     }
     
+    func get2DCordinate() -> CLLocationCoordinate2D {
+        return CLLocationCoordinate2D(latitude: gps.latitude, longitude: gps.longitude);
+    }
+    
 
     func toJSON () -> [String: Any] {
         return [
