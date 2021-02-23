@@ -30,6 +30,7 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
     var tester = Tester()
 
     let gradientLayer = CAGradientLayer()
+    let rad: CGFloat = 10.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +41,7 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
         
         
         navigation?.currentViewController?.navigationController?.navigationBar.isHidden = true
+
         let tapGesture = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tapGesture)
         
@@ -49,10 +51,10 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
         pageControl.numberOfPages = movies.count
         setUpScrollView()
         
-        loginButton.layer.cornerRadius = 20.0
-        appleLoginButton.layer.cornerRadius = 20.0
-        googleLoginButton.layer.cornerRadius = 20.0
-        facebookLoginButton.layer.cornerRadius = 20.0
+        loginButton.layer.cornerRadius = rad
+        appleLoginButton.layer.cornerRadius = rad
+        googleLoginButton.layer.cornerRadius = rad
+        facebookLoginButton.layer.cornerRadius = rad
 
         gradientLayer.colors = [UIColor(#colorLiteral(red: 0.3098039329, green: 0.01568627544, blue: 0.1294117719, alpha: 1)).cgColor, UIColor(#colorLiteral(red: 0, green: 0.749853909, blue: 0.7112129927, alpha: 1)).cgColor]
         gradientLayer.locations = [0.0, 1.0]
