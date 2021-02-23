@@ -10,6 +10,8 @@
 
 > Nikita Andrikanis
 
+**NOTE:** Milestone 1 link is found at the bottom of this README!
+
 ### Our proposal:
 
 ***Ghost Runner***: the anonymous running platform with a competitive edge. Similar to racing games, previously recorded runs will be represented as “ghosts”, or colored dots on the map, as if running beside you. These recorded runs may come from both the user themself and anonymously from the user base. The user would be able to select a “target pace” that would be displayed in a time-interval UI element. This would display the user’s time split for each section of their run, pairing the number with a color feedback (the overall accent color of the UI would shift between red-blue-green; below pace, on pace, and above pace, respectively). Thus, this app would serve the purpose of a highly customizable, self-paced personal trainer via the time-interval UI, as well as bringing the competitive excitement of racing against other “ghosts” on the map.
@@ -31,8 +33,13 @@ Week 2 Brief Assignments (see 18 February's meeting notes for details/elaboratio
 - Main UI (Nikita): fully implement main UI and test the full data pipeline
 - Login/Auth (Ziyu): implement user sign-in and sign-up in the login UI
 
+
 ### Meeting Notes:
 
 11 February 2021 - [Sprint Planning 1 and Proposal](https://docs.google.com/document/d/1Y4POqneNCZ1JXG9e6VGOsLXFdwB2L2I7I2TDs0K9TpU/edit?usp=sharing)
 
 18 February 2021 - [Sprint Planning 2](https://docs.google.com/document/d/1WIuyM43pmhlOwvQq3lfGjFDhGgT85jWmO40kayEHhEU/edit?usp=sharing)
+
+### Milestones:
+
+22 February 2021 - [Milestone 1](https://docs.google.com/document/d/1cL5qjSXlPTK8lDtkn_iZbdCze0-BJGtdw--Mh1lu0pw/edit?usp=sharing)
