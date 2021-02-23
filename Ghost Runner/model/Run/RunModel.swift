@@ -7,7 +7,7 @@
 
 import Foundation
 import CoreLocation
-
+import MapKit
 // this is the run that we read from the Database
 class Run {
     private var runID: String;
@@ -96,7 +96,7 @@ class Run {
     
     
     
-    // KAMI FUNCTIONS
+    // KAMI's FUNCTIONS
     func avgSpeed() -> Double {
         let calendar = Calendar.current
         let time = totalDuration();
@@ -117,35 +117,44 @@ class Run {
         return distance;
     }
     
+    func getFullMKPolyline() -> MKPolyline   {
+        var list2DCordinates = [CLLocationCoordinate2D]()
+        list2DCordinates = runSnapshotList.map{ (runSnapshot) -> CLLocationCoordinate2D in
+            return runSnapshot.get2DCordinate()
+        };
+        let routeLine = MKPolyline(coordinates: list2DCordinates, count: list2DCordinates.count)
+        return routeLine;
+    }
     
     func initialSnapshot() -> RunSnapshot {
        return runSnapshotList.first ?? RunSnapshot(doc: ["" : "Any"]);
     }
     
+    func halfWaySanpshot() -> RunSnapshot {
+       let halfWayIndex = runSnapshotList.count / 2;
+        return runSnapshotList[halfWayIndex];
+    }
+    
     func lastSnapshot() -> RunSnapshot {
         return runSnapshotList.last ?? RunSnapshot(doc: ["" : "Any"]);
     }
+    
     // gets the location of runner
     func getNextRunLocation() -> RunSnapshot {
         var currentSnapshot: RunSnapshot;
-        
         if (!isRunFinished()) {
-            print("curr index = \(currentLocationIndex) ")
             currentSnapshot = runSnapshotList[currentLocationIndex];
-            print("currentSnapshot = \(currentSnapshot.toJSON()) ")
+            currentLocationIndex += 1;
         }
         else {
-            currentSnapshot = runSnapshotList[runSnapshotList.count - 1];
+            currentSnapshot = runSnapshotList[runSnapshotList.count - 1]; // if finished just return the last location
         }
-        
-    
-        currentLocationIndex += 1;
         return currentSnapshot;
     }
     
     func isRunFinished() -> Bool {
-        
-        if (currentLocationIndex == runSnapshotList.count - 3) {
+
+        if (currentLocationIndex == runSnapshotList.count - 1) {
             print("finished the run")
             return true;
         }
@@ -172,3 +181,4 @@ class Run {
 
     
 }
+

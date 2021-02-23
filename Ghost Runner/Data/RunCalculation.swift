@@ -6,14 +6,15 @@
 //
 
 import Foundation
-
+import CoreLocation
+import MapKit
 // RUNS HAVE TO BE SAVE AT THE SAME EXACT INTERVAL => we can play with this idea more
 
 class RunCalculation {
     private var opponentRun: Run;
     private var ownRunList = [RunSnapshot](); // EMPRY LIST ??
-    init (otherRunner: Run) {
-        self.opponentRun = otherRunner;
+    init (opponentRun: Run) {
+        self.opponentRun = opponentRun;
     }
 
     
@@ -61,6 +62,14 @@ class RunCalculation {
     
     
     // KAMI FUNCTIONS
+    
+    
+    // OPPONENT
+    func getOpponentFullMKPolyline() -> MKPolyline {
+        return opponentRun.getFullMKPolyline()
+        
+    }
+    
     func isOpponentBehind() -> Bool {
         // check distance traveled by OWN and OPONNENT
         return true;
@@ -71,14 +80,22 @@ class RunCalculation {
     }
     
     
+    
+    // OWN
+    
+    
     // UPDATE AT INTERVAL: every 1-5 seconds
-    func updateOwnRunAndGetOpponentLocation(runSnapshot: RunSnapshot) -> RunSnapshot{
+    func updateOwnRunAndGetOpponentLocation(runSnapshot: RunSnapshot) {
         ownRunList.append(runSnapshot);
-        return opponentRun.getNextRunLocation();
+       // return opponentRun.getNextRunLocation();
     }
     
     func getOwnFinalRunList() -> [RunSnapshot] {
         return ownRunList;
+    }
+    
+    func deleteOwnRunList() {
+        ownRunList.removeAll()
     }
     
     

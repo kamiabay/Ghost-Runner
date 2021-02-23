@@ -14,26 +14,26 @@ import MapKit
 class RunVC: UIViewController {
     var opponentRun: Run?; // NEEDS TO BE INITIALIZED
     let db = DB()
-    var runSnapshotList = [RunSnapshot]();
     var runTimer: Timer?
     var userTrackTimer: Timer?
     var opponenetTimer: Timer?
-  
+    
+    let locationManager = CLLocationManager();
+    var currentLoc: CLLocation?
+    var runCalculation: RunCalculation?;
     
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var stopButton: UIButton!
     @IBOutlet weak var mapView: MKMapView!
     
-    let locationManager = CLLocationManager();
-    var currentLoc: CLLocation?
-   
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor =  .systemOrange
-        
+        mapView.delegate = self
         setupLocationManagment()
-       
+        runCalculation = RunCalculation.init(opponentRun: opponentRun!);
         
 
         NotificationCenter.default.addObserver(self, selector: #selector(resumeObservingUser), name: UIApplication.willEnterForegroundNotification, object: nil)
@@ -47,8 +47,6 @@ class RunVC: UIViewController {
             }
         }
         
-
-        
         authorizeLocQueue.async {
             while !(CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways) {}
             self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -59,7 +57,6 @@ class RunVC: UIViewController {
             self.setInitialZoom()
             self.startObservingUser()
             print("began observing user")
-            
         }
         
     }
@@ -99,35 +96,33 @@ class RunVC: UIViewController {
     
     @objc
     func updateOpponentLocation()  {
-      //  print("\(opponentRun?.getNextRunLocation().toJSON())")
-        mapView.setCenter((opponentRun?.getNextRunLocation().get2DCordinate())!, animated: true)
+        let location = opponentRun!.getNextRunLocation().get2DCordinate()
+        mapView.setCenter(location, animated: true)
         let mkAnnotation: MKPointAnnotation = MKPointAnnotation()
-        mkAnnotation.coordinate = (opponentRun?.getNextRunLocation().get2DCordinate())!
+        mkAnnotation.coordinate = location
         mapView.addAnnotation(mkAnnotation)
        
     }
     
+    // TESTING : REMOVE LATER
     func startAnimateOpponenrRun() {
         runTimer = Timer.scheduledTimer(timeInterval: 0.025, target: self, selector: #selector(updateOpponentLocation), userInfo: nil, repeats: true)
     }
-    
     
     @objc
     func startCollectingGPSData()  {
         if(CLLocationManager.authorizationStatus() == .authorizedAlways) {
             let gps = GPS(locationManager: locationManager);
-            runSnapshotList.append(RunSnapshot(gps: gps));
-            print("\(runSnapshotList.count): saving gps : \(gps)")
+            
+            runCalculation!.updateOwnRunAndGetOpponentLocation(runSnapshot: RunSnapshot(gps: gps))
         }
     }
     
 
-    
     func setupLocationManagment() {
         locationManager.delegate = self
         locationManager.allowsBackgroundLocationUpdates = true
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        
         if #available(iOS 14.0, *) {
             locationManager.requestTemporaryFullAccuracyAuthorization(withPurposeKey: "to update best") { (Error) in
                 print("done")
@@ -139,15 +134,22 @@ class RunVC: UIViewController {
     }
     
     func saveRunData()  {
-        if (!runSnapshotList.isEmpty) {
+        let ownRunList = runCalculation!.getOwnFinalRunList();
+        print(ownRunList);
+        if (!ownRunList.isEmpty) {
             runTimer?.invalidate() // end the timer
-            db.runDb.saveRunSnapShot(runSnapShotList: runSnapshotList);
+            db.runDb.saveRunSnapShot(runSnapShotList: ownRunList);
         }
       
     }
     
-
+    func showPath()  {
+        let routeLine = runCalculation!.getOpponentFullMKPolyline()
+        self.mapView.addOverlay(routeLine)
+    }
+    
     @IBAction func animateOpponent() {
+        showPath()
         startAnimateOpponenrRun();
     }
     
@@ -156,7 +158,7 @@ class RunVC: UIViewController {
         view.backgroundColor =  .systemGreen
         
         locationManager.showsBackgroundLocationIndicator = true
-        runSnapshotList.removeAll()
+        runCalculation!.deleteOwnRunList()
         
         // enable listner for background GPS change
         locationManager.startUpdatingLocation()
@@ -182,12 +184,23 @@ class RunVC: UIViewController {
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 extension RunVC: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateHeading heading: CLHeading) {
         //print(heading.magneticHeading)
     }
-    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last {
           //  print("New location is \(location)")
@@ -196,3 +209,17 @@ extension RunVC: CLLocationManagerDelegate {
     
     
 }
+
+extension RunVC: MKMapViewDelegate {
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+       
+        let polylineRenderer = MKPolylineRenderer(overlay: overlay)
+        polylineRenderer.strokeColor = .systemRed
+        polylineRenderer.lineWidth = 5
+        return polylineRenderer
+      
+    }
+    
+}
+
