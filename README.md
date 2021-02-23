@@ -3,6 +3,7 @@
 > Developed by Team DZKN:
 
 > Dylan Long
+https://www.linkedin.com/in/dylanalong1/
 
 > Ziyu Wang
 
