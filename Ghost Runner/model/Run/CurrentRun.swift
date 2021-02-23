@@ -27,6 +27,7 @@ class CurrentRun {
     let timeConst = 1.0 // [sec]
     private var runData = RunData()
     private var previousTime = Date() // Need to ensure accurate start time by resetting at some point
+    private var locationManager: CLLocationManager?
 
     // If it is initial run then opponentID and runID should be nil
     init(userID: String, opponentId: String?, runID: String?) {
@@ -56,9 +57,14 @@ class CurrentRun {
     // At this point it only adds to userRunSnapshotList and NOT to runData.userDistancePerTimeSegment, later
     // it is converted
     func addUserDist() {
-        let coordinates = getUserCoordinates()
-        let currentGPS = GPS(latitude: coordinates.latitude , longitude: coordinates.longitude)
-        let runSnapShot = RunSnapshot(gps: currentGPS, elevation: "0")
+        //let coordinates = getUserCoordinates()
+        guard let locMan = locationManager else {
+            print("Could not access locationManager in func addUserDist")
+            return
+        }
+        
+        let currentGPS = GPS(locationManager: locMan) // Need to learn how this works
+        let runSnapShot = RunSnapshot(gps: currentGPS)
         self.runData.userRunSnapshotList?.append(runSnapShot)
     }
     
@@ -87,10 +93,10 @@ class CurrentRun {
         return (timeDiff, true)
     }
     
-    private func getUserCoordinates() -> (latitude: Double, longitude: Double) {
+    /*private func getUserCoordinates() -> (latitude: Double, longitude: Double) {
         // Make calls to CLLocation for latitude and longitude values
         return (0, 0)
-    }
+    }*/
     
     private func convertCoordToDist(coordinates: [Double : Double]) -> Double {
         // CLLocation provides 'distance' function that makes this super easy
@@ -103,9 +109,7 @@ class CurrentRun {
         return runData
     }
     
-    // WAIT we may not need to do this since we are taking data every 1 sec
-    // Convert UserRunSnapShotList to an array of doubles in userDistancePerTimeConstant
-    func setUserDistancePerTimeConstant() {
+    func addUserDistancePerTimeSegment() {
         
     }
     
