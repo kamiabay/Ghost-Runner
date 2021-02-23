@@ -2,7 +2,9 @@
 
 > Developed by Team DZKN:
 
-> Dylan Long
+> Dylan Long  
+https://www.linkedin.com/in/dylanalong1/  
+https://github.com/dylanalong
 
 > Ziyu Wang
 
