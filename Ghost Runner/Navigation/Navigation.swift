@@ -22,6 +22,7 @@ class Navigator  {
         let signUp = "signUpRoute"
         let home = "homeRoute"
         let run = "runRoute"
+        let profile = "profileRoute"
     }
     
     let route = RouteNames();
@@ -74,6 +75,16 @@ class Navigator  {
         }
         runVC.opponentRun = opponentRun;
         currentViewController?.navigationController?.pushViewController(runVC, animated: true)
+    }
+    
+    func goToProfileView()  {
+        
+        let storyboard = UIStoryboard(name: "Profile", bundle: nil)
+        guard let profileVC = storyboard.instantiateViewController(identifier: route.profile) as? ProfileVC else {
+            assertionFailure("couldnt find this controller")
+            return
+        }
+        currentViewController?.navigationController?.pushViewController(profileVC, animated: true)
     }
     
 }

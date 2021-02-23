@@ -16,6 +16,8 @@
 		3C13A8E725DB772500C9D7F6 /* RunModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C13A8E625DB772500C9D7F6 /* RunModel.swift */; };
 		3C13A8EA25DB774B00C9D7F6 /* RunSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C13A8E925DB774B00C9D7F6 /* RunSnapshot.swift */; };
 		3C13A8ED25DB77C500C9D7F6 /* UserDb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C13A8EC25DB77C500C9D7F6 /* UserDb.swift */; };
+		3C319D9425E58BAB00868267 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C319D9325E58BAB00868267 /* ProfileVC.swift */; };
+		3C319D9825E58C5D00868267 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C319D9725E58C5D00868267 /* Notification.swift */; };
 		3C4D6BE625D5D1C2009CEBE1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4D6BE525D5D1C2009CEBE1 /* AppDelegate.swift */; };
 		3C4D6BE825D5D1C2009CEBE1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4D6BE725D5D1C2009CEBE1 /* SceneDelegate.swift */; };
 		3C4D6BEA25D5D1C2009CEBE1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4D6BE925D5D1C2009CEBE1 /* ViewController.swift */; };
@@ -49,6 +51,8 @@
 		3C13A8E625DB772500C9D7F6 /* RunModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunModel.swift; sourceTree = "<group>"; };
 		3C13A8E925DB774B00C9D7F6 /* RunSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunSnapshot.swift; sourceTree = "<group>"; };
 		3C13A8EC25DB77C500C9D7F6 /* UserDb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDb.swift; sourceTree = "<group>"; };
+		3C319D9325E58BAB00868267 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
+		3C319D9725E58C5D00868267 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		3C4D6BE225D5D1C2009CEBE1 /* Ghost Runner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ghost Runner.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C4D6BE525D5D1C2009CEBE1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3C4D6BE725D5D1C2009CEBE1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -105,6 +109,15 @@
 			path = Run;
 			sourceTree = "<group>";
 		};
+		3C319D9625E58C5000868267 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				3C319D9725E58C5D00868267 /* Notification.swift */,
+			);
+			name = Notification;
+			path = "Ghost Runner/Notification";
+			sourceTree = SOURCE_ROOT;
+		};
 		3C4D6BD925D5D1C2009CEBE1 = {
 			isa = PBXGroup;
 			children = (
@@ -159,6 +172,7 @@
 				3CDFE92B25DF16D600742EF2 /* HomeVC.swift */,
 				3CDFE93025DF1F9600742EF2 /* RunVC.swift */,
 				3CDFE93425DF8C6F00742EF2 /* SignUp.swift */,
+				3C319D9325E58BAB00868267 /* ProfileVC.swift */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -178,6 +192,7 @@
 		3CB524F625DB23B1004421D9 /* services */ = {
 			isa = PBXGroup;
 			children = (
+				3C319D9625E58C5000868267 /* Notification */,
 				3CB5250425DB35AC004421D9 /* auth */,
 				3CB524FF25DB24B2004421D9 /* localStorage */,
 				3CB524FE25DB24A3004421D9 /* cloudStorage */,
@@ -378,6 +393,7 @@
 				3C13A8EA25DB774B00C9D7F6 /* RunSnapshot.swift in Sources */,
 				3C13A8E225DB76D100C9D7F6 /* GPS.swift in Sources */,
 				3C13A8ED25DB77C500C9D7F6 /* UserDb.swift in Sources */,
+				3C319D9825E58C5D00868267 /* Notification.swift in Sources */,
 				3CDFE92C25DF16D600742EF2 /* HomeVC.swift in Sources */,
 				3C13A8E725DB772500C9D7F6 /* RunModel.swift in Sources */,
 				3CB524F925DB23FA004421D9 /* User.swift in Sources */,
@@ -395,6 +411,7 @@
 				3CB5250325DB24DF004421D9 /* CloudStorage.swift in Sources */,
 				3CB5250A25DB3F51004421D9 /* Path.swift in Sources */,
 				3CDFE92925DF15CB00742EF2 /* LoginVC.swift in Sources */,
+				3C319D9425E58BAB00868267 /* ProfileVC.swift in Sources */,
 				3CB5250625DB35CB004421D9 /* Auth.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
