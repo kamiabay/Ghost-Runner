@@ -20,12 +20,11 @@ class ProfileVC: UIViewController {
         navigation = Navigator(currentViewController: self)
         
     }
-    
+
     @IBAction func homeButtonPress(_ sender: UIButton) {
         navigation?.goToHome()
     }
     
-
 
 }
 

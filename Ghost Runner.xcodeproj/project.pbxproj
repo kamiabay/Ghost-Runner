@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1122CE6D25E5A23F0065B4B2 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1122CE6C25E5A23F0065B4B2 /* Profile.storyboard */; };
 		118B4DC425E0AD8900A8628C /* tester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118B4DC325E0AD8900A8628C /* tester.swift */; };
 		118B4DCC25E0B4B900A8628C /* test_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 118B4DCB25E0B4B900A8628C /* test_data.json */; };
 		118B4DD225E0C82E00A8628C /* SignUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 118B4DD125E0C82E00A8628C /* SignUp.storyboard */; };
@@ -42,6 +43,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1122CE6C25E5A23F0065B4B2 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		118B4DC325E0AD8900A8628C /* tester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tester.swift; sourceTree = "<group>"; };
 		118B4DCB25E0B4B900A8628C /* test_data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = test_data.json; sourceTree = "<group>"; };
 		118B4DD125E0C82E00A8628C /* SignUp.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignUp.storyboard; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 				118B4DD125E0C82E00A8628C /* SignUp.storyboard */,
 				118B4DD525E0C87100A8628C /* Home.storyboard */,
 				118B4DD825E0C87F00A8628C /* Run.storyboard */,
+				1122CE6C25E5A23F0065B4B2 /* Profile.storyboard */,
 			);
 			path = storyBoard;
 			sourceTree = "<group>";
@@ -336,6 +339,7 @@
 				3CB524F525DB1B03004421D9 /* GoogleService-Info.plist in Resources */,
 				118B4DD225E0C82E00A8628C /* SignUp.storyboard in Resources */,
 				3C4D6BEF25D5D1C4009CEBE1 /* Assets.xcassets in Resources */,
+				1122CE6D25E5A23F0065B4B2 /* Profile.storyboard in Resources */,
 				3C4D6BED25D5D1C2009CEBE1 /* Login.storyboard in Resources */,
 				118B4DCC25E0B4B900A8628C /* test_data.json in Resources */,
 			);
@@ -561,14 +565,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 32ZQY2PA9J;
+				DEVELOPMENT_TEAM = B9KQ2YN3UL;
 				INFOPLIST_FILE = "Ghost Runner/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Runner.Ghost-Runner";
+				PRODUCT_BUNDLE_IDENTIFIER = "Runner.Ghost-Runner.Nikita";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -582,14 +586,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 32ZQY2PA9J;
+				DEVELOPMENT_TEAM = B9KQ2YN3UL;
 				INFOPLIST_FILE = "Ghost Runner/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Runner.Ghost-Runner";
+				PRODUCT_BUNDLE_IDENTIFIER = "Runner.Ghost-Runner.Nikita";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
