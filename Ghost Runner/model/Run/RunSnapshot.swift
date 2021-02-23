@@ -25,6 +25,9 @@ class RunSnapshot {
         self.time =  Date(); // MIGHT CHANGE
     }
     
+    
+    
+    
     func getCordinate() -> CLLocation {
         return CLLocation(latitude: gps.latitude, longitude: gps.longitude);
     }

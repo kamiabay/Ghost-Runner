@@ -104,6 +104,7 @@ class Run {
         return totalDistance() / Double(second);  // check later
     }
     
+    // AT INITIATION
     func totalDistance() -> Double {
         var prevCordinate: CLLocation?;
         var distance = 0.0;
@@ -117,6 +118,7 @@ class Run {
         return distance;
     }
     
+    // AT INITIATION
     func getFullMKPolyline() -> MKPolyline   {
         var list2DCordinates = [CLLocationCoordinate2D]()
         list2DCordinates = runSnapshotList.map{ (runSnapshot) -> CLLocationCoordinate2D in
@@ -147,13 +149,12 @@ class Run {
             currentLocationIndex += 1;
         }
         else {
-            currentSnapshot = runSnapshotList[runSnapshotList.count - 1]; // if finished just return the last location
+            currentSnapshot = runSnapshotList[runSnapshotList.count - 1]; // if finished just return thelast location
         }
         return currentSnapshot;
     }
     
     func isRunFinished() -> Bool {
-
         if (currentLocationIndex == runSnapshotList.count - 1) {
             print("finished the run")
             return true;
