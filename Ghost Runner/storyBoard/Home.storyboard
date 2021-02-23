@@ -38,6 +38,14 @@
                                     <action selector="logoutButtonPress:" destination="5OL-W5-HW4" eventType="touchUpInside" id="lkC-p1-O2o"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Edk-1i-ICz">
+                                <rect key="frame" x="185" y="760" width="44" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Profile"/>
+                                <connections>
+                                    <action selector="profileViewButtonPress:" destination="5OL-W5-HW4" eventType="touchUpInside" id="nOk-3D-pbh"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ggf-lp-sol"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>

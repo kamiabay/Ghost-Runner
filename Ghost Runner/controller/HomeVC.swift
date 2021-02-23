@@ -76,6 +76,9 @@ class HomeVC: UIViewController {
     @IBAction func logoutButtonPress(_ sender: UIButton) {
         navigation?.goToLogin()
     }
+    @IBAction func profileViewButtonPress(_ sender: UIButton) {
+        navigation?.goToProfileView()
+    }
     
     
     

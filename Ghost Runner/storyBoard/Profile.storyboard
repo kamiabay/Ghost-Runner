@@ -24,7 +24,7 @@
                                     <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="homeButtonPress:" destination="7vf-VF-wap" eventType="touchUpInside" id="PoD-k0-dD2"/>
+                                    <action selector="homeButtonPress:" destination="7vf-VF-wap" eventType="touchUpInside" id="52v-lF-8hf"/>
                                 </connections>
                             </button>
                         </subviews>
