@@ -13,6 +13,7 @@ import MapKit
 class RunCalculation {
     private var opponentRun: Run;
     private var ownRunList = [RunSnapshot](); // EMPRY LIST ??
+    private var ownPolyLineList = [CLLocationCoordinate2D]()
     init (opponentRun: Run) {
         self.opponentRun = opponentRun;
     }
@@ -65,9 +66,12 @@ class RunCalculation {
     
     
     // OPPONENT
+    func getOwnCurrentPolyLine() -> MKPolyline {
+        return MKPolyline(coordinates: ownPolyLineList, count: ownPolyLineList.count)
+    }
+
     func getOpponentFullMKPolyline() -> MKPolyline {
         return opponentRun.getFullMKPolyline()
-        
     }
     
     func isOpponentBehind() -> Bool {
@@ -79,7 +83,9 @@ class RunCalculation {
         return opponentRun.isRunFinished();
     }
     
-    
+    func getOpponentNextRunsnapshot() -> RunSnapshot {
+        return opponentRun.getNextRunLocation()
+    }
     
     // OWN
     
@@ -87,8 +93,10 @@ class RunCalculation {
     // UPDATE AT INTERVAL: every 1-5 seconds
     func updateOwnRunAndGetOpponentLocation(runSnapshot: RunSnapshot) {
         ownRunList.append(runSnapshot);
+        updateCurrentPolyLine(runSnapshot: runSnapshot)
        // return opponentRun.getNextRunLocation();
     }
+    
     
     func getOwnFinalRunList() -> [RunSnapshot] {
         return ownRunList;
@@ -96,6 +104,10 @@ class RunCalculation {
     
     func deleteOwnRunList() {
         ownRunList.removeAll()
+    }
+    
+    func updateCurrentPolyLine(runSnapshot: RunSnapshot) {
+        ownPolyLineList.append(runSnapshot.get2DCordinate())
     }
     
     

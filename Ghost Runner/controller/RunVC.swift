@@ -14,9 +14,9 @@ import MapKit
 class RunVC: UIViewController {
     var opponentRun: Run?; // NEEDS TO BE INITIALIZED
     let db = DB()
-    var runSnapshotList = [RunSnapshot]();
-    
-    
+    var runCalculation : RunCalculation?
+    let CONST_TIME: Double = 1.0;
+    var lastDrawnPolyLine: MKOverlay?
     // Timers
     var runTimer: Timer?
     var userTrackTimer: Timer?
@@ -40,6 +40,12 @@ class RunVC: UIViewController {
         // General view styling
         view.backgroundColor =  .darkGray
         
+        // DELEGATES
+        mapView.delegate = self;
+        locationManager.delegate = self
+
+        runCalculation = RunCalculation(opponentRun: opponentRun ?? Run(runSnapshotList: [RunSnapshot](), runID: "null"));
+        
         // Set up observer in background
         NotificationCenter.default.addObserver(self, selector: #selector(resumeObservingUser), name: UIApplication.willEnterForegroundNotification, object: nil)
         
@@ -56,13 +62,14 @@ class RunVC: UIViewController {
         authorizeLocQueue.async {
             while !(CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways) {}
             self.CLandMapKitSetup()
-            self.beginUpdatingMap()
+            self.initiateMapSetup()
         }
     }
     
     // Deinit notification for when app enters foreground
     deinit {
         NotificationCenter.default.removeObserver(self, name: UIApplication.willEnterForegroundNotification, object: nil)
+
     }
     
     
@@ -72,7 +79,6 @@ class RunVC: UIViewController {
     
     func CLandMapKitSetup() {
         // For Kami's background support
-        locationManager.delegate = self
         locationManager.allowsBackgroundLocationUpdates = true
         
         if #available(iOS 14.0, *) {
@@ -87,44 +93,50 @@ class RunVC: UIViewController {
         self.locationManager.distanceFilter = kCLDistanceFilterNone
     }
     
-    func beginUpdatingMap() {
-        self.locationManager.startUpdatingLocation()
+    func initiateMapSetup() {
+        //self.locationManager.startUpdatingLocation()
         //self.locationManager.startUpdatingHeading()
         self.mapView.showsUserLocation = true
         self.setInitialZoom()
-        self.startObservingUser()
-        print("Began observing user")
-        
         self.mapView.addAnnotation(self.ghostDot)
-        self.animateOpponent()
-        print("Began animating opponent")
+     //   self.startObservingUser()
+       // print("Began observing user")
+       
+//        self.beginGhostAnimation()
+       // print("Began animating opponent")
     }
     
     // #######################################
     // Ghost/Opponent Functions
     // #######################################
     
-    @IBAction func animateOpponent() {
-        beginGhostAnimation();
-    }
-    
+
+    // TO BE REMOVED
     func beginGhostAnimation() {
-        runTimer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(updateOpponentLocation), userInfo: nil, repeats: true)
+        runTimer = Timer.scheduledTimer(timeInterval: CONST_TIME, target: self, selector: #selector(updateOpponentLocation), userInfo: nil, repeats: true)
+        //updateOpponentLocation
     }
     
     @objc func updateOpponentLocation()  {
-        //print("\(opponentRun?.getNextRunLocation().toJSON())")
-        //mapView.setCenter((opponentRun?.getNextRunLocation().get2DCordinate())!, animated: true)
+        if (opponentRun == nil) {return} // i.e NO OPPONENT i.e FIRST RUN
         
-        //let mkAnnotation: MKPointAnnotation = MKPointAnnotation()
-        //mkAnnotation.coordinate = (opponentRun?.getNextRunLocation().get2DCordinate())!
-        
-        if let nextCoord = opponentRun?.getNextRunLocation().get2DCordinate() {
-            UIView.animate(withDuration: 2) {
+        if let nextCoord = runCalculation?.getOpponentNextRunsnapshot().get2DCordinate() {
+            UIView.animate(withDuration: CONST_TIME) {
                 self.ghostDot.coordinate.latitude = nextCoord.latitude
                 self.ghostDot.coordinate.longitude = nextCoord.longitude
             }
         }
+    }
+    
+    func updateOwnPolyLine()  {
+        if let previous = lastDrawnPolyLine {
+            // Remove last drawn segment if needed.
+            self.mapView.removeOverlay(previous)
+            lastDrawnPolyLine = nil
+        }
+        let currPolyLine = runCalculation!.getOwnCurrentPolyLine();
+        self.mapView.addOverlay(currPolyLine)
+        lastDrawnPolyLine = currPolyLine;
     }
     
     // #######################################
@@ -138,18 +150,16 @@ class RunVC: UIViewController {
         }
     }
     
-    func startObservingUser() {
-        if(CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways) {
-            userTrackTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateMapCenter), userInfo: nil, repeats: true)
-            updateMapCenter()
-        }
-    }
-    
+//    func startObservingUser() {
+//            userTrackTimer = Timer.scheduledTimer(timeInterval: CONST_TIME, target: self, selector: #selector(updateMapCenter), userInfo: nil, repeats: true)
+//            updateMapCenter()
+//    }
+//
     @objc func resumeObservingUser() {
-        self.startObservingUser()
+      //  self.startObservingUser()
     }
     
-    @objc func updateMapCenter() {
+    @objc func centerMapToCurrentLocation() {
         if let currLoc = locationManager.location?.coordinate {
             mapView.setCenter(currLoc, animated: true)
             print("updating center!")
@@ -161,52 +171,75 @@ class RunVC: UIViewController {
     // User Run/Snapshot Recording
     // #######################################
     
-    @objc func startCollectingGPSData()  {
-        if(CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways) {
-            print("saving GPS")
+    @objc func intervalUpdate() {
+        //let snap = opponentRun!.getNextRunLocation();
+        //runCalculation?.updateOwnRunAndGetOpponentLocation(runSnapshot: snap)
             let gps = GPS(locationManager: locationManager);
-            runSnapshotList.append(RunSnapshot(gps: gps));
-            print("\(runSnapshotList.count): saving gps : \(gps)")
-        }
+            runCalculation?.updateOwnRunAndGetOpponentLocation(runSnapshot: RunSnapshot(gps: gps))
+            updateOwnPolyLine()
+            updateOpponentLocation()
+            centerMapToCurrentLocation() // LOCK THE USER TO ONLY THAT LOCATION , CANT ZOOM OUT/IN
     }
     
     func saveRunData()  {
-        if (!runSnapshotList.isEmpty) {
-            runTimer?.invalidate() // end the timer
-            db.runDb.saveRunSnapShot(runSnapShotList: runSnapshotList);
+        let ownRunList = runCalculation!.getOwnFinalRunList();
+        if (!ownRunList.isEmpty) {
+            db.runDb.saveRunSnapShot(runSnapShotList: ownRunList);
         }
       
     }
+    
+    func pickTheWinner() {
+        if (opponentRun == nil) {return} // i.e NO OPPONENT i.e FIRST RUN
+    }
+    
+    
+    
+    // #######################################
+    // Buttons
+    // #######################################
+    
+    
+    @IBAction func animateOpponent() {
+        beginGhostAnimation();
+    }
+    
     
     @IBAction func startPress(_ sender: UIButton) {
         view.backgroundColor =  .systemGreen
         
         locationManager.showsBackgroundLocationIndicator = true
-        runSnapshotList.removeAll()
-        
+        runCalculation?.deleteOwnRunList()
+       
         // enable listner for background GPS change
         locationManager.startUpdatingLocation()
         locationManager.startUpdatingHeading()
         
-        
         // timer
-        runTimer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(startCollectingGPSData), userInfo: nil, repeats: true)
+        runTimer = Timer.scheduledTimer(timeInterval: CONST_TIME, target: self, selector: #selector(intervalUpdate), userInfo: nil, repeats: true)
 
-        //
-        startCollectingGPSData()
-    
     }
     
     @IBAction func stopPress() {
         view.backgroundColor =  .systemOrange
+        runTimer?.invalidate()
+        
+    
         saveRunData()
         locationManager.showsBackgroundLocationIndicator = false
         // disable listner for background GPS change
         locationManager.stopUpdatingHeading();
         locationManager.stopUpdatingLocation();
+        
+        pickTheWinner();
     }
     
 }
+
+
+
+
+
 
 
 extension RunVC: CLLocationManagerDelegate {
@@ -223,19 +256,32 @@ extension RunVC: CLLocationManagerDelegate {
 }
 
 
-func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-    guard annotation is MKPointAnnotation else { return nil }
 
-    let identifier = "Annotation"
-    var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+extension RunVC: MKMapViewDelegate {
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard annotation is MKPointAnnotation else { return nil }
 
-    if annotationView == nil {
-        annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-        annotationView!.canShowCallout = true
-    } else {
-        annotationView!.annotation = annotation
+        let identifier = "Annotation"
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+
+        if annotationView == nil {
+            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            annotationView!.canShowCallout = true
+        } else {
+            annotationView!.annotation = annotation
+        }
+
+        return annotationView
     }
 
-    return annotationView
-}
 
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let polylineRenderer = MKPolylineRenderer(overlay: overlay)
+        polylineRenderer.strokeColor = .systemBlue
+        polylineRenderer.lineWidth = 5
+        return polylineRenderer
+       }
+    
+}

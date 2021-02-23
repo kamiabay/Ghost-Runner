@@ -125,6 +125,7 @@ class Run {
             return runSnapshot.get2DCordinate()
         };
         let routeLine = MKPolyline(coordinates: list2DCordinates, count: list2DCordinates.count)
+       
         return routeLine;
     }
     
@@ -149,13 +150,13 @@ class Run {
             currentLocationIndex += 1;
         }
         else {
-            currentSnapshot = runSnapshotList[runSnapshotList.count - 1]; // if finished just return thelast location
+            currentSnapshot = lastSnapshot(); // if finished just return thelast location
         }
         return currentSnapshot;
     }
     
     func isRunFinished() -> Bool {
-        if (currentLocationIndex == runSnapshotList.count - 1) {
+        if (currentLocationIndex == runSnapshotList.count - 1 || runSnapshotList.isEmpty) {
             print("finished the run")
             return true;
         }

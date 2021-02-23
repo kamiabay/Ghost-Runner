@@ -43,7 +43,7 @@ class RunDb {
     }
     
     func getUserRunList(completion:@escaping(([Run]) -> ())) {
-        let ref = path.userAllRuns();
+        let ref = path.userAllRuns().order(by: "creationTime", descending: true);
        
         var runList = [Run]();
         let async = DispatchGroup()
