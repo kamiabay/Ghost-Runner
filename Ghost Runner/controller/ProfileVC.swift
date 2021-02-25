@@ -24,13 +24,14 @@ class ProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.white
         // Do any additional setup after loading the view.
         
         navigation = Navigator(currentViewController: self)
         
+        self.userID.layer.cornerRadius = 19
+        profileImage.layer.masksToBounds = true
         profileImage.layer.cornerRadius = 70
-        profileImage.clipsToBounds = true
+        //profileImage.clipsToBounds = true
         
         profileImage.addGestureRecognizer(tapGestureRecognizer)
         
@@ -38,23 +39,54 @@ class ProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         
         self.user = userInfo.name
         self.uid = userInfo.uid
-        self.userName.text = "Username: \(user)"
-        self.userID.setTitle("User ID: \(uid)", for: .normal)
+        self.userName.text = "\(user)"
+        //self.userID.setTitle("User ID: \(uid)", for: .normal)
     }
 
     @IBAction func tapProfileImage(_ sender: Any) {
-        let imagePickerController = UIImagePickerController()
-        imagePickerController.delegate = self
-        present(imagePickerController, animated: true, completion: nil)
+        presentProfilePicActionSheet()
     }
     
+    func presentProfilePicActionSheet() {
+        let actionSheet = UIAlertController(title: "Profile Picture", message: "Take a new photo or choose from your library", preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        actionSheet.addAction(UIAlertAction(title: "Take photo", style: .default, handler: { [weak self] _ in
+            self?.presentCamera()
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Choose photo", style: .default, handler: { [weak self] _ in
+            self?.presentPhotoLibrary()
+        }))
+      present(actionSheet, animated: true, completion: nil)
+    }
+    
+    func presentCamera() {
+        let pc = UIImagePickerController()
+        pc.delegate = self
+        pc.sourceType = .camera
+        pc.allowsEditing = true
+        present(pc, animated: true, completion: nil)
+    }
+    
+    func presentPhotoLibrary() {
+        let pc = UIImagePickerController()
+        pc.delegate = self
+        pc.sourceType = .photoLibrary
+        pc.allowsEditing = true
+        present(pc, animated: true, completion: nil)
+    }
+    // Can add UIImagePickerController.camera to allow user to take picture
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+        if let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
             profileImage.image = image
             self.image = image
            // let userDb = UserDb()
         }
         dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func userCodeButtonPress(_ sender: Any) {
@@ -66,7 +98,7 @@ class ProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         }
         mf.messageComposeDelegate = self
         mf.recipients = [] // Might have a way to autopopulate this
-        mf.body = "Add your friend \(self.user) on GhostRunner using the following code \(self.uid)"
+        mf.body = "Add your friend \(self.user) on GhostRunner using the following code: \(self.uid)"
         
         present(mf, animated: true, completion: nil)
     }
