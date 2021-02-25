@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -12,6 +13,7 @@
         <!--HomeVC-->
         <scene sceneID="zHJ-zp-0ze">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uk8-L9-QJw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="homeRoute" id="5OL-W5-HW4" customClass="HomeVC" customModule="Ghost_Runner" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9FX-Pf-OpK">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -39,13 +41,24 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Edk-1i-ICz">
-                                <rect key="frame" x="185" y="760" width="44" height="30"/>
+                                <rect key="frame" x="185" y="94" width="44" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Profile"/>
                                 <connections>
                                     <action selector="profileViewButtonPress:" destination="5OL-W5-HW4" eventType="touchUpInside" id="nOk-3D-pbh"/>
                                 </connections>
                             </button>
+                            <tabBar contentMode="scaleToFill" fixedFrame="YES" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="5bw-OF-lQg">
+                                <rect key="frame" x="0.0" y="813" width="414" height="49"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <items>
+                                    <tabBarItem title="Friends" id="IYy-oU-FUO">
+                                        <imageReference key="image" image="person.fill" catalog="system" symbolScale="large"/>
+                                    </tabBarItem>
+                                    <tabBarItem title="Home" image="map.fill" catalog="system" id="pRM-nX-Dhe"/>
+                                </items>
+                            </tabBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ggf-lp-sol"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -56,12 +69,13 @@
                         <outlet property="runsTable" destination="SA1-S9-7Mj" id="kBo-ul-Lex"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="uk8-L9-QJw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-100.00000000000001" y="49.553571428571423"/>
         </scene>
     </scenes>
     <resources>
+        <image name="map.fill" catalog="system" width="128" height="110"/>
+        <image name="person.fill" catalog="system" width="128" height="120"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
