@@ -73,38 +73,7 @@ class RunVC: UIViewController {
     }
     
     
-    // #######################################
-    // CL/MK Set-up
-    // #######################################
-    
-    func CLandMapKitSetup() {
-        // For Kami's background support
-        locationManager.allowsBackgroundLocationUpdates = true
-        
-        if #available(iOS 14.0, *) {
-            locationManager.requestTemporaryFullAccuracyAuthorization(withPurposeKey: "to update best") { (Error) in
-                print("done")
-            }
-        } else {
-            print("locationManager needs to fall back onto older version")
-        }
-        
-        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        self.locationManager.distanceFilter = kCLDistanceFilterNone
-    }
-    
-    func initiateMapSetup() {
-        //self.locationManager.startUpdatingLocation()
-        //self.locationManager.startUpdatingHeading()
-        self.mapView.showsUserLocation = true
-        self.setInitialZoom()
-        self.mapView.addAnnotation(self.ghostDot)
-     //   self.startObservingUser()
-       // print("Began observing user")
-       
-//        self.beginGhostAnimation()
-       // print("Began animating opponent")
-    }
+
     
     // #######################################
     // Ghost/Opponent Functions
@@ -117,8 +86,9 @@ class RunVC: UIViewController {
         //updateOpponentLocation
     }
     
+
     @objc func updateOpponentLocation()  {
-        if (opponentRun == nil) {return} // i.e NO OPPONENT i.e FIRST RUN
+        if (isFirstRun()) {return} // i.e NO OPPONENT i.e FIRST RUN
         
         if let nextCoord = runCalculation?.getOpponentNextRunsnapshot().get2DCordinate() {
             UIView.animate(withDuration: CONST_TIME) {
@@ -150,11 +120,7 @@ class RunVC: UIViewController {
         }
     }
     
-//    func startObservingUser() {
-//            userTrackTimer = Timer.scheduledTimer(timeInterval: CONST_TIME, target: self, selector: #selector(updateMapCenter), userInfo: nil, repeats: true)
-//            updateMapCenter()
-//    }
-//
+
     @objc func resumeObservingUser() {
       //  self.startObservingUser()
     }
@@ -175,11 +141,17 @@ class RunVC: UIViewController {
         //let snap = opponentRun!.getNextRunLocation();
         //runCalculation?.updateOwnRunAndGetOpponentLocation(runSnapshot: snap)
             let gps = GPS(locationManager: locationManager);
+        
+            // if stationarty dont update anything
+            if(!isUserMoving(locationManager: locationManager)) {return} // NEEDS TESTING
+        
             runCalculation?.updateOwnRunAndGetOpponentLocation(runSnapshot: RunSnapshot(gps: gps))
             updateOwnPolyLine()
             updateOpponentLocation()
             centerMapToCurrentLocation() // LOCK THE USER TO ONLY THAT LOCATION , CANT ZOOM OUT/IN
     }
+
+    
     
     func saveRunData()  {
         let ownRunList = runCalculation!.getOwnFinalRunList();
@@ -189,9 +161,7 @@ class RunVC: UIViewController {
       
     }
     
-    func pickTheWinner() {
-        if (opponentRun == nil) {return} // i.e NO OPPONENT i.e FIRST RUN
-    }
+
     
     
     
@@ -284,4 +254,51 @@ extension RunVC: MKMapViewDelegate {
         return polylineRenderer
        }
     
+}
+
+
+extension RunVC { //HELPERS
+    
+    // #######################################
+    // CL/MK Set-up
+    // #######################################
+    
+
+    
+    func CLandMapKitSetup() {
+        // For Kami's background support
+        locationManager.allowsBackgroundLocationUpdates = true
+        
+        if #available(iOS 14.0, *) {
+            locationManager.requestTemporaryFullAccuracyAuthorization(withPurposeKey: "to update best") { (Error) in
+                print("done")
+            }
+        } else {
+            print("locationManager needs to fall back onto older version")
+        }
+        
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        self.locationManager.distanceFilter = kCLDistanceFilterNone
+    }
+    
+    func initiateMapSetup() {
+        self.mapView.showsUserLocation = true
+        self.setInitialZoom()
+        self.mapView.addAnnotation(self.ghostDot)
+    }
+    
+    
+    func isUserMoving(locationManager: CLLocationManager) -> Bool {
+        let speed = locationManager.location?.speed ?? 2.0
+       return speed < 0
+    }
+    
+    func isFirstRun() -> Bool {
+        return opponentRun == nil
+    }
+    
+    
+    func pickTheWinner() {
+        if (opponentRun == nil) {return} // i.e NO OPPONENT i.e FIRST RUN
+    }
 }

@@ -78,7 +78,6 @@ class Navigator  {
     }
     
     func goToProfileView()  {
-        
         let storyboard = UIStoryboard(name: "Profile", bundle: nil)
         guard let profileVC = storyboard.instantiateViewController(identifier: route.profile) as? ProfileVC else {
             assertionFailure("couldnt find this controller")
