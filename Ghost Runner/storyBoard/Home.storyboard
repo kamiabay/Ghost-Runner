@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--HomeVC-->
+        <!--Item-->
         <scene sceneID="zHJ-zp-0ze">
             <objects>
-                <viewController storyboardIdentifier="homeRoute" id="5OL-W5-HW4" customClass="HomeVC" customModule="Ghost_Runner" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="5OL-W5-HW4" customClass="HomeVC" customModule="Ghost_Runner" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9FX-Pf-OpK">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -39,7 +39,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Edk-1i-ICz">
-                                <rect key="frame" x="185" y="760" width="44" height="30"/>
+                                <rect key="frame" x="185" y="94" width="44" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Profile"/>
                                 <connections>
@@ -50,6 +50,7 @@
                         <viewLayoutGuide key="safeArea" id="ggf-lp-sol"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="zSN-N9-7Ev"/>
                     <connections>
                         <outlet property="logoutButton" destination="gfl-kb-CcD" id="eNb-IF-URp"/>
                         <outlet property="runViewButton" destination="h27-7R-8Fv" id="kS6-v1-stE"/>
@@ -58,7 +59,41 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uk8-L9-QJw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-100.00000000000001" y="49.553571428571423"/>
+            <point key="canvasLocation" x="-33" y="-390"/>
+        </scene>
+        <!--Item 2-->
+        <scene sceneID="5TL-xW-DYo">
+            <objects>
+                <viewController id="wW2-46-xqN" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="29O-FC-y3g">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="hsH-W3-1qs"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item 2" id="kjR-l3-ecc"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Rr7-mo-cNL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-32" y="256"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="eZh-44-QDJ">
+            <objects>
+                <tabBarController storyboardIdentifier="homeRoute" id="XWF-hW-rAD" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="w7S-p0-ox6">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="5OL-W5-HW4" kind="relationship" relationship="viewControllers" id="YVw-TE-ZMo"/>
+                        <segue destination="wW2-46-xqN" kind="relationship" relationship="viewControllers" id="oQP-zM-GLu"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TfB-PZ-3dD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1100" y="-159"/>
         </scene>
     </scenes>
     <resources>
