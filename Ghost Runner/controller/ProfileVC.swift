@@ -9,13 +9,19 @@ import Foundation
 import UIKit
 import MessageUI
 
-class ProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+// Need to figure out which information to put in table
+// Save profile picture
+// Add download link to social media posts
+// Add extensions
+class ProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource {
+    
     var navigation: Navigator?
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet var tapGestureRecognizer: UITapGestureRecognizer!
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var addCodeButton: UIButton!
     @IBOutlet weak var shareToSocialButton: UIButton!
+    @IBOutlet weak var infoTable: UITableView!
     
     let localStorage = LocalStorage()
     var user = ""
@@ -23,6 +29,12 @@ class ProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
     var image: UIImage?
     var addMessage = ""
     var shareMessage = ""
+    var tableInfo = [
+        "Recent runs:",
+        "Run 1",
+        "Run 2",
+        "Run 3"
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,11 +42,13 @@ class ProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         
         navigation = Navigator(currentViewController: self)
         
+        self.infoTable.delegate = self
+        self.infoTable.dataSource = self
         
         addCodeButton.layer.cornerRadius = 18
         shareToSocialButton.layer.cornerRadius = 18
-        profileImage.layer.masksToBounds = true
         profileImage.layer.cornerRadius = 70
+        profileImage.layer.masksToBounds = true
         
         // Allow profile image to be tapped to update it
         profileImage.addGestureRecognizer(tapGestureRecognizer)
@@ -103,6 +117,7 @@ class ProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         present(vc, animated: true, completion: nil)
     }
     
+    // Presents the user with social media apps. In the future this could post a download link to GhostRunner.
     // Possible issue here: If you don't have the social media apps then this just shows similar apps and is not really useful. Maybe that's acceptable?
     @IBAction func sharetoSocialButtonPress(_ sender: Any) {
         let vc = UIActivityViewController(activityItems: [self.shareMessage], applicationActivities: nil)
@@ -110,6 +125,17 @@ class ProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         present(vc, animated: true, completion: nil)
     }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 4
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = infoTable.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.textLabel?.text = self.tableInfo[indexPath.row]
+        cell.textLabel?.textColor = UIColor.white
+        
+        return cell
+    }
     
     @IBAction func homeButtonPress(_ sender: UIButton) {
         navigation?.goToHome()
