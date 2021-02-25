@@ -9,18 +9,20 @@ import Foundation
 import UIKit
 import MessageUI
 
-class ProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, MFMessageComposeViewControllerDelegate {
-
+class ProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     var navigation: Navigator?
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet var tapGestureRecognizer: UITapGestureRecognizer!
     @IBOutlet weak var userName: UILabel!
-    @IBOutlet weak var userID: UIButton!
+    @IBOutlet weak var addCodeButton: UIButton!
+    @IBOutlet weak var shareToSocialButton: UIButton!
     
     let localStorage = LocalStorage()
     var user = ""
     var uid = ""
     var image: UIImage?
+    var addMessage = ""
+    var shareMessage = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,25 +30,30 @@ class ProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         
         navigation = Navigator(currentViewController: self)
         
-        self.userID.layer.cornerRadius = 19
+        
+        addCodeButton.layer.cornerRadius = 18
+        shareToSocialButton.layer.cornerRadius = 18
         profileImage.layer.masksToBounds = true
         profileImage.layer.cornerRadius = 70
-        //profileImage.clipsToBounds = true
         
+        // Allow profile image to be tapped to update it
         profileImage.addGestureRecognizer(tapGestureRecognizer)
         
+        // Getting user info to display
         let userInfo = localStorage.getUser()
         
         self.user = userInfo.name
         self.uid = userInfo.uid
         self.userName.text = "\(user)"
-        //self.userID.setTitle("User ID: \(uid)", for: .normal)
+        self.addMessage = "Add your friend \(self.user) on GhostRunner using the following code: \(self.uid)"
+        self.shareMessage = "Try to beat my time on GhostRunner! Add me using the following code: \(self.uid)"
     }
-
+    
     @IBAction func tapProfileImage(_ sender: Any) {
         presentProfilePicActionSheet()
     }
     
+    // Provide options to either take a photo or select one from library
     func presentProfilePicActionSheet() {
         let actionSheet = UIAlertController(title: "Profile Picture", message: "Take a new photo or choose from your library", preferredStyle: .actionSheet)
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -74,8 +81,8 @@ class ProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         pc.allowsEditing = true
         present(pc, animated: true, completion: nil)
     }
-    // Can add UIImagePickerController.camera to allow user to take picture
     
+    // Here we can save and display the actual image information
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
             profileImage.image = image
@@ -89,23 +96,20 @@ class ProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         picker.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func userCodeButtonPress(_ sender: Any) {
-        let mf = MFMessageComposeViewController()
-        if !MFMessageComposeViewController.canSendText() {
-            print("SMS services are not available")
-            // add error message label
-            return
-        }
-        mf.messageComposeDelegate = self
-        mf.recipients = [] // Might have a way to autopopulate this
-        mf.body = "Add your friend \(self.user) on GhostRunner using the following code: \(self.uid)"
-        
-        present(mf, animated: true, completion: nil)
+    // Brings up the messaging options to send the add code
+    @IBAction func addCodeButtonPress(_ sender: Any) {
+        let vc = UIActivityViewController(activityItems: [self.addMessage], applicationActivities: nil)
+        vc.excludedActivityTypes = [.addToReadingList, .airDrop, .assignToContact, .markupAsPDF, .openInIBooks, .postToFacebook, .postToFlickr, .postToTencentWeibo, .postToTwitter, .postToVimeo, .postToWeibo, .saveToCameraRoll]
+        present(vc, animated: true, completion: nil)
     }
     
-    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
-        dismiss(animated: true, completion: nil)
+    // Possible issue here: If you don't have the social media apps then this just shows similar apps and is not really useful. Maybe that's acceptable?
+    @IBAction func sharetoSocialButtonPress(_ sender: Any) {
+        let vc = UIActivityViewController(activityItems: [self.shareMessage], applicationActivities: nil)
+        vc.excludedActivityTypes = [.addToReadingList, .airDrop, .assignToContact, .markupAsPDF, .openInIBooks, .postToFlickr, .postToTencentWeibo, .postToVimeo, .postToWeibo, .saveToCameraRoll, .message, .mail]
+        present(vc, animated: true, completion: nil)
     }
+    
     
     @IBAction func homeButtonPress(_ sender: UIButton) {
         navigation?.goToHome()
