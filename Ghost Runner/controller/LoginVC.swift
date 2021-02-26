@@ -25,7 +25,7 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
     var movies: [String] = ["apple-icon","fb-icon","google-icon"]
     var frame = CGRect.zero
     
-    var navigation: Navigator?;
+    var navigation: Navigator?
     
     var tester = Tester()
 
