@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Item-->
+        <!--Home-->
         <scene sceneID="zHJ-zp-0ze">
             <objects>
                 <viewController id="5OL-W5-HW4" customClass="HomeVC" customModule="Ghost_Runner" customModuleProvider="target" sceneMemberID="viewController">
@@ -50,7 +50,7 @@
                         <viewLayoutGuide key="safeArea" id="ggf-lp-sol"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="zSN-N9-7Ev"/>
+                    <tabBarItem key="tabBarItem" title="Home" image="map.fill" catalog="system" id="zSN-N9-7Ev"/>
                     <connections>
                         <outlet property="logoutButton" destination="gfl-kb-CcD" id="eNb-IF-URp"/>
                         <outlet property="runViewButton" destination="h27-7R-8Fv" id="kS6-v1-stE"/>
@@ -61,21 +61,28 @@
             </objects>
             <point key="canvasLocation" x="-33" y="-390"/>
         </scene>
-        <!--Item 2-->
+        <!--Friends-->
         <scene sceneID="5TL-xW-DYo">
             <objects>
-                <viewController id="wW2-46-xqN" sceneMemberID="viewController">
+                <viewController id="wW2-46-xqN" customClass="FriendVC" customModule="Ghost_Runner" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="29O-FC-y3g">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZDc-Ni-MeY">
+                                <rect key="frame" x="170" y="205" width="75" height="23"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button" image="person.fill.badge.plus" catalog="system"/>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="hsH-W3-1qs"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 2" id="kjR-l3-ecc"/>
+                    <tabBarItem key="tabBarItem" title="Friends" image="person.fill" catalog="system" id="kjR-l3-ecc"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rr7-mo-cNL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-32" y="256"/>
+            <point key="canvasLocation" x="-33.333333333333336" y="255.80357142857142"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="eZh-44-QDJ">
@@ -97,6 +104,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="map.fill" catalog="system" width="128" height="110"/>
+        <image name="person.fill" catalog="system" width="128" height="120"/>
+        <image name="person.fill.badge.plus" catalog="system" width="128" height="124"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

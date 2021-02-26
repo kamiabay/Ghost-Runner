@@ -13,10 +13,8 @@ import MessageUI
 // Save profile picture
 // Add download link to social media posts
 // Add extensions
-// test
 class ProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource {
-    // Removed UITableViewDelegate
-    var navigation: Navigator?
+    
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet var tapGestureRecognizer: UITapGestureRecognizer!
     @IBOutlet weak var userName: UILabel!
@@ -24,6 +22,7 @@ class ProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
     @IBOutlet weak var shareToSocialButton: UIButton!
     @IBOutlet weak var infoTable: UITableView!
     
+    var navigation: Navigator?
     let localStorage = LocalStorage()
     var user = ""
     var uid = ""
@@ -102,7 +101,10 @@ class ProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         if let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
             profileImage.image = image
             self.image = image
-           // let userDb = UserDb()
+        }
+        
+        if let imageURL = info[UIImagePickerController.InfoKey.imageURL] {
+            // SAVE IMAGE URL HERE
         }
         dismiss(animated: true, completion: nil)
     }
