@@ -55,7 +55,7 @@ class Navigator  {
     
     func goToHome() {
         let storyboard = UIStoryboard(name: "Home", bundle: nil)
-        guard let homeVC = storyboard.instantiateViewController(identifier: route.home) as? HomeVC else {
+        guard let homeVC = storyboard.instantiateViewController(identifier: route.home) as? UITabBarController else {
             assertionFailure("couldnt find this controller")
             return
         }
@@ -78,7 +78,6 @@ class Navigator  {
     }
     
     func goToProfileView()  {
-        
         let storyboard = UIStoryboard(name: "Profile", bundle: nil)
         guard let profileVC = storyboard.instantiateViewController(identifier: route.profile) as? ProfileVC else {
             assertionFailure("couldnt find this controller")
