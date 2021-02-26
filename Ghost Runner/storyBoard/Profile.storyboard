@@ -17,27 +17,131 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mu2-Ig-ui1">
-                                <rect key="frame" x="153" y="143" width="108" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Return to Home"/>
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="HQq-hl-k4y">
+                                <rect key="frame" x="137" y="89.5" width="140" height="139"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="140" id="OrP-vj-iIR"/>
+                                    <constraint firstAttribute="height" constant="140" id="fa8-Gg-3V3"/>
+                                </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="O8u-zc-GBy" appends="YES" id="h0f-Fw-jTJ"/>
+                                </connections>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mu2-Ig-ui1">
+                                <rect key="frame" x="339" y="44" width="50" height="34"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="bdU-SK-Hw8"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                <state key="normal" title="Done">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <connections>
                                     <action selector="homeButtonPress:" destination="4cF-N1-UP6" eventType="touchUpInside" id="wKN-p1-HgX"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6LG-Bx-ple">
+                                <rect key="frame" x="145" y="239" width="124.5" height="31.5"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zJs-mE-S7w">
+                                <rect key="frame" x="20" y="300.5" width="374" height="300"/>
+                                <color key="backgroundColor" systemColor="systemGray2Color"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="tAh-Is-3SI"/>
+                                </constraints>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="1Kg-bU-j4b">
+                                        <rect key="frame" x="0.0" y="28" width="374" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1Kg-bU-j4b" id="Csi-dG-vJ9">
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" systemColor="systemGray2Color"/>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="84a-Sx-qNw">
+                                <rect key="frame" x="20" y="630.5" width="374" height="55"/>
+                                <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="55" id="YtA-0M-fd4"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="21"/>
+                                <state key="normal" title="Send a friend your add code">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="addCodeButtonPress:" destination="4cF-N1-UP6" eventType="touchUpInside" id="k6O-BM-PoU"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WXS-Su-ziV">
+                                <rect key="frame" x="20" y="700.5" width="374" height="55"/>
+                                <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="21"/>
+                                <state key="normal" title="Share to social media">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="sharetoSocialButtonPress:" destination="4cF-N1-UP6" eventType="touchUpInside" id="4bI-3T-t5R"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="sTd-WZ-6Ic"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="6LG-Bx-ple" firstAttribute="top" secondItem="HQq-hl-k4y" secondAttribute="bottom" constant="10" id="0eH-lR-2KC"/>
+                            <constraint firstItem="WXS-Su-ziV" firstAttribute="leading" secondItem="sTd-WZ-6Ic" secondAttribute="leading" constant="20" id="6jL-Vy-eEM"/>
+                            <constraint firstItem="WXS-Su-ziV" firstAttribute="height" secondItem="84a-Sx-qNw" secondAttribute="height" id="BKR-Kt-flj"/>
+                            <constraint firstItem="HQq-hl-k4y" firstAttribute="top" secondItem="sTd-WZ-6Ic" secondAttribute="top" constant="45" id="CQB-AD-o3J"/>
+                            <constraint firstItem="sTd-WZ-6Ic" firstAttribute="trailing" secondItem="WXS-Su-ziV" secondAttribute="trailing" constant="20" id="EfG-4x-IkR"/>
+                            <constraint firstItem="Mu2-Ig-ui1" firstAttribute="top" secondItem="sTd-WZ-6Ic" secondAttribute="top" id="F4s-KG-0bd"/>
+                            <constraint firstItem="sTd-WZ-6Ic" firstAttribute="trailing" secondItem="Mu2-Ig-ui1" secondAttribute="trailing" constant="25" id="Mka-DV-emP"/>
+                            <constraint firstItem="sTd-WZ-6Ic" firstAttribute="trailing" secondItem="84a-Sx-qNw" secondAttribute="trailing" constant="20" id="NIh-1M-qYI"/>
+                            <constraint firstItem="WXS-Su-ziV" firstAttribute="top" secondItem="84a-Sx-qNw" secondAttribute="bottom" constant="15" id="Qo4-rZ-uhC"/>
+                            <constraint firstItem="zJs-mE-S7w" firstAttribute="top" secondItem="6LG-Bx-ple" secondAttribute="bottom" constant="30" id="dlA-zA-kpf"/>
+                            <constraint firstItem="84a-Sx-qNw" firstAttribute="top" secondItem="zJs-mE-S7w" secondAttribute="bottom" constant="30" id="gfo-80-A0n"/>
+                            <constraint firstItem="6LG-Bx-ple" firstAttribute="centerX" secondItem="DJO-Fc-OAa" secondAttribute="centerX" id="hTH-xq-n7d"/>
+                            <constraint firstItem="84a-Sx-qNw" firstAttribute="leading" secondItem="DJO-Fc-OAa" secondAttribute="leading" constant="20" id="hjZ-QN-CXv"/>
+                            <constraint firstItem="sTd-WZ-6Ic" firstAttribute="trailing" secondItem="zJs-mE-S7w" secondAttribute="trailing" constant="20" id="oEm-IS-xTA"/>
+                            <constraint firstItem="zJs-mE-S7w" firstAttribute="leading" secondItem="sTd-WZ-6Ic" secondAttribute="leading" constant="20" id="xBu-03-G4n"/>
+                            <constraint firstItem="HQq-hl-k4y" firstAttribute="centerX" secondItem="DJO-Fc-OAa" secondAttribute="centerX" id="zhN-0f-saM"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="addCodeButton" destination="84a-Sx-qNw" id="fKh-5I-9MU"/>
+                        <outlet property="infoTable" destination="zJs-mE-S7w" id="45j-3h-Ni9"/>
+                        <outlet property="profileImage" destination="HQq-hl-k4y" id="eha-gl-ctv"/>
+                        <outlet property="shareToSocialButton" destination="WXS-Su-ziV" id="DcR-WH-Azg"/>
+                        <outlet property="tapGestureRecognizer" destination="O8u-zc-GBy" id="Vbp-9u-BqZ"/>
+                        <outlet property="userName" destination="6LG-Bx-ple" id="1Qa-bw-C8h"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FZ0-Yn-kGY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="O8u-zc-GBy">
+                    <connections>
+                        <action selector="tapProfileImage:" destination="4cF-N1-UP6" id="cJG-ch-27V"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="10" y="110"/>
+            <point key="canvasLocation" x="8.6956521739130448" y="109.82142857142857"/>
         </scene>
     </scenes>
     <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        <image name="person.circle" catalog="system" width="128" height="121"/>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGray2Color">
+            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
