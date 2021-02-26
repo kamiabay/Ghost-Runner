@@ -14,7 +14,7 @@ import MessageUI
 // Add download link to social media posts
 // Add extensions
 class ProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource {
-    
+    // Removed UITableViewDelegate
     var navigation: Navigator?
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet var tapGestureRecognizer: UITapGestureRecognizer!
