@@ -565,14 +565,30 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = B9KQ2YN3UL;
+<<<<<<< HEAD
+<<<<<<< HEAD
+				DEVELOPMENT_TEAM = 32ZQY2PA9J;
+=======
+				DEVELOPMENT_TEAM = AZ89PYB479;
+>>>>>>> f98a1e85c43884ca9b384e60145cf1aa76eb2445
+=======
+				DEVELOPMENT_TEAM = AZ89PYB479;
+>>>>>>> f98a1e85c43884ca9b384e60145cf1aa76eb2445
 				INFOPLIST_FILE = "Ghost Runner/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Runner.Ghost-Runner.Nikita";
+<<<<<<< HEAD
+<<<<<<< HEAD
+				PRODUCT_BUNDLE_IDENTIFIER = "Runner.Ghost-Runner";
+=======
+				PRODUCT_BUNDLE_IDENTIFIER = RunningFromGhosts;
+>>>>>>> f98a1e85c43884ca9b384e60145cf1aa76eb2445
+=======
+				PRODUCT_BUNDLE_IDENTIFIER = RunningFromGhosts;
+>>>>>>> f98a1e85c43884ca9b384e60145cf1aa76eb2445
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -586,14 +602,30 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = B9KQ2YN3UL;
+<<<<<<< HEAD
+<<<<<<< HEAD
+				DEVELOPMENT_TEAM = 32ZQY2PA9J;
+=======
+				DEVELOPMENT_TEAM = AZ89PYB479;
+>>>>>>> f98a1e85c43884ca9b384e60145cf1aa76eb2445
+=======
+				DEVELOPMENT_TEAM = AZ89PYB479;
+>>>>>>> f98a1e85c43884ca9b384e60145cf1aa76eb2445
 				INFOPLIST_FILE = "Ghost Runner/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Runner.Ghost-Runner.Nikita";
+<<<<<<< HEAD
+<<<<<<< HEAD
+				PRODUCT_BUNDLE_IDENTIFIER = "Runner.Ghost-Runner";
+=======
+				PRODUCT_BUNDLE_IDENTIFIER = RunningFromGhosts;
+>>>>>>> f98a1e85c43884ca9b384e60145cf1aa76eb2445
+=======
+				PRODUCT_BUNDLE_IDENTIFIER = RunningFromGhosts;
+>>>>>>> f98a1e85c43884ca9b384e60145cf1aa76eb2445
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
