@@ -13,7 +13,6 @@ import MessageUI
 // Save profile picture
 // Add download link to social media posts
 // Add extensions
-// test
 class ProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource {
     // Removed UITableViewDelegate
     var navigation: Navigator?

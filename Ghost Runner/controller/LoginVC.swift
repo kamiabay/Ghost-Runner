@@ -84,22 +84,20 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
         // TODO: SAVE USER IN LOCAL STORAGE
         let email = emailField.text ?? ""
         let password = passwordField.text ?? ""
-        
+
         Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
             guard self != nil else { return }
-            
+
             if error != nil {
                 print(error as Any)
                 return
             }
-            
+
             if let user = authResult?.user {
-                LocalStorage.init(name: "kami", uid: user.uid);
+                LocalStorage.init(name: user.displayName ?? "kami", uid: user.uid);
                 self?.navigation?.goToHome()
             }
-        
-            
-          
+
         }
     }
     

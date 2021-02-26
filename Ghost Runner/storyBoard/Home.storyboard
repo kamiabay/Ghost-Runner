@@ -64,7 +64,7 @@
         <!--Item 2-->
         <scene sceneID="5TL-xW-DYo">
             <objects>
-                <viewController id="wW2-46-xqN" sceneMemberID="viewController">
+                <viewController id="wW2-46-xqN" customClass="FriendVC" customModule="Ghost_Runner" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="29O-FC-y3g">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
