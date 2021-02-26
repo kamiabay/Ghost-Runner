@@ -142,13 +142,13 @@ class RunVC: UIViewController {
         //runCalculation?.updateOwnRunAndGetOpponentLocation(runSnapshot: snap)
             let gps = GPS(locationManager: locationManager);
         
-            // if stationary dont update anything
+            // if stationarty dont update anything
             if(!isUserMoving(locationManager: locationManager)) {return} // NEEDS TESTING
         
             runCalculation?.updateOwnRunAndGetOpponentLocation(runSnapshot: RunSnapshot(gps: gps))
             updateOwnPolyLine()
             updateOpponentLocation()
-            centerMapToCurrentLocation() // LOCKS THE USER TO ONLY THAT LOCATION, i.e CANT ZOOM OUT/IN
+            centerMapToCurrentLocation() // LOCK THE USER TO ONLY THAT LOCATION , CANT ZOOM OUT/IN
     }
 
     

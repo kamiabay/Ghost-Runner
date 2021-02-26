@@ -14,7 +14,7 @@ class HomeVC: UIViewController {
     
     var runList = [Run](); // EMPTYLIST ?
     let db = DB(); // THE USER MUST BE SAVED ON THE LOCAL STORAGE BEFORE THIS
-    var navigation: Navigator?;
+    var navigation: Navigator?
     var totalRuns: Int? = 0
     let locationManager = CLLocationManager()
     
