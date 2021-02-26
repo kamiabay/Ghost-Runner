@@ -49,12 +49,11 @@ class MemoryTargetCache : public TargetCache {
 
   absl::optional<TargetData> GetTarget(const core::Target& target) override;
 
-  void EnumerateSequenceNumbers(
-      const SequenceNumberCallback& callback) override;
+  void EnumerateTargets(const TargetCallback& callback) override;
 
-  size_t RemoveTargets(model::ListenSequenceNumber upper_bound,
-                       const std::unordered_map<model::TargetId, TargetData>&
-                           live_targets) override;
+  int RemoveTargets(model::ListenSequenceNumber upper_bound,
+                    const std::unordered_map<model::TargetId, TargetData>&
+                        live_targets) override;
 
   // Key-related methods
   void AddMatchingKeys(const model::DocumentKeySet& keys,

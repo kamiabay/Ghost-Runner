@@ -11,8 +11,9 @@ target 'Ghost Runner' do
 pod 'Firebase'
 pod 'Firebase/Storage'
 pod 'Firebase/Auth'
-pod 'Firebase/Firestore'
+pod 'GoogleSignIn'
 pod 'FirebaseFirestoreSwift'
+
 
 # add pods for any other desired Firebase products
 # https://firebase.google.com/docs/ios/setup#available-pods

@@ -41,8 +41,10 @@ void WriteBatch::SetData(const DocumentReference& reference,
   VerifyNotCommitted();
   ValidateReference(reference);
 
-  mutations_.push_back(std::move(set_data).ToMutation(
-      reference.key(), model::Precondition::None()));
+  std::vector<Mutation> append_mutations = std::move(set_data).ToMutations(
+      reference.key(), model::Precondition::None());
+  std::move(append_mutations.begin(), append_mutations.end(),
+            std::back_inserter(mutations_));
 }
 
 void WriteBatch::UpdateData(const DocumentReference& reference,
@@ -50,9 +52,11 @@ void WriteBatch::UpdateData(const DocumentReference& reference,
   VerifyNotCommitted();
   ValidateReference(reference);
 
-  mutations_.push_back(
+  std::vector<Mutation> append_mutations =
       std::move(update_data)
-          .ToMutation(reference.key(), model::Precondition::Exists(true)));
+          .ToMutations(reference.key(), model::Precondition::Exists(true));
+  std::move(append_mutations.begin(), append_mutations.end(),
+            std::back_inserter(mutations_));
 }
 
 void WriteBatch::DeleteData(const DocumentReference& reference) {

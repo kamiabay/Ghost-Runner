@@ -286,6 +286,7 @@
 				3C4D6BDF25D5D1C2009CEBE1 /* Frameworks */,
 				3C4D6BE025D5D1C2009CEBE1 /* Resources */,
 				807E9F55720D95E1027B5DB5 /* [CP] Embed Pods Frameworks */,
+				910D23AF4D777BF849547F30 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -385,6 +386,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Ghost Runner/Pods-Ghost Runner-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		910D23AF4D777BF849547F30 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Ghost Runner/Pods-Ghost Runner-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Ghost Runner/Pods-Ghost Runner-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Ghost Runner/Pods-Ghost Runner-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -566,7 +584,6 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 32ZQY2PA9J;
-
 				INFOPLIST_FILE = "Ghost Runner/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -588,7 +605,6 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 32ZQY2PA9J;
-
 				INFOPLIST_FILE = "Ghost Runner/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -596,7 +612,6 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Runner.Ghost-Runner";
-
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

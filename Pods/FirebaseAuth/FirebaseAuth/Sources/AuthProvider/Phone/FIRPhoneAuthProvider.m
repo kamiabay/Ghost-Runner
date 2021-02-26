@@ -20,6 +20,7 @@
 #import "FirebaseAuth/Sources/Public/FirebaseAuth/FIRAuthSettings.h"
 #import "FirebaseAuth/Sources/Public/FirebaseAuth/FIRMultiFactorResolver.h"
 #import "FirebaseAuth/Sources/Public/FirebaseAuth/FIRPhoneAuthProvider.h"
+#import "FirebaseAuth/Sources/Public/FirebaseAuth/FirebaseAuthVersion.h"
 #import "FirebaseCore/Sources/Private/FirebaseCoreInternal.h"
 
 #import "FirebaseAuth/Sources/Auth/FIRAuthGlobalWorkQueue.h"
@@ -104,12 +105,6 @@ extern NSString *const FIRPhoneMultiFactorID;
       @brief The callback URL scheme used for reCAPTCHA fallback.
    */
   NSString *_callbackScheme;
-
-  /** @var _usingClientIDScheme
-      @brief True if the reverse client ID is registered as a custom URL scheme, and false
-     otherwise.
-   */
-  BOOL _usingClientIDScheme;
 }
 
 /** @fn initWithAuth:
@@ -122,15 +117,9 @@ extern NSString *const FIRPhoneMultiFactorID;
   if (self) {
     _auth = auth;
     if (_auth.app.options.clientID) {
-      NSString *reverseClientIDScheme =
-          [[[_auth.app.options.clientID componentsSeparatedByString:@"."]
-               reverseObjectEnumerator].allObjects componentsJoinedByString:@"."];
-      if ([FIRAuthWebUtils isCallbackSchemeRegisteredForCustomURLScheme:reverseClientIDScheme]) {
-        _callbackScheme = reverseClientIDScheme;
-        _usingClientIDScheme = YES;
-      }
-    }
-    if (!_usingClientIDScheme) {
+      _callbackScheme = [[[_auth.app.options.clientID componentsSeparatedByString:@"."]
+                             reverseObjectEnumerator].allObjects componentsJoinedByString:@"."];
+    } else {
       _callbackScheme = [kCustomUrlSchemePrefix
           stringByAppendingString:[_auth.app.options.googleAppID
                                       stringByReplacingOccurrencesOfString:@":"
@@ -711,7 +700,7 @@ extern NSString *const FIRPhoneMultiFactorID;
                                                        value:[FIRAuthBackend authUserAgent]],
                                        [NSURLQueryItem queryItemWithName:@"eventId" value:eventID]
                                      ] mutableCopy];
-                                     if (self->_usingClientIDScheme) {
+                                     if (clientID) {
                                        [queryItems
                                            addObject:[NSURLQueryItem queryItemWithName:@"clientId"
                                                                                  value:clientID]];

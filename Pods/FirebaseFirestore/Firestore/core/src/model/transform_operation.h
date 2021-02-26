@@ -34,7 +34,7 @@ namespace firestore {
 namespace model {
 
 /**
- * Represents a field transform on a mutation.
+ * Represents a transform within a TransformMutation.
  *
  * Note: TransformOperation and its subclasses are specially designed to avoid
  * slicing. You can assign a subclass of TransformOperation to an instance of
@@ -69,7 +69,7 @@ class TransformOperation {
  private:
   // TODO(b/146372592): Make this public once we can use Abseil across
   // iOS/public C++ library boundaries.
-  friend class Mutation;
+  friend class TransformMutation;
 
   /**
    * Computes the local transform result against the provided `previous_value`,

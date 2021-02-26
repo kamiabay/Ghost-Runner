@@ -329,10 +329,6 @@ int32_t SaturatedLimitValue(NSInteger limit) {
         return [self queryWhereField:path isGreaterThanOrEqualTo:value];
       case NSNotEqualToPredicateOperatorType:
         return [self queryWhereField:path isNotEqualTo:value];
-      case NSContainsPredicateOperatorType:
-        return [self queryWhereField:path arrayContains:value];
-      case NSInPredicateOperatorType:
-        return [self queryWhereField:path in:value];
       default:;  // Fallback below to throw assertion.
     }
   } else if ([comparison.leftExpression expressionType] == NSConstantValueExpressionType &&
@@ -352,10 +348,6 @@ int32_t SaturatedLimitValue(NSInteger limit) {
         return [self queryWhereField:path isLessThanOrEqualTo:value];
       case NSNotEqualToPredicateOperatorType:
         return [self queryWhereField:path isNotEqualTo:value];
-      case NSContainsPredicateOperatorType:
-        return [self queryWhereField:path arrayContains:value];
-      case NSInPredicateOperatorType:
-        return [self queryWhereField:path in:value];
       default:;  // Fallback below to throw assertion.
     }
   } else {

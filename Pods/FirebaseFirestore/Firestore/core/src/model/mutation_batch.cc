@@ -74,7 +74,8 @@ absl::optional<MaybeDocument> MutationBatch::ApplyToLocalDocument(
   // transform against a consistent set of values.
   for (const Mutation& mutation : base_mutations_) {
     if (mutation.key() == document_key) {
-      maybe_doc = mutation.ApplyToLocalView(maybe_doc, local_write_time_);
+      maybe_doc =
+          mutation.ApplyToLocalView(maybe_doc, maybe_doc, local_write_time_);
     }
   }
 
@@ -83,7 +84,8 @@ absl::optional<MaybeDocument> MutationBatch::ApplyToLocalDocument(
   // Second, apply all user-provided mutations.
   for (const Mutation& mutation : mutations_) {
     if (mutation.key() == document_key) {
-      maybe_doc = mutation.ApplyToLocalView(maybe_doc, local_write_time_);
+      maybe_doc =
+          mutation.ApplyToLocalView(maybe_doc, base_doc, local_write_time_);
     }
   }
   return maybe_doc;

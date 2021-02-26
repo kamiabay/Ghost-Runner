@@ -16,14 +16,29 @@
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.761185489882-8gcko262qke15p7bk5cfujkukepfe912</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Please allow camera access to take your profile picture</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Need GPS to track your run</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Need GPS to track your run</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Pleas allow photo library access to choose your profile picture</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -73,9 +88,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSCameraUsageDescription</key>
-	<string>Please allow camera access to take your profile picture</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Pleas allow photo library access to choose your profile picture</string>
 </dict>
 </plist>

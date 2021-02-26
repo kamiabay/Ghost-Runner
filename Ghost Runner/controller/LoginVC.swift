@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import Firebase
+import GoogleSignIn
 
 class LoginVC: UIViewController, UIScrollViewDelegate {
     
@@ -21,6 +22,8 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
     
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
+    
+    @IBOutlet weak var googleSignInButton: GIDSignInButton!
     
     var movies: [String] = ["apple-icon","fb-icon","google-icon"]
     var frame = CGRect.zero
@@ -37,9 +40,10 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
         
         
         navigation = Navigator(currentViewController: self)
-        checkIfUserExist();
+//        checkIfUserExist();
         
-        
+        GIDSignIn.sharedInstance()?.presentingViewController = self
+       
         navigation?.currentViewController?.navigationController?.navigationBar.isHidden = true
 
         let tapGesture = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
@@ -62,6 +66,17 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
         self.view.layer.insertSublayer(gradientLayer, at:0)
     }
     
+    func signIn(signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!,
+      withError error: NSError!) {
+//        GIDSignIn.sharedInstance().signIn()
+
+        if (error == nil) {
+          // Perform any operations on signed in user here.
+          // ...
+        } else {
+          print("\(error.localizedDescription)")
+        }
+    }
     func checkIfUserExist() {
         print(LocalStorage().getUser().toJSON())
         print(LocalStorage().userExist())
@@ -77,7 +92,9 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
     
 
     @IBAction func signUp() {
-        navigation?.goToSignUp()
+        GIDSignIn.sharedInstance().signIn()
+
+       // navigation?.goToSignUp()
     }
     
     @IBAction func loginWithEmail() {

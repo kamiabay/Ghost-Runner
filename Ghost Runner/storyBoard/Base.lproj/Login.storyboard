@@ -101,6 +101,10 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qga-3X-1xb" customClass="GIDSignInButton">
+                                <rect key="frame" x="103" y="850" width="213" height="42"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -125,6 +129,7 @@
                             <constraint firstItem="IYQ-kl-gFl" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" id="iwv-Z6-vII"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="7WM-nf-n0i" secondAttribute="trailing" constant="20" id="jWw-Gj-zJR"/>
                             <constraint firstItem="ukM-TL-7Bh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="kqr-8B-5YL"/>
+                            <constraint firstAttribute="bottom" secondItem="Qga-3X-1xb" secondAttribute="bottom" constant="34" id="phK-C4-SeC"/>
                             <constraint firstItem="bYR-ez-dZn" firstAttribute="width" secondItem="FB0-Es-XPe" secondAttribute="width" id="tpc-VD-wee"/>
                             <constraint firstItem="7WM-nf-n0i" firstAttribute="height" secondItem="FB0-Es-XPe" secondAttribute="height" id="xjU-54-Tkr"/>
                             <constraint firstItem="c3p-PR-fla" firstAttribute="top" secondItem="ukM-TL-7Bh" secondAttribute="bottom" constant="8" symbolic="YES" id="yI8-Uf-IIb"/>
@@ -137,6 +142,7 @@
                         <outlet property="emailField" destination="u0M-Yg-Loy" id="Mrk-hs-GMV"/>
                         <outlet property="facebookLoginButton" destination="FB0-Es-XPe" id="Brk-SC-3Ng"/>
                         <outlet property="googleLoginButton" destination="bYR-ez-dZn" id="N79-Rm-cfM"/>
+                        <outlet property="googleSignInButton" destination="Qga-3X-1xb" id="x23-xL-0uy"/>
                         <outlet property="loginButton" destination="IYQ-kl-gFl" id="SZn-D7-Wq4"/>
                         <outlet property="pageControl" destination="hdI-oG-U4z" id="JII-jY-F5b"/>
                         <outlet property="passwordField" destination="ukM-TL-7Bh" id="mzO-Tg-R0S"/>
@@ -171,6 +177,9 @@
         <image name="apple-icon" width="112.5" height="112.5"/>
         <image name="fb-icon" width="308.5" height="268.5"/>
         <image name="google-icon" width="250" height="250"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemGreenColor">
             <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
