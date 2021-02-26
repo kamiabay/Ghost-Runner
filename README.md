@@ -40,8 +40,6 @@ General Responsibilities:
 
 ### Profile Links:
 
-Dylan:
-
 | Member | LinkedIn | Github |
 |:------:|:--------:|:------:|
 |  Dylan | https://www.linkedin.com/in/dylanalong1/ | https://github.com/dylanalong |
