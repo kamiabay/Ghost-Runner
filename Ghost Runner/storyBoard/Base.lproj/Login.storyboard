@@ -5,7 +5,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -17,137 +16,61 @@
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="——— or ——— " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nmq-dW-Ki1">
-                                <rect key="frame" x="145" y="760" width="138" height="24"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IYQ-kl-gFl">
-                                <rect key="frame" x="20" y="718" width="388" height="34"/>
-                                <color key="backgroundColor" systemColor="systemGreenColor"/>
-                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="18"/>
-                                <inset key="imageEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="LOGIN">
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="hdI-oG-U4z">
+                                <rect key="frame" x="153" y="749" width="122" height="28"/>
+                            </pageControl>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zZC-qR-YFE">
+                                <rect key="frame" x="164.66666666666666" y="862" width="98.999999999999972" height="30"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                <state key="normal" title="Other options">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="loginWithEmail" destination="BYZ-38-t0r" eventType="touchUpInside" id="F9Q-uQ-yU3"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FB0-Es-XPe">
-                                <rect key="frame" x="20" y="792" width="124" height="50"/>
-                                <color key="backgroundColor" red="0.11784005910000001" green="0.29662424329999998" blue="0.53727960590000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="18"/>
-                                <inset key="imageEdgeInsets" minX="20" minY="-5" maxX="20" maxY="-5"/>
-                                <state key="normal" image="fb-icon">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="loginWithFacebook" destination="BYZ-38-t0r" eventType="touchUpInside" id="QOB-Zq-tFL"/>
+                                    <action selector="bringUpOptions" destination="BYZ-38-t0r" eventType="touchUpInside" id="fTj-bz-9LL"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bYR-ez-dZn">
-                                <rect key="frame" x="152" y="792" width="124" height="50"/>
+                                <rect key="frame" x="20" y="797" width="388" height="45"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="aur-k5-THP"/>
+                                    <constraint firstAttribute="height" constant="45" id="6UN-ym-rjd"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="18"/>
-                                <inset key="imageEdgeInsets" minX="20" minY="-15" maxX="20" maxY="-15"/>
-                                <state key="normal" image="google-icon"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="   Sign in with Google" image="google">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <connections>
                                     <action selector="loginWithGoogle" destination="BYZ-38-t0r" eventType="touchUpInside" id="mYK-oL-mgy"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7WM-nf-n0i">
-                                <rect key="frame" x="284" y="792" width="124" height="50"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="18"/>
-                                <inset key="imageEdgeInsets" minX="35" minY="0.0" maxX="35" maxY="5"/>
-                                <state key="normal" image="apple-icon">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="loginWithApple" destination="BYZ-38-t0r" eventType="touchUpInside" id="uex-Y0-kFh"/>
-                                </connections>
-                            </button>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NT9-uH-aYZ">
-                                <rect key="frame" x="14" y="88" width="388" height="464"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NT9-uH-aYZ">
+                                <rect key="frame" x="20" y="88" width="388" height="653"/>
                                 <viewLayoutGuide key="contentLayoutGuide" id="0KK-4f-buj"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="2Na-Ha-vRG"/>
                             </scrollView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c3p-PR-fla">
-                                <rect key="frame" x="242" y="680" width="166" height="30"/>
-                                <state key="normal" title="First time user? Sign up.">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="signUp" destination="BYZ-38-t0r" eventType="touchUpInside" id="1Ln-UU-yML"/>
-                                </connections>
-                            </button>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ukM-TL-7Bh">
-                                <rect key="frame" x="20" y="638" width="388" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <pageControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="hdI-oG-U4z">
-                                <rect key="frame" x="154" y="560" width="122" height="28"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </pageControl>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="u0M-Yg-Loy">
-                                <rect key="frame" x="20" y="596" width="388" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qga-3X-1xb" customClass="GIDSignInButton">
-                                <rect key="frame" x="103" y="850" width="213" height="42"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="ukM-TL-7Bh" firstAttribute="top" secondItem="u0M-Yg-Loy" secondAttribute="bottom" constant="8" symbolic="YES" id="0Fm-L9-n0Z"/>
-                            <constraint firstItem="7WM-nf-n0i" firstAttribute="width" secondItem="FB0-Es-XPe" secondAttribute="width" id="1w5-2l-Z48"/>
-                            <constraint firstItem="bYR-ez-dZn" firstAttribute="leading" secondItem="FB0-Es-XPe" secondAttribute="trailing" constant="8" symbolic="YES" id="2nw-QJ-nAx"/>
-                            <constraint firstItem="u0M-Yg-Loy" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="7bm-Lr-O3g"/>
-                            <constraint firstItem="FB0-Es-XPe" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="9gG-gU-dpu"/>
-                            <constraint firstItem="IYQ-kl-gFl" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Ayt-tC-f0S"/>
-                            <constraint firstItem="IYQ-kl-gFl" firstAttribute="top" secondItem="c3p-PR-fla" secondAttribute="bottom" constant="8" symbolic="YES" id="CVw-cg-nBa"/>
-                            <constraint firstItem="u0M-Yg-Loy" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="MkU-6c-2XM"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="FB0-Es-XPe" secondAttribute="bottom" constant="50" id="PoE-Pz-Vxi"/>
-                            <constraint firstItem="nmq-dW-Ki1" firstAttribute="top" secondItem="IYQ-kl-gFl" secondAttribute="bottom" constant="8" symbolic="YES" id="Vxa-G7-12N"/>
-                            <constraint firstItem="bYR-ez-dZn" firstAttribute="height" secondItem="FB0-Es-XPe" secondAttribute="height" id="YTS-xT-hvR"/>
-                            <constraint firstItem="7WM-nf-n0i" firstAttribute="leading" secondItem="bYR-ez-dZn" secondAttribute="trailing" constant="8" symbolic="YES" id="ce7-31-vxW"/>
-                            <constraint firstItem="nmq-dW-Ki1" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="cmU-F9-Px4"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="c3p-PR-fla" secondAttribute="trailing" constant="20" id="dFG-jG-Gb5"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="7WM-nf-n0i" secondAttribute="bottom" constant="50" id="esi-E8-5jT"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="bYR-ez-dZn" secondAttribute="bottom" constant="50" id="hDe-2z-UWG"/>
-                            <constraint firstItem="bYR-ez-dZn" firstAttribute="top" secondItem="nmq-dW-Ki1" secondAttribute="bottom" constant="8" symbolic="YES" id="hQ6-uZ-lVA"/>
-                            <constraint firstItem="IYQ-kl-gFl" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" id="iwv-Z6-vII"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="7WM-nf-n0i" secondAttribute="trailing" constant="20" id="jWw-Gj-zJR"/>
-                            <constraint firstItem="ukM-TL-7Bh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="kqr-8B-5YL"/>
-                            <constraint firstAttribute="bottom" secondItem="Qga-3X-1xb" secondAttribute="bottom" constant="34" id="phK-C4-SeC"/>
-                            <constraint firstItem="bYR-ez-dZn" firstAttribute="width" secondItem="FB0-Es-XPe" secondAttribute="width" id="tpc-VD-wee"/>
-                            <constraint firstItem="7WM-nf-n0i" firstAttribute="height" secondItem="FB0-Es-XPe" secondAttribute="height" id="xjU-54-Tkr"/>
-                            <constraint firstItem="c3p-PR-fla" firstAttribute="top" secondItem="ukM-TL-7Bh" secondAttribute="bottom" constant="8" symbolic="YES" id="yI8-Uf-IIb"/>
-                            <constraint firstItem="ukM-TL-7Bh" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="zou-1i-2oP"/>
+                            <constraint firstItem="bYR-ez-dZn" firstAttribute="top" secondItem="hdI-oG-U4z" secondAttribute="bottom" constant="20" id="9QO-lj-929"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="NT9-uH-aYZ" secondAttribute="trailing" constant="20" id="L6q-a7-VIx"/>
+                            <constraint firstItem="bYR-ez-dZn" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="SRX-OL-Db8"/>
+                            <constraint firstItem="zZC-qR-YFE" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="Stu-75-q0Q"/>
+                            <constraint firstItem="hdI-oG-U4z" firstAttribute="top" secondItem="NT9-uH-aYZ" secondAttribute="bottom" constant="8" symbolic="YES" id="UmK-05-TYU"/>
+                            <constraint firstItem="bYR-ez-dZn" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="VYu-6C-Ywx"/>
+                            <constraint firstItem="NT9-uH-aYZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="eVP-ik-rEr"/>
+                            <constraint firstItem="hdI-oG-U4z" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="gdB-x2-Rc4"/>
+                            <constraint firstItem="NT9-uH-aYZ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="iWk-jr-JHT"/>
+                            <constraint firstItem="zZC-qR-YFE" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="sam-Qb-nYQ"/>
+                            <constraint firstItem="zZC-qR-YFE" firstAttribute="top" secondItem="bYR-ez-dZn" secondAttribute="bottom" constant="20" id="tRp-7l-frZ"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Qse-eC-Jau"/>
                     <connections>
-                        <outlet property="appleLoginButton" destination="7WM-nf-n0i" id="CfG-VN-0WN"/>
-                        <outlet property="emailField" destination="u0M-Yg-Loy" id="Mrk-hs-GMV"/>
-                        <outlet property="facebookLoginButton" destination="FB0-Es-XPe" id="Brk-SC-3Ng"/>
                         <outlet property="googleLoginButton" destination="bYR-ez-dZn" id="N79-Rm-cfM"/>
-                        <outlet property="googleSignInButton" destination="Qga-3X-1xb" id="x23-xL-0uy"/>
-                        <outlet property="loginButton" destination="IYQ-kl-gFl" id="SZn-D7-Wq4"/>
                         <outlet property="pageControl" destination="hdI-oG-U4z" id="JII-jY-F5b"/>
-                        <outlet property="passwordField" destination="ukM-TL-7Bh" id="mzO-Tg-R0S"/>
                         <outlet property="scrollView" destination="NT9-uH-aYZ" id="KbT-kZ-izl"/>
-                        <outlet property="signUpButton" destination="c3p-PR-fla" id="Jz9-v0-VgM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -174,14 +97,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="apple-icon" width="112.5" height="112.5"/>
-        <image name="fb-icon" width="308.5" height="268.5"/>
-        <image name="google-icon" width="250" height="250"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemGreenColor">
-            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
+        <image name="google" width="18" height="18"/>
     </resources>
 </document>

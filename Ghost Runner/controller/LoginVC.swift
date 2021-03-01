@@ -12,20 +12,16 @@ import GoogleSignIn
 
 class LoginVC: UIViewController, UIScrollViewDelegate {
     
-    @IBOutlet weak var signUpButton: UIButton!
-    @IBOutlet weak var loginButton: UIButton!
-    @IBOutlet weak var appleLoginButton: UIButton!
+//    @IBOutlet weak var signUpButton: UIButton!
+//    @IBOutlet weak var loginButton: UIButton!
+//    @IBOutlet weak var appleLoginButton: UIButton!
+    
     @IBOutlet weak var googleLoginButton: UIButton!
-    @IBOutlet weak var facebookLoginButton: UIButton!
+    
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var pageControl: UIPageControl!
     
-    @IBOutlet weak var emailField: UITextField!
-    @IBOutlet weak var passwordField: UITextField!
-    
-    @IBOutlet weak var googleSignInButton: GIDSignInButton!
-    
-    var movies: [String] = ["apple-icon","fb-icon","google-icon"]
+    var movies: [String] = ["google-icon","apple-icon","fb-icon"]
     var frame = CGRect.zero
     
     var navigation: Navigator?
@@ -33,50 +29,119 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
     var tester = Tester()
 
     let gradientLayer = CAGradientLayer()
-    let rad: CGFloat = 10.0
+    let rad: CGFloat = 20.0
+     
+    var containerView = UIView()
+    var slideUpView = UIView()
+    var loginButton = UIButton()
+    var appleButton = UIButton()
+//    @IBOutlet weak var slideUpView: UIView!
+    
+    let slideUpViewHeight: CGFloat = 200
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         navigation = Navigator(currentViewController: self)
+        navigation?.currentViewController?.navigationController?.navigationBar.isHidden = true
 //        checkIfUserExist();
         
         GIDSignIn.sharedInstance()?.presentingViewController = self
-       
-        navigation?.currentViewController?.navigationController?.navigationBar.isHidden = true
 
         let tapGesture = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tapGesture)
         
-        emailField.setIcon(#imageLiteral(resourceName: "email_icon"))
-        passwordField.setIcon(#imageLiteral(resourceName: "pw_icon"))
-        
         pageControl.numberOfPages = movies.count
         setUpScrollView()
         
-        loginButton.layer.cornerRadius = rad
-        appleLoginButton.layer.cornerRadius = rad
         googleLoginButton.layer.cornerRadius = rad
-        facebookLoginButton.layer.cornerRadius = rad
 
-        gradientLayer.colors = [UIColor(#colorLiteral(red: 0.3098039329, green: 0.01568627544, blue: 0.1294117719, alpha: 1)).cgColor, UIColor(#colorLiteral(red: 0, green: 0.749853909, blue: 0.7112129927, alpha: 1)).cgColor]
+        gradientLayer.colors = [UIColor(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)).cgColor, UIColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)).cgColor]
         gradientLayer.locations = [0.0, 1.0]
         gradientLayer.frame = self.view.bounds
         self.view.layer.insertSublayer(gradientLayer, at:0)
     }
     
-    func signIn(signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!,
-      withError error: NSError!) {
+//    func signIn(signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!,
+//      withError error: NSError!) {
 //        GIDSignIn.sharedInstance().signIn()
-
-        if (error == nil) {
-          // Perform any operations on signed in user here.
-          // ...
-        } else {
-          print("\(error.localizedDescription)")
+//
+//        if (error == nil) {
+//        } else {
+//          print("\(error.localizedDescription)")
+//        }
+//    }
+    
+    func initializeBUttons() {
+        let screenSize = UIScreen.main.bounds.size
+//        let buttonHeight: CGFloat = 45
+//        let widthOffset: CGFloat = 40
+//        let leadingX: CGFloat = 20
+//        let topY: CGFloat = 20
+//        let inbetween: CGFloat = 20
+        
+        loginButton.frame = CGRect(x: 20, y: 20, width: screenSize.width-40, height: 45)
+        loginButton.backgroundColor = .systemGreen
+        loginButton.setTitle("LOGIN", for: .normal)
+        loginButton.addTarget(self, action:#selector(self.loginDefault), for: .touchUpInside)
+        loginButton.layer.cornerRadius = 20.0
+        
+        appleButton.frame = CGRect(x: 20, y: 85, width: screenSize.width-40, height: 45)
+        appleButton.backgroundColor = .black
+        appleButton.setTitle("Sign in with Apple", for: .normal)
+        appleButton.addTarget(self, action:#selector(self.loginWithApple), for: .touchUpInside)
+        appleButton.layer.cornerRadius = 20.0
+    }
+    
+    @IBAction func bringUpOptions() {
+        let window = UIApplication.shared.windows.first { $0.isKeyWindow }
+        containerView.backgroundColor = UIColor.black.withAlphaComponent(0.9)
+        containerView.frame = self.view.frame
+        
+        window?.addSubview(containerView)
+        
+        let tapGesture = UITapGestureRecognizer(target: self,
+                                                action: #selector(slideUpViewTapped))
+        containerView.addGestureRecognizer(tapGesture)
+        
+        containerView.alpha = 0
+        
+        let screenSize = UIScreen.main.bounds.size
+        slideUpView.frame = CGRect(x: 0, y: screenSize.height, width: screenSize.width, height: slideUpViewHeight)
+        slideUpView.backgroundColor = #colorLiteral(red: 0.3333333433, green: 0.3333333433, blue: 0.3333333433, alpha: 1)
+        
+        initializeBUttons()
+        slideUpView.addSubview(appleButton)
+        slideUpView.addSubview(loginButton)
+        
+        window?.addSubview(slideUpView)
+        
+        
+        UIView.animate(withDuration: 0.5,
+                       delay: 0, usingSpringWithDamping: 1.0,
+                       initialSpringVelocity: 1.0,
+                       options: .curveEaseInOut, animations: {
+                        self.containerView.alpha = 0.8
+                        self.slideUpView.frame = CGRect(x: 0, y: screenSize.height - self.slideUpViewHeight, width: screenSize.width, height: self.slideUpViewHeight)
+                       }, completion: nil)
+    }
+    
+    
+    @objc func slideUpViewTapped() {
+        let screenSize = UIScreen.main.bounds.size
+        UIView.animate(withDuration: 0.5,
+                       delay: 0, usingSpringWithDamping: 1.0,
+                       initialSpringVelocity: 1.0,
+                       options: .curveEaseInOut, animations: {
+                        self.containerView.alpha = 0
+                        self.slideUpView.frame = CGRect(x: 0, y: screenSize.height, width: screenSize.width, height: self.slideUpViewHeight)
+                       }, completion: nil)
+        if let viewWithTag = self.view.viewWithTag(100) {
+            viewWithTag.removeFromSuperview()
         }
     }
+    
+    
     func checkIfUserExist() {
         print(LocalStorage().getUser().toJSON())
         print(LocalStorage().userExist())
@@ -85,43 +150,54 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    // tocuh outside of the keypad will dismiss the keypad
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
+    @objc func signUp() {
+        let screenSize = UIScreen.main.bounds.size
+        UIView.animate(withDuration: 0.5,
+                       delay: 0, usingSpringWithDamping: 1.0,
+                       initialSpringVelocity: 1.0,
+                       options: .curveEaseInOut, animations: {
+                        self.containerView.alpha = 0
+                        self.slideUpView.frame = CGRect(x: 0, y: screenSize.height, width: screenSize.width, height: self.slideUpViewHeight)
+                       }, completion: nil)
+        navigation?.goToSignUp()
+    }
+
+    
+    @objc func loginDefault() {
+        let screenSize = UIScreen.main.bounds.size
+        UIView.animate(withDuration: 0.5,
+                       delay: 0, usingSpringWithDamping: 1.0,
+                       initialSpringVelocity: 1.0,
+                       options: .curveEaseInOut, animations: {
+                        self.containerView.alpha = 0
+                        self.slideUpView.frame = CGRect(x: 0, y: screenSize.height, width: screenSize.width, height: self.slideUpViewHeight)
+                       }, completion: nil)
+        navigation?.goToHome()
     }
     
-
-    @IBAction func signUp() {
-        GIDSignIn.sharedInstance().signIn()
-
-       // navigation?.goToSignUp()
+    @objc func loginWithApple() {
+        let screenSize = UIScreen.main.bounds.size
+        UIView.animate(withDuration: 0.5,
+                       delay: 0, usingSpringWithDamping: 1.0,
+                       initialSpringVelocity: 1.0,
+                       options: .curveEaseInOut, animations: {
+                        self.containerView.alpha = 0
+                        self.slideUpView.frame = CGRect(x: 0, y: screenSize.height, width: screenSize.width, height: self.slideUpViewHeight)
+                       }, completion: nil)
+        navigation?.goToSignUp()
     }
     
-    @IBAction func loginWithEmail() {
-        // TODO: SAVE USER IN LOCAL STORAGE
-        let email = emailField.text ?? ""
-        let password = passwordField.text ?? ""
-
-        Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
-            guard self != nil else { return }
-
-            if error != nil {
-                print(error as Any)
-                return
-            }
-
-            if let user = authResult?.user {
-                LocalStorage.init(name: user.displayName ?? "kami", uid: user.uid);
-                self?.navigation?.goToHome()
-            }
-
-        }
-    }
-    
-    @IBAction func loginWithApple() {
-    }
     
     @IBAction func loginWithGoogle() {
+        let screenSize = UIScreen.main.bounds.size
+        UIView.animate(withDuration: 0.5,
+                       delay: 0, usingSpringWithDamping: 1.0,
+                       initialSpringVelocity: 1.0,
+                       options: .curveEaseInOut, animations: {
+                        self.containerView.alpha = 0
+                        self.slideUpView.frame = CGRect(x: 0, y: screenSize.height, width: screenSize.width, height: self.slideUpViewHeight)
+                       }, completion: nil)
+        GIDSignIn.sharedInstance().signIn()
     }
     
     @IBAction func loginWithFacebook() {
@@ -140,13 +216,21 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
         }
 
         scrollView.contentSize = CGSize(width: (scrollView.frame.size.width * CGFloat(movies.count)), height: scrollView.frame.size.height)
+        pageControl.addTarget(self, action: #selector(self.changePage(sender:)), for: UIControl.Event.valueChanged)
+        
         scrollView.delegate = self
+        scrollView.isPagingEnabled = true
     }
     
     // MARK: - UIScrollViewDelegate method
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let pageNumber = scrollView.contentOffset.x / scrollView.frame.size.width
         pageControl.currentPage = Int(pageNumber)
+    }
+    
+    @objc func changePage(sender: AnyObject) -> () {
+        let x = CGFloat(pageControl.currentPage) * scrollView.frame.size.width
+        scrollView.setContentOffset(CGPoint(x:x, y:0), animated: true)
     }
     
 }
