@@ -56,6 +56,7 @@ class HomeVC: UIViewController {
     // FUNCTIONS
     func getUserData()  {
         
+        print(LocalStorage().getUser().toJSON())
     }
     
     func getUserRunData()  {

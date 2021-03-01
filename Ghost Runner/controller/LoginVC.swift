@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 import Firebase
 import GoogleSignIn
+import FirebaseAuth
 
 class LoginVC: UIViewController, UIScrollViewDelegate {
     
@@ -41,10 +42,12 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        GIDSignIn.sharedInstance().delegate = self
+
         navigation = Navigator(currentViewController: self)
+        
         navigation?.currentViewController?.navigationController?.navigationBar.isHidden = true
-//        checkIfUserExist();
+        checkIfUserExist();
         
         GIDSignIn.sharedInstance()?.presentingViewController = self
 
@@ -62,15 +65,9 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
         self.view.layer.insertSublayer(gradientLayer, at:0)
     }
     
-//    func signIn(signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!,
-//      withError error: NSError!) {
-//        GIDSignIn.sharedInstance().signIn()
-//
-//        if (error == nil) {
-//        } else {
-//          print("\(error.localizedDescription)")
-//        }
-//    }
+
+    
+
     
     func initializeBUttons() {
         let screenSize = UIScreen.main.bounds.size
@@ -143,8 +140,7 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
     
     
     func checkIfUserExist() {
-        print(LocalStorage().getUser().toJSON())
-        print(LocalStorage().userExist())
+  
         if (LocalStorage().userExist()) {
             self.navigation?.goToHome()
         }
@@ -251,4 +247,55 @@ extension UITextField {
     
     
     
+}
+
+
+extension LoginVC : GIDSignInDelegate{
+    
+    
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
+       
+      if let error = error {
+        print(error)
+        return
+      }
+
+      guard let authentication = user.authentication else { return }
+      let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
+                                                        accessToken: authentication.accessToken)
+        
+
+        Auth.auth().signIn(with: credential) { (authResult, error) in
+            
+          if let error = error {
+            print(error)
+            return
+          }
+            guard let user = authResult?.user else {
+                return;
+            }
+            // User is signed in
+            let uid = user.uid;
+            let photoURL = user.photoURL?.absoluteString ?? "";
+            let name = user.displayName ?? "";
+            
+            Authentication().saveUserOnDB(uid: uid, photoURL: photoURL, name:name, completion: { () in
+                DispatchQueue.main.async {
+                   
+                    LocalStorage.init(uid: uid, name: name, photoURL: photoURL);
+
+                    }
+                self.navigation?.goToHome()
+              }
+            );
+           
+           
+            
+        }
+    }
+
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
+        // Perform any operations when the user disconnects from app here.
+        // ...
+    }
 }
