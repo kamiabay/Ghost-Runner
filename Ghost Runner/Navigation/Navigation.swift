@@ -25,7 +25,7 @@ class Navigator  {
         let profile = "profileRoute"
     }
     
-    let route = RouteNames();
+    let route = RouteNames()
     var currentViewController: UIViewController?
     
     required init(currentViewController: UIViewController) {

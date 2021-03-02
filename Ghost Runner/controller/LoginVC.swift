@@ -7,8 +7,9 @@
 
 import Foundation
 import UIKit
-import Firebase
+//import Firebase
 import GoogleSignIn
+import FirebaseAuth
 
 class LoginVC: UIViewController, UIScrollViewDelegate {
     
@@ -35,16 +36,23 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
     var slideUpView = UIView()
     var loginButton = UIButton()
     var appleButton = UIButton()
+    var signupButton = UIButton()
+    
 //    @IBOutlet weak var slideUpView: UIView!
     
-    let slideUpViewHeight: CGFloat = 200
+    let slideUpViewHeight: CGFloat = 300
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        checkIfUserExist()
+        
+        GIDSignIn.sharedInstance().delegate = self
+
         navigation = Navigator(currentViewController: self)
+        
         navigation?.currentViewController?.navigationController?.navigationBar.isHidden = true
-//        checkIfUserExist();
+       
         
         GIDSignIn.sharedInstance()?.presentingViewController = self
 
@@ -62,15 +70,9 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
         self.view.layer.insertSublayer(gradientLayer, at:0)
     }
     
-//    func signIn(signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!,
-//      withError error: NSError!) {
-//        GIDSignIn.sharedInstance().signIn()
-//
-//        if (error == nil) {
-//        } else {
-//          print("\(error.localizedDescription)")
-//        }
-//    }
+
+    
+
     
     func initializeBUttons() {
         let screenSize = UIScreen.main.bounds.size
@@ -82,7 +84,7 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
         
         loginButton.frame = CGRect(x: 20, y: 20, width: screenSize.width-40, height: 45)
         loginButton.backgroundColor = .systemGreen
-        loginButton.setTitle("LOGIN", for: .normal)
+        loginButton.setTitle("Login with email/pw", for: .normal)
         loginButton.addTarget(self, action:#selector(self.loginDefault), for: .touchUpInside)
         loginButton.layer.cornerRadius = 20.0
         
@@ -91,6 +93,12 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
         appleButton.setTitle("Sign in with Apple", for: .normal)
         appleButton.addTarget(self, action:#selector(self.loginWithApple), for: .touchUpInside)
         appleButton.layer.cornerRadius = 20.0
+        
+        signupButton.frame = CGRect(x: 20, y: 150, width: screenSize.width-40, height: 45)
+        signupButton.backgroundColor = .systemOrange
+        signupButton.setTitle("Sign up with email/pw", for: .normal)
+        signupButton.addTarget(self, action:#selector(self.signUp), for: .touchUpInside)
+        signupButton.layer.cornerRadius = 20.0
     }
     
     @IBAction func bringUpOptions() {
@@ -113,9 +121,9 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
         initializeBUttons()
         slideUpView.addSubview(appleButton)
         slideUpView.addSubview(loginButton)
+        slideUpView.addSubview(signupButton)
         
         window?.addSubview(slideUpView)
-        
         
         UIView.animate(withDuration: 0.5,
                        delay: 0, usingSpringWithDamping: 1.0,
@@ -126,8 +134,7 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
                        }, completion: nil)
     }
     
-    
-    @objc func slideUpViewTapped() {
+    func hideOptionsMenu() {
         let screenSize = UIScreen.main.bounds.size
         UIView.animate(withDuration: 0.5,
                        delay: 0, usingSpringWithDamping: 1.0,
@@ -136,67 +143,42 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
                         self.containerView.alpha = 0
                         self.slideUpView.frame = CGRect(x: 0, y: screenSize.height, width: screenSize.width, height: self.slideUpViewHeight)
                        }, completion: nil)
-        if let viewWithTag = self.view.viewWithTag(100) {
-            viewWithTag.removeFromSuperview()
-        }
+    }
+    
+    @objc func slideUpViewTapped() {
+        hideOptionsMenu()
     }
     
     
     func checkIfUserExist() {
-        print(LocalStorage().getUser().toJSON())
-        print(LocalStorage().userExist())
+        print(LocalStorage().userExist());
         if (LocalStorage().userExist()) {
-            self.navigation?.goToHome()
+           self.navigation?.goToHome()
         }
     }
     
     @objc func signUp() {
-        let screenSize = UIScreen.main.bounds.size
-        UIView.animate(withDuration: 0.5,
-                       delay: 0, usingSpringWithDamping: 1.0,
-                       initialSpringVelocity: 1.0,
-                       options: .curveEaseInOut, animations: {
-                        self.containerView.alpha = 0
-                        self.slideUpView.frame = CGRect(x: 0, y: screenSize.height, width: screenSize.width, height: self.slideUpViewHeight)
-                       }, completion: nil)
+        hideOptionsMenu()
         navigation?.goToSignUp()
     }
 
     
     @objc func loginDefault() {
-        let screenSize = UIScreen.main.bounds.size
-        UIView.animate(withDuration: 0.5,
-                       delay: 0, usingSpringWithDamping: 1.0,
-                       initialSpringVelocity: 1.0,
-                       options: .curveEaseInOut, animations: {
-                        self.containerView.alpha = 0
-                        self.slideUpView.frame = CGRect(x: 0, y: screenSize.height, width: screenSize.width, height: self.slideUpViewHeight)
-                       }, completion: nil)
-        navigation?.goToHome()
+        hideOptionsMenu()
+        let storyboard = UIStoryboard(name: "Login", bundle: nil)
+        guard let emailVC = storyboard.instantiateViewController(identifier: "emailLogin") as? EmailLoginViewController else {
+            assertionFailure("couldnt find this controller")
+            return
+        }
+        navigation?.currentViewController?.navigationController?.pushViewController(emailVC, animated: true)
     }
     
     @objc func loginWithApple() {
-        let screenSize = UIScreen.main.bounds.size
-        UIView.animate(withDuration: 0.5,
-                       delay: 0, usingSpringWithDamping: 1.0,
-                       initialSpringVelocity: 1.0,
-                       options: .curveEaseInOut, animations: {
-                        self.containerView.alpha = 0
-                        self.slideUpView.frame = CGRect(x: 0, y: screenSize.height, width: screenSize.width, height: self.slideUpViewHeight)
-                       }, completion: nil)
-        navigation?.goToSignUp()
     }
     
     
     @IBAction func loginWithGoogle() {
-        let screenSize = UIScreen.main.bounds.size
-        UIView.animate(withDuration: 0.5,
-                       delay: 0, usingSpringWithDamping: 1.0,
-                       initialSpringVelocity: 1.0,
-                       options: .curveEaseInOut, animations: {
-                        self.containerView.alpha = 0
-                        self.slideUpView.frame = CGRect(x: 0, y: screenSize.height, width: screenSize.width, height: self.slideUpViewHeight)
-                       }, completion: nil)
+        hideOptionsMenu()
         GIDSignIn.sharedInstance().signIn()
     }
     
@@ -222,15 +204,15 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
         scrollView.isPagingEnabled = true
     }
     
+    @objc func changePage(sender: AnyObject) -> () {
+        let x = CGFloat(pageControl.currentPage) * scrollView.frame.size.width
+        scrollView.setContentOffset(CGPoint(x:x, y:0), animated: true)
+    }
+    
     // MARK: - UIScrollViewDelegate method
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let pageNumber = scrollView.contentOffset.x / scrollView.frame.size.width
         pageControl.currentPage = Int(pageNumber)
-    }
-    
-    @objc func changePage(sender: AnyObject) -> () {
-        let x = CGFloat(pageControl.currentPage) * scrollView.frame.size.width
-        scrollView.setContentOffset(CGPoint(x:x, y:0), animated: true)
     }
     
 }
@@ -248,7 +230,57 @@ extension UITextField {
        leftViewMode = .always
     }
     
+}
+
+// MARK: - Google Login Extension
+extension LoginVC : GIDSignInDelegate{
     
     
-    
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
+       
+      if let error = error {
+        print(error)
+        return
+      }
+
+      guard let authentication = user.authentication else { return }
+      let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
+                                                        accessToken: authentication.accessToken)
+        
+
+        Auth.auth().signIn(with: credential) { (authResult, error) in
+            
+          if let error = error {
+            print(error)
+            return
+          }
+            guard let user = authResult?.user else {
+                return;
+            }
+            // User is signed in
+            let uid = user.uid ?? "empty";
+            let photoURL = user.photoURL?.absoluteString ?? "";
+            let name = user.displayName ?? "";
+            print("uid is : \(uid)")
+            LocalStorage.init(uid: uid, name: name, photoURL: photoURL);
+            Authentication().saveUserOnDB(uid: uid, photoURL: photoURL, name:name, completion: { () in
+                DispatchQueue.main.async {
+                    print(LocalStorage().getUser().toJSON())
+                    self.navigation?.goToHome()
+                   
+                    }
+               
+              }
+            );
+          
+           
+           
+            
+        }
+    }
+
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
+        // Perform any operations when the user disconnects from app here.
+        // ...
+    }
 }
