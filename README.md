@@ -44,5 +44,5 @@ General Responsibilities:
 |:------:|:--------:|:------:|
 |  Dylan | https://www.linkedin.com/in/dylanalong1/ | https://github.com/dylanalong |
 |  Ziyu  |  |  |
-|  Kami  |  |  |
+|  Kami  | https://www.linkedin.com/in/kamyabayanifard/ | https://github.com/kamiab1/ |
 | Nikita |  |  |
