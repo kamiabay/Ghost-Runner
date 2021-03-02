@@ -141,7 +141,7 @@ class ProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
     }
     
     @IBAction func homeButtonPress(_ sender: UIButton) {
-        navigation?.goToHome()
+        navigation?.goBack()
     }
 }
 

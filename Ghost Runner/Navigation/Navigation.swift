@@ -86,6 +86,10 @@ class Navigator  {
         currentViewController?.navigationController?.pushViewController(profileVC, animated: true)
     }
     
+    func goBack()  {
+        currentViewController?.navigationController?.popViewController(animated: true)
+    }
+    
 }
 
 

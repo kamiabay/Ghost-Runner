@@ -258,18 +258,29 @@ extension LoginVC : GIDSignInDelegate{
             guard let user = authResult?.user else {
                 return;
             }
+            
+            let isNew = authResult?.additionalUserInfo?.isNewUser ?? false;
+
             // User is signed in
-            let uid = user.uid ?? "";
+            let uid = user.uid;
             let photoURL = user.photoURL?.absoluteString ?? "";
             let name = user.displayName ?? "";
-            print("uid is : \(uid)")
-            LocalStorage.init(uid: uid, name: name, photoURL: photoURL);
-            Authentication().saveUserOnDB(uid: uid, photoURL: photoURL, name:name, completion: { () in
+            let code = Functions().randomCode();
+            
+           
+
+            if (!isNew) {
+                LocalStorage.init(uid: uid, name: name, photoURL: photoURL, code: "");
+                self.navigation?.goToHome()
+                return;
+            }
+            LocalStorage.init(uid: uid, name: name, photoURL: photoURL, code: code);
+            Authentication()
+                .saveUserOnDB(uid: uid, photoURL: photoURL, name: name, code: code, completion: { () in
                 DispatchQueue.main.async {
                     print(LocalStorage().getUser().toJSON())
                     self.navigation?.goToHome()
                     }
-               
               }
             );
           

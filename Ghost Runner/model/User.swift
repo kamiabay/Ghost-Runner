@@ -12,12 +12,15 @@ class User {
     var name: String = "";
     var photoURL: String = "";
     var uid: String = "";
+    var code: String = "";
+    
     
     // local
-    init(name: String, photoURL: String, uid: String) {
+    init(name: String, photoURL: String, uid: String, code: String) {
         self.name = name
         self.photoURL = photoURL
         self.uid = uid
+        self.code = code
     }
     
     // from db
@@ -25,6 +28,7 @@ class User {
         self.name = (data["name"] as? String) ?? ""
         self.photoURL = (data["photoURL"] as? String) ?? ""
         self.uid = (data["uid"] as? String) ?? ""
+        self.code = (data["code"] as? String) ?? ""
     }
     
     func toJSON () -> [String: Any] {
@@ -32,6 +36,7 @@ class User {
             "name": name,
             "photoURL": photoURL,
             "uid": uid,
+            "code": code,
         ]
     }
 

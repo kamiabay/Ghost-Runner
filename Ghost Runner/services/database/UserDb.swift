@@ -17,6 +17,13 @@ class UserDb {
         self.path = Path.init(user: user);
     }
     
+    
+    
+    
+    func getUserData()  {
+        
+    }
+    
     func updateProfilePic(photoURL: String) {
         let ref = path.userPrivate();
         

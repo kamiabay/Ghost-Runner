@@ -14,7 +14,8 @@ class Authentication {
     init() {
         self.db = Firestore.firestore();
     }
-    func saveUserOnDB(uid: String, photoURL: String, name: String, completion: @escaping(() -> Void)) {
+    func saveUserOnDB(uid: String, photoURL: String, name: String, code: String, completion: @escaping(() -> Void)) {
+        
         let userRef = db.collection("user").document(uid)
         let async = DispatchGroup()
         async.enter()
@@ -22,8 +23,9 @@ class Authentication {
             "name": name,
             "photoURL":photoURL,
             "uid": uid,
+            "code": code,
             "creationTime": FieldValue.serverTimestamp(),
-        ],merge: true)
+        ], merge: true)
         
         async.leave()
         async.notify(queue: .main) {

@@ -16,7 +16,7 @@ class Friend: User {
     }
     
     
-    override init(name: String, photoURL: String, uid: String) {
-        super.init(name:name , photoURL: photoURL, uid: uid)
+    override init(name: String, photoURL: String, uid: String, code: String) {
+        super.init(name:name , photoURL: photoURL, uid: uid, code: code)
     }
 }
