@@ -150,7 +150,7 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
     func checkIfUserExist() {
   
         if (LocalStorage().userExist()) {
-            self.navigation?.goToHome()
+//            self.navigation?.goToHome()
         }
     }
     
@@ -162,7 +162,12 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
     
     @objc func loginDefault() {
         hideOptionsMenu()
-        navigation?.goToHome()
+        let storyboard = UIStoryboard(name: "Login", bundle: nil)
+        guard let emailVC = storyboard.instantiateViewController(identifier: "emailLogin") as? EmailLoginViewController else {
+            assertionFailure("couldnt find this controller")
+            return
+        }
+        navigation?.currentViewController?.navigationController?.pushViewController(emailVC, animated: true)
     }
     
     @objc func loginWithApple() {
@@ -222,12 +227,9 @@ extension UITextField {
        leftViewMode = .always
     }
     
-    
-    
-    
 }
 
-
+// MARK: - Google Login Extension
 extension LoginVC : GIDSignInDelegate{
     
     

@@ -16,6 +16,7 @@ class SignUpVC: UIViewController {
     
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
+    @IBOutlet weak var usernameField: UITextField!
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var continueButton: UIButton!
     
@@ -50,6 +51,7 @@ class SignUpVC: UIViewController {
     @IBAction func continueSignUp() {
         let email = emailField.text ?? ""
         let password = passwordField.text ?? ""
+        let username = usernameField.text ?? ""
         
         Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
             if error != nil {
@@ -58,14 +60,11 @@ class SignUpVC: UIViewController {
             }
             
             if let user = authResult?.user {
-               
-                LocalStorage.init(uid: user.uid, name: "kami", photoURL: "");
+//                user.displayName = username
+                LocalStorage.init(uid: user.uid, name: username, photoURL: "");
                 self.navigation?.goToHome()
             }
-            
-            self.navigation?.goToLogin()
         }
-        
         
     }
     
