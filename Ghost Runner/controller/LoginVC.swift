@@ -7,7 +7,6 @@
 
 import Foundation
 import UIKit
-//import Firebase
 import GoogleSignIn
 import FirebaseAuth
 
@@ -22,7 +21,7 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var pageControl: UIPageControl!
     
-    var movies: [String] = ["google-icon","apple-icon","fb-icon"]
+    var imgListName: [String] = ["runner-1","biker","fb-icon"]
     var frame = CGRect.zero
     
     var navigation: Navigator?
@@ -59,7 +58,7 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
         let tapGesture = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tapGesture)
         
-        pageControl.numberOfPages = movies.count
+        pageControl.numberOfPages = imgListName.count
         setUpScrollView()
         
         googleLoginButton.layer.cornerRadius = rad
@@ -151,7 +150,6 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
     
     
     func checkIfUserExist() {
-        print(LocalStorage().userExist());
         if (LocalStorage().userExist()) {
            self.navigation?.goToHome()
         }
@@ -187,17 +185,17 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
     
     // MARK: - Set up scroll view
     func setUpScrollView() {
-        for index in 0..<movies.count {
+        for index in 0..<imgListName.count {
             frame.origin.x = scrollView.frame.size.width * CGFloat(index)
             frame.size = scrollView.frame.size
             
             let imgView = UIImageView(frame: frame)
-            imgView.image = UIImage(named: movies[index])
+            imgView.image = UIImage(named: imgListName[index])
 
             self.scrollView.addSubview(imgView)
         }
 
-        scrollView.contentSize = CGSize(width: (scrollView.frame.size.width * CGFloat(movies.count)), height: scrollView.frame.size.height)
+        scrollView.contentSize = CGSize(width: (scrollView.frame.size.width * CGFloat(imgListName.count)), height: scrollView.frame.size.height)
         pageControl.addTarget(self, action: #selector(self.changePage(sender:)), for: UIControl.Event.valueChanged)
         
         scrollView.delegate = self
