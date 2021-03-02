@@ -28,6 +28,7 @@
 		3C6922D225EDF326001BA185 /* FriendDb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6922D125EDF326001BA185 /* FriendDb.swift */; };
 		3C6922D625EDF466001BA185 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6922D525EDF466001BA185 /* Friend.swift */; };
 		3C6922F525EE1CA4001BA185 /* funstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6922F425EE1CA4001BA185 /* funstions.swift */; };
+		3C6922F825EEC2CB001BA185 /* FriendVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6922F725EEC2CB001BA185 /* FriendVC.swift */; };
 		3CB524F525DB1B03004421D9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3CB524F425DB1B03004421D9 /* GoogleService-Info.plist */; };
 		3CB524F925DB23FA004421D9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB524F825DB23FA004421D9 /* User.swift */; };
 		3CB524FC25DB2443004421D9 /* DB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB524FB25DB2443004421D9 /* DB.swift */; };
@@ -70,6 +71,7 @@
 		3C6922D125EDF326001BA185 /* FriendDb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendDb.swift; sourceTree = "<group>"; };
 		3C6922D525EDF466001BA185 /* Friend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
 		3C6922F425EE1CA4001BA185 /* funstions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = funstions.swift; sourceTree = "<group>"; };
+		3C6922F725EEC2CB001BA185 /* FriendVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendVC.swift; sourceTree = "<group>"; };
 		3CB524F425DB1B03004421D9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3CB524F825DB23FA004421D9 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		3CB524FB25DB2443004421D9 /* DB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DB.swift; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 				3CDFE93425DF8C6F00742EF2 /* SignUp.swift */,
 				3C319D9325E58BAB00868267 /* ProfileVC.swift */,
 				DBF6EAC525EDA6E800210649 /* EmailLoginViewController.swift */,
+				3C6922F725EEC2CB001BA185 /* FriendVC.swift */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -458,6 +461,7 @@
 				3CDFE92925DF15CB00742EF2 /* LoginVC.swift in Sources */,
 				3C319D9425E58BAB00868267 /* ProfileVC.swift in Sources */,
 				3C6922F525EE1CA4001BA185 /* funstions.swift in Sources */,
+				3C6922F825EEC2CB001BA185 /* FriendVC.swift in Sources */,
 				3CB5250625DB35CB004421D9 /* Auth.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
