@@ -27,7 +27,6 @@ class RunDb {
         }
     }
     
-    typealias ApiCompletion = ((_ response: [String: Any]?, _ error: ApiError?) -> Void)
     
     // CALL AT THE END OF THE RUN
     func saveRunSnapShot(runSnapShotList: [RunSnapshot]) {
@@ -42,7 +41,7 @@ class RunDb {
         ]);
     }
     
-    func getUserRunList(completion:@escaping(([Run]) -> ())) {
+    func getUserRunList(completion: @escaping(([Run]) -> ())) {
         let ref = path.userAllRuns().order(by: "creationTime", descending: true);
        
         var runList = [Run]();
@@ -64,10 +63,8 @@ class RunDb {
                     }
                     runList.append(Run(runSnapshotList: snap, runID: "rand id"))
                 }
-                print("\( runList.count): before ");
                 async.leave()
                 async.notify(queue: .main) {
-                    print("\( runList.count): after ");
                       completion(runList)
                     }
             }
