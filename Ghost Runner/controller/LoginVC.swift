@@ -7,7 +7,7 @@
 
 import Foundation
 import UIKit
-import Firebase
+//import Firebase
 import GoogleSignIn
 import FirebaseAuth
 
@@ -44,12 +44,15 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        checkIfUserExist()
+        
         GIDSignIn.sharedInstance().delegate = self
 
         navigation = Navigator(currentViewController: self)
         
         navigation?.currentViewController?.navigationController?.navigationBar.isHidden = true
-        checkIfUserExist();
+       
         
         GIDSignIn.sharedInstance()?.presentingViewController = self
 
@@ -148,9 +151,9 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
     
     
     func checkIfUserExist() {
-  
+        print(LocalStorage().userExist());
         if (LocalStorage().userExist()) {
-//            self.navigation?.goToHome()
+           self.navigation?.goToHome()
         }
     }
     
@@ -255,19 +258,21 @@ extension LoginVC : GIDSignInDelegate{
                 return;
             }
             // User is signed in
-            let uid = user.uid;
+            let uid = user.uid ?? "empty";
             let photoURL = user.photoURL?.absoluteString ?? "";
             let name = user.displayName ?? "";
-            
+            print("uid is : \(uid)")
+            LocalStorage.init(uid: uid, name: name, photoURL: photoURL);
             Authentication().saveUserOnDB(uid: uid, photoURL: photoURL, name:name, completion: { () in
                 DispatchQueue.main.async {
+                    print(LocalStorage().getUser().toJSON())
+                    self.navigation?.goToHome()
                    
-                    LocalStorage.init(uid: uid, name: name, photoURL: photoURL);
-
                     }
-                self.navigation?.goToHome()
+               
               }
             );
+          
            
            
             

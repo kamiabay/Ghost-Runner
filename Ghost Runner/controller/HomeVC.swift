@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 import CoreLocation
 
+
 class HomeVC: UIViewController {
 
     
@@ -55,7 +56,6 @@ class HomeVC: UIViewController {
     
     // FUNCTIONS
     func getUserData()  {
-        
         print(LocalStorage().getUser().toJSON())
     }
     
@@ -75,6 +75,8 @@ class HomeVC: UIViewController {
         navigation?.goToRunView(opponentRun: nil)
     }
     @IBAction func logoutButtonPress(_ sender: UIButton) {
+        Authentication().signOut();
+        LocalStorage().deleteUser();
         navigation?.goToLogin()
     }
     @IBAction func profileViewButtonPress(_ sender: UIButton) {

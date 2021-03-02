@@ -61,7 +61,13 @@ class LocalStorage {
     }
     
     func userExist () -> Bool {
-        return (Storage.uid != nil)
+        return (Storage.uid != "")
+    }
+    
+    func deleteUser() {
+        Storage.uid = "";
+        Storage.name = "";
+        Storage.photoURL = "";
     }
     
 }
