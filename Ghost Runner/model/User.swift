@@ -21,10 +21,10 @@ class User {
     }
     
     // from db
-    init(doc: [String : Any]) {
-        self.name = (doc["name"] as? String) ?? ""
-        self.photoURL = (doc["photoURL"] as? String) ?? ""
-        self.uid = (doc["uid"] as? String) ?? ""
+    init(data: [String : Any]) {
+        self.name = (data["name"] as? String) ?? ""
+        self.photoURL = (data["photoURL"] as? String) ?? ""
+        self.uid = (data["uid"] as? String) ?? ""
     }
     
     func toJSON () -> [String: Any] {

@@ -50,7 +50,7 @@ class LocalStorage {
     }
     
     init() {
-        self.user = User(doc: ["":""]); // TODO: instantiate
+        self.user = User(data: ["":""]); // TODO: instantiate
     }
     
     func getUser() -> User {

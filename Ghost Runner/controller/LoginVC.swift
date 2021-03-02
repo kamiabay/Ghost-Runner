@@ -44,12 +44,14 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+       
+        // order matters
+        navigation = Navigator(currentViewController: self)
         checkIfUserExist()
         
-        GIDSignIn.sharedInstance().delegate = self
-
-        navigation = Navigator(currentViewController: self)
         
+        GIDSignIn.sharedInstance().delegate = self
         navigation?.currentViewController?.navigationController?.navigationBar.isHidden = true
        
         
@@ -150,6 +152,7 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
     
     
     func checkIfUserExist() {
+        print(LocalStorage().getUser().toJSON())
         if (LocalStorage().userExist()) {
            self.navigation?.goToHome()
         }
@@ -256,7 +259,7 @@ extension LoginVC : GIDSignInDelegate{
                 return;
             }
             // User is signed in
-            let uid = user.uid ?? "empty";
+            let uid = user.uid ?? "";
             let photoURL = user.photoURL?.absoluteString ?? "";
             let name = user.displayName ?? "";
             print("uid is : \(uid)")
@@ -265,7 +268,6 @@ extension LoginVC : GIDSignInDelegate{
                 DispatchQueue.main.async {
                     print(LocalStorage().getUser().toJSON())
                     self.navigation?.goToHome()
-                   
                     }
                
               }
