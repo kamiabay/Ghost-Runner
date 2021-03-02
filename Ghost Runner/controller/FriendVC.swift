@@ -9,7 +9,9 @@ import Foundation
 import UIKit
 import Firebase
 
-class FriendVC: UIViewController {
+class FriendVC: UIViewController, UITextFieldDelegate {
+    
+    @IBOutlet weak var friendCodeField: UITextField!
     
     var navigation: Navigator?
     let db = DB();
@@ -17,7 +19,7 @@ class FriendVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigation = Navigator(currentViewController: self)
-      
+        friendCodeField.delegate = self
     }
     
     
@@ -25,12 +27,24 @@ class FriendVC: UIViewController {
         db.friendDb.findFriendUsingCode(code: code) { (Friend) in
         
         }
+        
+        friendCodeField.text = ""
     }
     
-    func addFriend(friend: Friend)  {
-        db.friendDb.addFriend(friend: friend)
+//    func addFriend(friend: Friend)  {
+//        db.friendDb.addFriend(friend: friend)
+//    }
+
+    @IBAction func addFriend() {
     }
-
-
     
+    
+    // MARK: - UITextField Delegate
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField.text?.count == 5 {
+//            getFriend(code: textField.text ?? "")
+        }
+        
+        return true
+    }
 }
