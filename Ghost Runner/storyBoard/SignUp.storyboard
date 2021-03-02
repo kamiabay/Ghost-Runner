@@ -22,8 +22,8 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter Your email." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MnN-Yg-ddh">
-                                <rect key="frame" x="20" y="102" width="234" height="36"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter Your credentials." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MnN-Yg-ddh">
+                                <rect key="frame" x="20" y="102" width="316" height="36"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -62,23 +62,31 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yKi-Hd-Nhb">
+                                <rect key="frame" x="20" y="146" width="374" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ZG4-Sz-k8j"/>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="yKi-Hd-Nhb" firstAttribute="leading" secondItem="ZG4-Sz-k8j" secondAttribute="leading" constant="20" id="1iS-u7-IV1"/>
                             <constraint firstItem="WNZ-pa-MF9" firstAttribute="leading" secondItem="ZG4-Sz-k8j" secondAttribute="leading" constant="20" id="1mY-oo-9az"/>
                             <constraint firstItem="WNZ-pa-MF9" firstAttribute="centerX" secondItem="qHc-Ny-4DG" secondAttribute="centerX" id="52j-2x-hhH"/>
-                            <constraint firstItem="y3G-FK-bpA" firstAttribute="top" secondItem="MnN-Yg-ddh" secondAttribute="bottom" constant="50" id="CQE-ur-yUn"/>
                             <constraint firstItem="y3G-FK-bpA" firstAttribute="leading" secondItem="ZG4-Sz-k8j" secondAttribute="leading" constant="20" id="LR0-kb-I1p"/>
-                            <constraint firstItem="JcP-V2-CSG" firstAttribute="top" secondItem="WNZ-pa-MF9" secondAttribute="bottom" constant="50" id="MwT-93-7Jx"/>
+                            <constraint firstItem="JcP-V2-CSG" firstAttribute="top" secondItem="WNZ-pa-MF9" secondAttribute="bottom" constant="50" id="R2s-hK-Zbf"/>
                             <constraint firstItem="JcP-V2-CSG" firstAttribute="leading" secondItem="ZG4-Sz-k8j" secondAttribute="leading" constant="20" id="UbZ-Q6-52L"/>
+                            <constraint firstItem="y3G-FK-bpA" firstAttribute="top" secondItem="yKi-Hd-Nhb" secondAttribute="bottom" constant="8" symbolic="YES" id="XlQ-o3-CYt"/>
                             <constraint firstItem="JcP-V2-CSG" firstAttribute="centerX" secondItem="qHc-Ny-4DG" secondAttribute="centerX" id="b34-90-CD2"/>
+                            <constraint firstItem="yKi-Hd-Nhb" firstAttribute="centerX" secondItem="qHc-Ny-4DG" secondAttribute="centerX" id="cSS-tw-kmS"/>
                             <constraint firstItem="90G-KN-4XB" firstAttribute="top" secondItem="ZG4-Sz-k8j" secondAttribute="top" id="ho1-sm-orM"/>
                             <constraint firstItem="WNZ-pa-MF9" firstAttribute="top" secondItem="y3G-FK-bpA" secondAttribute="bottom" constant="8" symbolic="YES" id="hwd-LD-N2H"/>
                             <constraint firstItem="90G-KN-4XB" firstAttribute="leading" secondItem="ZG4-Sz-k8j" secondAttribute="leading" constant="20" id="j3Q-8E-FKL"/>
                             <constraint firstItem="y3G-FK-bpA" firstAttribute="centerX" secondItem="qHc-Ny-4DG" secondAttribute="centerX" id="lMR-gh-t9B"/>
                             <constraint firstItem="MnN-Yg-ddh" firstAttribute="leading" secondItem="ZG4-Sz-k8j" secondAttribute="leading" constant="20" id="mUY-7t-nhZ"/>
                             <constraint firstItem="MnN-Yg-ddh" firstAttribute="top" secondItem="90G-KN-4XB" secondAttribute="bottom" constant="8" symbolic="YES" id="pMH-aB-sTS"/>
+                            <constraint firstItem="yKi-Hd-Nhb" firstAttribute="top" secondItem="MnN-Yg-ddh" secondAttribute="bottom" constant="8" symbolic="YES" id="sfF-I1-Esb"/>
                         </constraints>
                     </view>
                     <connections>
@@ -86,6 +94,7 @@
                         <outlet property="continueButton" destination="JcP-V2-CSG" id="ftc-bK-bUi"/>
                         <outlet property="emailField" destination="y3G-FK-bpA" id="tpQ-wu-4pm"/>
                         <outlet property="passwordField" destination="WNZ-pa-MF9" id="gpL-mw-rkZ"/>
+                        <outlet property="usernameField" destination="yKi-Hd-Nhb" id="hNe-eU-Qwc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MLM-U3-eNX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
