@@ -352,7 +352,7 @@ class RunVC: UIViewController {
         
         runTimer?.invalidate()
         
-        saveRunData()
+        //saveRunData()
         locationManager.showsBackgroundLocationIndicator = false
         // disable listner for background GPS change
         locationManager.stopUpdatingHeading();
@@ -420,6 +420,7 @@ extension RunVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "ghostCell") ?? UITableViewCell(style: .default, reuseIdentifier: "ghostCell")
         let ghost_data = ghostOptions[indexPath.row]
         cell.textLabel?.text = "\(ghost_data.getNextRunLocation().toJSON())"
