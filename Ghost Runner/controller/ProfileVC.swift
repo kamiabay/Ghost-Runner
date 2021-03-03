@@ -59,6 +59,13 @@ class ProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         self.user = userInfo.name
         self.uid = userInfo.uid
         self.userName.text = "\(user)"
+        
+        guard let url = URL(string: userInfo.photoURL) else { return  }
+        let data = try? Data(contentsOf: url)
+        if let imageData = data {
+            profileImage.image = UIImage(data: imageData)
+        }
+        
         self.addMessage = "Add your friend \(self.user) on GhostRunner using the following code: \(self.uid)"
         self.shareMessage = "Try to beat my time on GhostRunner! Add me using the following code: \(self.uid)"
     }
@@ -141,7 +148,7 @@ class ProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
     }
     
     @IBAction func homeButtonPress(_ sender: UIButton) {
-        navigation?.goToHome()
+        navigation?.goBack()
     }
 }
 

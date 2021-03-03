@@ -23,7 +23,7 @@ The core of the app lies in our algorithm, which would take the geo-data and tim
 General Responsibilities:
 - Dylan: core run algorithm
 - Ziyu: authentication pipeline and accounts
-- Kami: back-end, data pipeline
+- Kami: back-end, data pipeline, authentication, run algorithm
 - Nikita: main UI, map/time-sector, graphics design
 
 ### Meeting/Sprint Planning Notes:
@@ -32,11 +32,15 @@ General Responsibilities:
 
 18 February 2021 - [Sprint Planning 2](https://docs.google.com/document/d/1WIuyM43pmhlOwvQq3lfGjFDhGgT85jWmO40kayEHhEU/edit?usp=sharing)
 
-25 February 2021 - [Sprint Planning 3](https://docs.google.com/document/d/1W977kMpqJkgv5KH4pijB8ygc9R7gZMIT5jJi9BzREAg/edit?usp=sharing) ***NEW!***
+25 February 2021 - [Sprint Planning 3](https://docs.google.com/document/d/1W977kMpqJkgv5KH4pijB8ygc9R7gZMIT5jJi9BzREAg/edit?usp=sharing)
+
+1 March 2021 - [Sprint Planning 4](https://docs.google.com/document/d/1mfccGnBMsnO_ylIYfPCAjiATX0Gm9TYbMSQI34YTee0/edit?usp=sharing) ***NEW!***
 
 ### Milestones:
 
 22 February 2021 - [Milestone 1](https://docs.google.com/document/d/1cL5qjSXlPTK8lDtkn_iZbdCze0-BJGtdw--Mh1lu0pw/edit?usp=sharing)
+
+1 March 2021 - [Milestone 2](https://docs.google.com/document/d/1NXl5295iFcDbcbgTRkMIKKjs6uULBk3kL2gjudqogIo/edit?usp=sharing) ***NEW!***
 
 ### Profile Links:
 
@@ -44,5 +48,5 @@ General Responsibilities:
 |:------:|:--------:|:------:|
 |  Dylan | https://www.linkedin.com/in/dylanalong1/ | https://github.com/dylanalong |
 |  Ziyu  |  |  |
-|  Kami  |  |  |
+|  Kami  | https://www.linkedin.com/in/kamyabayanifard/ | https://github.com/kamiab1/ |
 | Nikita |  |  |

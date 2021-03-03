@@ -25,6 +25,10 @@
 		3C4D6BED25D5D1C2009CEBE1 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C4D6BEB25D5D1C2009CEBE1 /* Login.storyboard */; };
 		3C4D6BEF25D5D1C4009CEBE1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C4D6BEE25D5D1C4009CEBE1 /* Assets.xcassets */; };
 		3C4D6BF225D5D1C4009CEBE1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C4D6BF025D5D1C4009CEBE1 /* LaunchScreen.storyboard */; };
+		3C6922D225EDF326001BA185 /* FriendDb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6922D125EDF326001BA185 /* FriendDb.swift */; };
+		3C6922D625EDF466001BA185 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6922D525EDF466001BA185 /* Friend.swift */; };
+		3C6922F525EE1CA4001BA185 /* funstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6922F425EE1CA4001BA185 /* funstions.swift */; };
+		3C6922F825EEC2CB001BA185 /* FriendVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6922F725EEC2CB001BA185 /* FriendVC.swift */; };
 		3CB524F525DB1B03004421D9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3CB524F425DB1B03004421D9 /* GoogleService-Info.plist */; };
 		3CB524F925DB23FA004421D9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB524F825DB23FA004421D9 /* User.swift */; };
 		3CB524FC25DB2443004421D9 /* DB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB524FB25DB2443004421D9 /* DB.swift */; };
@@ -64,6 +68,10 @@
 		3C4D6BEE25D5D1C4009CEBE1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3C4D6BF125D5D1C4009CEBE1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3C4D6BF325D5D1C4009CEBE1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3C6922D125EDF326001BA185 /* FriendDb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendDb.swift; sourceTree = "<group>"; };
+		3C6922D525EDF466001BA185 /* Friend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
+		3C6922F425EE1CA4001BA185 /* funstions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = funstions.swift; sourceTree = "<group>"; };
+		3C6922F725EEC2CB001BA185 /* FriendVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendVC.swift; sourceTree = "<group>"; };
 		3CB524F425DB1B03004421D9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3CB524F825DB23FA004421D9 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		3CB524FB25DB2443004421D9 /* DB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DB.swift; sourceTree = "<group>"; };
@@ -144,6 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				118B4DCB25E0B4B900A8628C /* test_data.json */,
+				3C6922F325EE1C87001BA185 /* Helper */,
 				3CDFE92425DF0B9600742EF2 /* Navigation */,
 				3CDFE91F25DE823C00742EF2 /* Data */,
 				3CB524F725DB23DD004421D9 /* model */,
@@ -178,6 +187,7 @@
 				3CDFE93425DF8C6F00742EF2 /* SignUp.swift */,
 				3C319D9325E58BAB00868267 /* ProfileVC.swift */,
 				DBF6EAC525EDA6E800210649 /* EmailLoginViewController.swift */,
+				3C6922F725EEC2CB001BA185 /* FriendVC.swift */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -193,6 +203,14 @@
 				1122CE6C25E5A23F0065B4B2 /* Profile.storyboard */,
 			);
 			path = storyBoard;
+			sourceTree = "<group>";
+		};
+		3C6922F325EE1C87001BA185 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				3C6922F425EE1CA4001BA185 /* funstions.swift */,
+			);
+			path = Helper;
 			sourceTree = "<group>";
 		};
 		3CB524F625DB23B1004421D9 /* services */ = {
@@ -213,6 +231,7 @@
 				3C13A8E425DB770E00C9D7F6 /* Run */,
 				3CB524F825DB23FA004421D9 /* User.swift */,
 				3C13A8E125DB76D100C9D7F6 /* GPS.swift */,
+				3C6922D525EDF466001BA185 /* Friend.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -224,6 +243,7 @@
 				3CB5250725DB3B2C004421D9 /* RunDb.swift */,
 				3CB5250925DB3F51004421D9 /* Path.swift */,
 				3C13A8EC25DB77C500C9D7F6 /* UserDb.swift */,
+				3C6922D125EDF326001BA185 /* FriendDb.swift */,
 			);
 			path = database;
 			sourceTree = "<group>";
@@ -417,6 +437,7 @@
 			files = (
 				3C13A8EA25DB774B00C9D7F6 /* RunSnapshot.swift in Sources */,
 				DBF6EAC625EDA6E800210649 /* EmailLoginViewController.swift in Sources */,
+				3C6922D225EDF326001BA185 /* FriendDb.swift in Sources */,
 				3C13A8E225DB76D100C9D7F6 /* GPS.swift in Sources */,
 				3C13A8ED25DB77C500C9D7F6 /* UserDb.swift in Sources */,
 				3C319D9825E58C5D00868267 /* Notification.swift in Sources */,
@@ -425,6 +446,7 @@
 				3CB524F925DB23FA004421D9 /* User.swift in Sources */,
 				3C4D6BEA25D5D1C2009CEBE1 /* ViewController.swift in Sources */,
 				118B4DC425E0AD8900A8628C /* tester.swift in Sources */,
+				3C6922D625EDF466001BA185 /* Friend.swift in Sources */,
 				3CB524FC25DB2443004421D9 /* DB.swift in Sources */,
 				3CB5250125DB24C2004421D9 /* LocalStorage.swift in Sources */,
 				3CDFE93525DF8C6F00742EF2 /* SignUp.swift in Sources */,
@@ -438,6 +460,8 @@
 				3CB5250A25DB3F51004421D9 /* Path.swift in Sources */,
 				3CDFE92925DF15CB00742EF2 /* LoginVC.swift in Sources */,
 				3C319D9425E58BAB00868267 /* ProfileVC.swift in Sources */,
+				3C6922F525EE1CA4001BA185 /* funstions.swift in Sources */,
+				3C6922F825EEC2CB001BA185 /* FriendVC.swift in Sources */,
 				3CB5250625DB35CB004421D9 /* Auth.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -586,16 +610,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 32ZQY2PA9J;
+				DEVELOPMENT_TEAM = 2Q38A69MUG;
 				INFOPLIST_FILE = "Ghost Runner/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Runner.Ghost-Runner";
+				PRODUCT_BUNDLE_IDENTIFIER = zw.ghostrunner;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -607,16 +633,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 32ZQY2PA9J;
+				DEVELOPMENT_TEAM = 2Q38A69MUG;
 				INFOPLIST_FILE = "Ghost Runner/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Runner.Ghost-Runner";
+				PRODUCT_BUNDLE_IDENTIFIER = zw.ghostrunner;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

@@ -17,15 +17,7 @@ class RunDb {
         self.path = Path.init(user: user);
     }
     
-    struct ApiError: Error {
-        var message: String
-        var code: String
-        
-        init(response: [String: Any]) {
-            self.message = (response["error_message"] as? String) ?? "Network error"
-            self.code = (response["error_code"] as? String) ?? "network_error"
-        }
-    }
+
     
     
     // CALL AT THE END OF THE RUN

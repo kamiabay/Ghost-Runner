@@ -225,6 +225,8 @@ PODS:
   - BoringSSL-GRPC/Interface (0.0.7)
   - Firebase (6.34.0):
     - Firebase/Core (= 6.34.0)
+  - Firebase/Analytics (6.34.0):
+    - Firebase/Core
   - Firebase/Auth (6.34.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 6.9.2)
@@ -233,6 +235,9 @@ PODS:
     - FirebaseAnalytics (= 6.9.0)
   - Firebase/CoreOnly (6.34.0):
     - FirebaseCore (= 6.10.4)
+  - Firebase/DynamicLinks (6.34.0):
+    - Firebase/CoreOnly
+    - FirebaseDynamicLinks (~> 4.3.1)
   - Firebase/Storage (6.34.0):
     - Firebase/CoreOnly
     - FirebaseStorage (~> 3.9.1)
@@ -259,6 +264,8 @@ PODS:
     - GoogleUtilities/Environment (~> 6.7)
     - GoogleUtilities/Logger (~> 6.7)
     - nanopb (~> 1.30906.0)
+  - FirebaseDynamicLinks (4.3.1):
+    - FirebaseCore (~> 6.10)
   - FirebaseFirestore (1.19.0):
     - abseil/algorithm (= 0.20200225.0)
     - abseil/base (= 0.20200225.0)
@@ -354,7 +361,9 @@ PODS:
 
 DEPENDENCIES:
   - Firebase
+  - Firebase/Analytics
   - Firebase/Auth
+  - Firebase/DynamicLinks
   - Firebase/Storage
   - FirebaseFirestoreSwift
   - GoogleSignIn
@@ -369,6 +378,7 @@ SPEC REPOS:
     - FirebaseAuth
     - FirebaseCore
     - FirebaseCoreDiagnostics
+    - FirebaseDynamicLinks
     - FirebaseFirestore
     - FirebaseFirestoreSwift
     - FirebaseInstallations
@@ -394,6 +404,7 @@ SPEC CHECKSUMS:
   FirebaseAuth: c92d49ada7948d1a23466e3db17bc4c2039dddc3
   FirebaseCore: d3a978a3cfa3240bf7e4ba7d137fdf5b22b628ec
   FirebaseCoreDiagnostics: 770ac5958e1372ce67959ae4b4f31d8e127c3ac1
+  FirebaseDynamicLinks: 6eac37d86910382eafb6315d952cc44c9e176094
   FirebaseFirestore: 9b2f1b9b9a6f2f0b6fb7484b9e32ab7e39243554
   FirebaseFirestoreSwift: 2c46dbc1156db97dc4f6dd798d4f5b57b9c7fab6
   FirebaseInstallations: 466c7b4d1f58fe16707693091da253726a731ed2
@@ -410,6 +421,6 @@ SPEC CHECKSUMS:
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
 
-PODFILE CHECKSUM: 0c92382bfc0a338f25d2e8e5676d3b17f27e2009
+PODFILE CHECKSUM: 8eb52923f9388014d472869ac146f275163d1ffd
 
 COCOAPODS: 1.10.1

@@ -56,6 +56,7 @@ class HomeVC: UIViewController {
     
     // FUNCTIONS
     func getUserData()  {
+        // get users code
         print(LocalStorage().getUser().toJSON())
     }
     
@@ -63,7 +64,6 @@ class HomeVC: UIViewController {
         self.db.runDb.getUserRunList(completion: { (runList) in
             DispatchQueue.main.async {
                 self.runList = runList
-                print(" recived value is : \(self.runList.count)")
                 self.runsTable.reloadData()
                 }
        });
@@ -103,23 +103,20 @@ extension HomeVC: CLLocationManagerDelegate {
         case .authorizedAlways:
             print("user allow app to get location data when app is active or in background")
         case .authorizedWhenInUse:
+            alwaysAuthorization()
             print("user allow app to get location data only when app is active")
         case .denied:
+            alwaysAuthorization()
             print("user tap 'disallow' on the permission dialog, cant get location data")
         case .restricted:
+            alwaysAuthorization()
             print("parental control setting disallow location data")
         case .notDetermined:
+            alwaysAuthorization()
             print("the location permission dialog haven't shown before, user haven't tap allow/disallow")
         }
     }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print("update")
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("error")
-    }
 }
 
 
