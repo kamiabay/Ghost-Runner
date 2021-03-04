@@ -41,27 +41,45 @@ class LocalStorage {
                 UserDefaults.standard.set(name, forKey: "photoURL")
             }
         }
+        
+        static var code: String? {
+            get {
+                return UserDefaults.standard.string(forKey: "code")
+            }
+            
+            set(name) {
+                UserDefaults.standard.set(name, forKey: "code")
+            }
+        }
     }
     
-    init(uid: String,name: String , photoURL: String) {
+    init(uid: String,name: String , photoURL: String, code: String) {
         Storage.uid = uid;
         Storage.name = name;
         Storage.photoURL = photoURL;
+        Storage.code = code;
     }
     
     init() {
-        self.user = User(doc: ["":""]); // TODO: instantiate
+        self.user = User(data: ["":""]); // TODO: instantiate
     }
     
     func getUser() -> User {
         let name = Storage.name ?? "no name";
         let uid = Storage.uid ?? "no uid";
         let photoURL = Storage.photoURL ?? "";
-        return User.init(name: name, photoURL: photoURL, uid: uid);
+        let code = Storage.code ?? "";
+        return User.init(name: name, photoURL: photoURL, uid: uid, code: code);
     }
     
     func userExist () -> Bool {
-        return (Storage.uid != nil)
+        return (Storage.uid != "")
+    }
+    
+    func deleteUser() {
+        Storage.uid = "";
+        Storage.name = "";
+        Storage.photoURL = "";
     }
     
 }

@@ -60,8 +60,8 @@ class SignUpVC: UIViewController {
             }
             
             if let user = authResult?.user {
-//                user.displayName = username
-                LocalStorage.init(uid: user.uid, name: username, photoURL: "");
+               let code = Functions().randomCode()
+                LocalStorage.init(uid: user.uid, name: username, photoURL: "", code: code);
                 self.navigation?.goToHome()
             }
         }

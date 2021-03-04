@@ -24,6 +24,19 @@ struct GhostObj {
 
 
 class RunVC: UIViewController {
+    let db = DB()
+    
+    // Timers
+    var runTimer: Timer?
+    var userTrackTimer: Timer?
+    var opponenetTimer: Timer?
+    
+    // calculation
+    var runCalculation : RunCalculation?  // initialized in viewDidLoad()
+    let CONST_TIME: Double = 1.0;
+    var lastDrawnPolyLine: MKOverlay?
+    
+    var friendsList = [Friend]()
     
     // Adding N ghosts vars
     var ghostOptions = [Run]()  // will init all options tied to the user
@@ -35,16 +48,11 @@ class RunVC: UIViewController {
     var navigation: Navigator?
     
     var opponentRun: Run?; // NEEDS TO BE INITIALIZED
-    let db = DB()
+   
     
-    var runCalculation : RunCalculation?  // initialized in viewDidLoad()
-    let CONST_TIME: Double = 1.0;
-    var lastDrawnPolyLine: MKOverlay?
+
     
-    // Timers
-    var runTimer: Timer?
-    var userTrackTimer: Timer?
-    var opponenetTimer: Timer?
+
   
     // Storyboard Outlets
     @IBOutlet weak var mapView: MKMapView!
@@ -74,6 +82,17 @@ class RunVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigation = Navigator(currentViewController: self)
+        
+        // DELEGATES
+        mapView.delegate = self;
+        locationManager.delegate = self
+        addGhostTable.delegate = self
+        addGhostTable.dataSource = self
+        
+        // load data
+        self.getUserRunData()
+        self.getFriendsList()
         
         // View Styling
         view.backgroundColor =  .darkGray
@@ -95,16 +114,11 @@ class RunVC: UIViewController {
         mapView.layoutMargins = UIEdgeInsets(top: topPanel.bounds.height + 20, left: 0, bottom: 0, right: 8)
         
         // Init navigation
-        navigation = Navigator(currentViewController: self)
         
-        // DELEGATES
-        mapView.delegate = self;
-        locationManager.delegate = self
-        addGhostTable.delegate = self
-        addGhostTable.dataSource = self
         
-        // Get additional Ghost options
-        getUserRunData()
+
+        
+
         
         // RunCalculation init
         // There are 2: one for single-ghost, and another for N ghosts
@@ -168,6 +182,13 @@ class RunVC: UIViewController {
        })
     }
     
+    func getFriendsList()  {
+        self.db.friendDb.getAllFriends(completion: { (friendList) in
+            DispatchQueue.main.async {
+                self.friendsList = friendList
+            }
+       })
+    }
     
     // #######################################
     // Adding N ghosts

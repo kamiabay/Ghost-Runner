@@ -18,8 +18,25 @@ class Path {
     
     
     // USER
+    func allUsers() -> FirebaseFirestore.CollectionReference{
+        return db.collection("user")
+    }
+    
     func userPrivate() -> FirebaseFirestore.DocumentReference{
         return db.collection("user").document(user.uid)
+    }
+    
+    // FRIENDS
+    func allFriends() -> FirebaseFirestore.CollectionReference {
+        return userPrivate().collection("friends")
+    }
+    
+    func eachFriend(friendUID: String) -> FirebaseFirestore.DocumentReference {
+        return allFriends().document(friendUID)
+    }
+    
+    func friendAllRuns(friendUID: String) -> FirebaseFirestore.CollectionReference {
+        return allUsers().document(friendUID).collection("run")
     }
     
     // RUNS

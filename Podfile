@@ -13,6 +13,8 @@ pod 'Firebase/Storage'
 pod 'Firebase/Auth'
 pod 'GoogleSignIn'
 pod 'FirebaseFirestoreSwift'
+pod 'Firebase/Analytics'
+pod 'Firebase/DynamicLinks'
 
 
 # add pods for any other desired Firebase products

@@ -7,7 +7,6 @@
 
 import Foundation
 import UIKit
-import Firebase
 import GoogleSignIn
 import FirebaseAuth
 
@@ -22,7 +21,7 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var pageControl: UIPageControl!
     
-    var movies: [String] = ["google-icon","apple-icon","fb-icon"]
+    var imgListName: [String] = ["runner-1","biker","fb-icon"]
     var frame = CGRect.zero
     
     var navigation: Navigator?
@@ -44,19 +43,24 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        GIDSignIn.sharedInstance().delegate = self
-
-        navigation = Navigator(currentViewController: self)
         
+        
+       
+        // order matters
+        navigation = Navigator(currentViewController: self)
+        checkIfUserExist()
+        
+        
+        GIDSignIn.sharedInstance().delegate = self
         navigation?.currentViewController?.navigationController?.navigationBar.isHidden = true
-        checkIfUserExist();
+       
         
         GIDSignIn.sharedInstance()?.presentingViewController = self
 
         let tapGesture = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tapGesture)
         
-        pageControl.numberOfPages = movies.count
+        pageControl.numberOfPages = imgListName.count
         setUpScrollView()
         
         googleLoginButton.layer.cornerRadius = rad
@@ -148,9 +152,9 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
     
     
     func checkIfUserExist() {
-  
+        print(LocalStorage().getUser().toJSON())
         if (LocalStorage().userExist()) {
-//            self.navigation?.goToHome()
+           self.navigation?.goToHome()
         }
     }
     
@@ -184,17 +188,17 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
     
     // MARK: - Set up scroll view
     func setUpScrollView() {
-        for index in 0..<movies.count {
+        for index in 0..<imgListName.count {
             frame.origin.x = scrollView.frame.size.width * CGFloat(index)
             frame.size = scrollView.frame.size
             
             let imgView = UIImageView(frame: frame)
-            imgView.image = UIImage(named: movies[index])
+            imgView.image = UIImage(named: imgListName[index])
 
             self.scrollView.addSubview(imgView)
         }
 
-        scrollView.contentSize = CGSize(width: (scrollView.frame.size.width * CGFloat(movies.count)), height: scrollView.frame.size.height)
+        scrollView.contentSize = CGSize(width: (scrollView.frame.size.width * CGFloat(imgListName.count)), height: scrollView.frame.size.height)
         pageControl.addTarget(self, action: #selector(self.changePage(sender:)), for: UIControl.Event.valueChanged)
         
         scrollView.delegate = self
@@ -254,20 +258,32 @@ extension LoginVC : GIDSignInDelegate{
             guard let user = authResult?.user else {
                 return;
             }
+            
+            let isNew = authResult?.additionalUserInfo?.isNewUser ?? false;
+
             // User is signed in
             let uid = user.uid;
             let photoURL = user.photoURL?.absoluteString ?? "";
             let name = user.displayName ?? "";
+            let code = Functions().randomCode();
             
-            Authentication().saveUserOnDB(uid: uid, photoURL: photoURL, name:name, completion: { () in
-                DispatchQueue.main.async {
-                   
-                    LocalStorage.init(uid: uid, name: name, photoURL: photoURL);
+           
 
-                    }
+            if (!isNew) {
+                LocalStorage.init(uid: uid, name: name, photoURL: photoURL, code: "");
                 self.navigation?.goToHome()
+                return;
+            }
+            LocalStorage.init(uid: uid, name: name, photoURL: photoURL, code: code);
+            Authentication()
+                .saveUserOnDB(uid: uid, photoURL: photoURL, name: name, code: code, completion: { () in
+                DispatchQueue.main.async {
+                    print(LocalStorage().getUser().toJSON())
+                    self.navigation?.goToHome()
+                    }
               }
             );
+          
            
            
             

@@ -121,16 +121,48 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZDc-Ni-MeY">
-                                <rect key="frame" x="170" y="205" width="75" height="23"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button" image="person.fill.badge.plus" catalog="system"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZDc-Ni-MeY">
+                                <rect key="frame" x="354" y="64" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="5Jh-xB-yqK"/>
+                                    <constraint firstAttribute="height" constant="40" id="riQ-k6-Kjw"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" image="person.fill.badge.plus" catalog="system"/>
+                                <connections>
+                                    <action selector="addFriend" destination="wW2-46-xqN" eventType="touchUpInside" id="djB-c5-Ttv"/>
+                                </connections>
                             </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="uCd-5K-TgM">
+                                <rect key="frame" x="0.0" y="112" width="414" height="701"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AMM-g5-zbQ">
+                                <rect key="frame" x="20" y="70" width="326" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" textContentType="tel"/>
+                            </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="hsH-W3-1qs"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="labelColor"/>
+                        <constraints>
+                            <constraint firstItem="ZDc-Ni-MeY" firstAttribute="top" secondItem="hsH-W3-1qs" secondAttribute="top" constant="20" id="2Pw-7A-8R1"/>
+                            <constraint firstItem="uCd-5K-TgM" firstAttribute="top" secondItem="AMM-g5-zbQ" secondAttribute="bottom" constant="8" symbolic="YES" id="78P-DW-WN0"/>
+                            <constraint firstItem="uCd-5K-TgM" firstAttribute="trailing" secondItem="hsH-W3-1qs" secondAttribute="trailing" id="Gj4-2H-lGo"/>
+                            <constraint firstItem="uCd-5K-TgM" firstAttribute="leading" secondItem="hsH-W3-1qs" secondAttribute="leading" id="YpM-B2-Bvn"/>
+                            <constraint firstItem="hsH-W3-1qs" firstAttribute="trailing" secondItem="ZDc-Ni-MeY" secondAttribute="trailing" constant="20" id="Z1Z-Yp-1QM"/>
+                            <constraint firstItem="ZDc-Ni-MeY" firstAttribute="leading" secondItem="AMM-g5-zbQ" secondAttribute="trailing" constant="8" symbolic="YES" id="c1V-Yl-Bxh"/>
+                            <constraint firstItem="uCd-5K-TgM" firstAttribute="bottom" secondItem="hsH-W3-1qs" secondAttribute="bottom" id="hri-j2-ixs"/>
+                            <constraint firstItem="AMM-g5-zbQ" firstAttribute="leading" secondItem="hsH-W3-1qs" secondAttribute="leading" constant="20" id="lWN-ee-HnN"/>
+                            <constraint firstItem="uCd-5K-TgM" firstAttribute="top" secondItem="ZDc-Ni-MeY" secondAttribute="bottom" constant="8" symbolic="YES" id="nsE-8I-lQb"/>
+                        </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Friends" image="person.fill" catalog="system" id="kjR-l3-ecc"/>
+                    <tabBarItem key="tabBarItem" title="Friends" image="person.fill" catalog="system" id="kjR-l3-ecc">
+                        <color key="badgeColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBarItem>
+                    <connections>
+                        <outlet property="friendCodeField" destination="AMM-g5-zbQ" id="LCt-EU-yF7"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rr7-mo-cNL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -143,7 +175,8 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="w7S-p0-ox6">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="selectedImageTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
                         <segue destination="5OL-W5-HW4" kind="relationship" relationship="viewControllers" id="YVw-TE-ZMo"/>
@@ -159,6 +192,9 @@
         <image name="map.fill" catalog="system" width="128" height="110"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="person.fill.badge.plus" catalog="system" width="128" height="124"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

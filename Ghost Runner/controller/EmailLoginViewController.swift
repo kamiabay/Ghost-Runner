@@ -42,8 +42,8 @@ class EmailLoginViewController: UIViewController {
             }
             
             if let user = authResult?.user {
-               
-                LocalStorage.init(uid: user.uid, name: user.displayName ?? "", photoURL: "");
+                let code = Functions().randomCode();
+                LocalStorage.init(uid: user.uid, name: user.displayName ?? "", photoURL: "", code: code);
                 self?.navigation?.goToHome()
             }
         }
