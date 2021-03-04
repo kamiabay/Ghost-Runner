@@ -40,6 +40,11 @@ class ProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        // Testing
+        let notifications = NotificationManager()
+        notifications.playOpponentPassedAudio()
+        notifications.pushFriendCreatedNewRun()
+        
         navigation = Navigator(currentViewController: self)
         
         self.infoTable.delegate = self

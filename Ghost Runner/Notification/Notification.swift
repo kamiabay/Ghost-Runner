@@ -12,10 +12,8 @@ import AVFoundation // For audio notifications
 class NotificationManager {
     let center = UNUserNotificationCenter.current()
     let content = UNMutableNotificationContent()
-    var runDifferenceVoiceAudio: AVAudioPlayer?
-    var runnerPassedVoiceAudio: AVAudioPlayer?
-    var userPassedVoiceAudio: AVAudioPlayer?
-    
+    var audioPlayer: AVAudioPlayer?
+        
     init() {
         // Request authorization for push notifications
         self.center.requestAuthorization(options: [.sound, .alert]) { (granted, error) in
@@ -23,43 +21,39 @@ class NotificationManager {
                 // Let user know how to change later and maybe let them know how notifications let the user know when friends have completed runs
             }
         }
-                
-        // Initializing audio for file on computer
-        // Will need to update to finding audio in memory (use 'init(data: Data)')
-        self.runDifferenceVoiceAudio = initializeAudioFile(fileName: "runDifferenceVoiceAudio.mp3")
-        self.runnerPassedVoiceAudio = initializeAudioFile(fileName: "runnerPassedVoiceAudio.mp3")
-        self.userPassedVoiceAudio = initializeAudioFile(fileName: "userPassedVoiceAudio.mp3")
     }
     
-    private func initializeAudioFile(fileName: String) -> AVAudioPlayer? {
-        guard let path = Bundle.main.path(forResource: fileName, ofType: nil) else {
+    private func playAudioFile(fileName: String, fileExtension: String) {
+        guard let path = Bundle.main.path(forResource: fileName, ofType: fileExtension) else {
             print("cannot find \(fileName)")
-            return nil
+            return
         }
         
         let url = URL(fileURLWithPath: path)
         
         do {
-            let audio = try AVAudioPlayer(contentsOf: url)
-            return audio
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default) // Not sure if these are necessary
+            try AVAudioSession.sharedInstance().setActive(true)
+            
+            self.audioPlayer = try AVAudioPlayer(contentsOf: url)
+            self.audioPlayer?.play()
+            print("playing \(fileName)")
         }
         catch {
             print("could not load audio")
         }
-        
-        return nil
     }
     
-    func playRunDifferenceAudio() {
-        self.runDifferenceVoiceAudio?.play()
+    func playOpponentApproachingAudio() {
+        self.playAudioFile(fileName: "opponentApproachingVoiceAudio", fileExtension: "m4a")
     }
     
-    func playRunnerPassedAudio() {
-        self.runDifferenceVoiceAudio?.play()
+    func playOpponentPassedAudio() {
+        self.playAudioFile(fileName: "opponentPassedVoiceAudio", fileExtension: "m4a")
     }
     
     func playUserPassedAudio() {
-        self.runDifferenceVoiceAudio?.play()
+        self.playAudioFile(fileName: "userPassedVoiceAudio", fileExtension: "m4a")
     }
     
     func pushFriendCompetedAgainstUser() {
