@@ -40,6 +40,11 @@ class ProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        // Testing
+        let notifications = NotificationManager()
+        notifications.playOpponentPassedAudio()
+        notifications.pushFriendCreatedNewRun()
+        
         navigation = Navigator(currentViewController: self)
         
         self.infoTable.delegate = self
@@ -103,7 +108,7 @@ class ProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         present(pc, animated: true, completion: nil)
     }
     
-    // Here we can save and display the actual image information
+    // Here we save and display the actual image information
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
             profileImage.image = image

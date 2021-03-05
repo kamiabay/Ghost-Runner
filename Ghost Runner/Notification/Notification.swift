@@ -9,53 +9,51 @@ import Foundation
 import UserNotifications // For push notifications
 import AVFoundation // For audio notifications
 
-// Potential issue: how do the audio notifications occur at the start of a 10-ghost race?
-// The user probably wants to know how fast they are compared to everyone else, but also
-// they probably don't want to have to hear a ton of notifications.
-// Potential resolution: What if we give the user an update on his/her position after ~10 sec?
-class NotoficationManager {
+class NotificationManager {
     let center = UNUserNotificationCenter.current()
     let content = UNMutableNotificationContent()
-    var runDifferenceVoiceAudio: AVAudioPlayer? // Could say, "[name] is [time] seconds behind/ahead of you" or instead of being customizable, we could just have many of them
-    
-    init() {
+    var audioPlayer: AVAudioPlayer?
         
+    init() {
         // Request authorization for push notifications
         self.center.requestAuthorization(options: [.sound, .alert]) { (granted, error) in
             if granted == false {
                 // Let user know how to change later and maybe let them know how notifications let the user know when friends have completed runs
             }
         }
-                
-        // Initializing audio for file on computer
-        // Will need to update to finding audio in memory (use 'init(data: Data)')
-        guard let path = Bundle.main.path(forResource: "RUNDIFFERENCE.mp3", ofType: nil) else {
-            print("cannot find RUNDIFFERENCE.mp3")
+    }
+    
+    private func playAudioFile(fileName: String, fileExtension: String) {
+        guard let path = Bundle.main.path(forResource: fileName, ofType: fileExtension) else {
+            print("cannot find \(fileName)")
             return
         }
+        
         let url = URL(fileURLWithPath: path)
         
         do {
-            runDifferenceVoiceAudio = try AVAudioPlayer(contentsOf: url)
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default) // Not sure if these are necessary
+            try AVAudioSession.sharedInstance().setActive(true)
+            
+            self.audioPlayer = try AVAudioPlayer(contentsOf: url)
+            self.audioPlayer?.play()
+            print("playing \(fileName)")
         }
         catch {
-            print("could not load ")
+            print("could not load audio")
         }
     }
     
-    func playRunDifferenceAudio() {
-        self.runDifferenceVoiceAudio?.play()
+    func playOpponentApproachingAudio() {
+        self.playAudioFile(fileName: "opponentApproachingVoiceAudio", fileExtension: "m4a")
     }
     
-    func playRunnerPassedAudio() {
-        // play "You have been passed by [name]"
-        // Maybe also "[name] is travelling [speed] faster than you"
-        // Maybe mention their 'place'
+    func playOpponentPassedAudio() {
+        self.playAudioFile(fileName: "opponentPassedVoiceAudio", fileExtension: "m4a")
     }
     
     func playUserPassedAudio() {
-        // play "You have passed [name]"
-        // Maybe add "and are now in [position] place"
+        self.playAudioFile(fileName: "userPassedVoiceAudio", fileExtension: "m4a")
     }
     
     func pushFriendCompetedAgainstUser() {
@@ -65,7 +63,7 @@ class NotoficationManager {
         // Navigate user to view which shows results of competition
     }
     
-    func friendCreatedNewRun() {
+    func pushFriendCreatedNewRun() {
         self.content.title = "GhostRunner alert!"
         self.content.body = "Your friend [friend username] created a new run!"
         pushNotification()
