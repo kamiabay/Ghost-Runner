@@ -29,12 +29,12 @@ class FriendSearchVC: UIViewController {
     func getFriend(code: String) {
         print("calling with \(code)")
         
-        db.friendDb.findFriendUsingCode(code: code, completion: { (friend) in
+        db.friendDb.findFriendUsingCode(code: code, completion: { [weak self] (friend) in
         DispatchQueue.main.async {
             print(friend.toJSON())
             
-            self.addFriend(friend: friend);
-            self.addedFriend.text = "added: \(friend.name) to your friends list";
+            self?.addFriend(friend: friend);
+            self?.addedFriend.text = "added: \(friend.name) to your friends list";
             }
         });
         

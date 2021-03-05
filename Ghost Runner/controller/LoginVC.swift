@@ -152,7 +152,7 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
     
     
     func checkIfUserExist() {
-        print(LocalStorage().getUser().toJSON())
+        print("does user exist => : \(LocalStorage().userExist())")
         if (LocalStorage().userExist()) {
            self.navigation?.goToHome()
         }
@@ -276,10 +276,10 @@ extension LoginVC : GIDSignInDelegate{
             }
             LocalStorage.init(uid: uid, name: name, photoURL: photoURL, code: code);
             Authentication()
-                .saveUserOnDB(uid: uid, photoURL: photoURL, name: name, code: code, completion: { () in
+                .saveUserOnDB(uid: uid, photoURL: photoURL, name: name, code: code, completion: { [weak self] () in
                 DispatchQueue.main.async {
                     print(LocalStorage().getUser().toJSON())
-                    self.navigation?.goToHome()
+                    self?.navigation?.goToHome()
                     }
               }
             );

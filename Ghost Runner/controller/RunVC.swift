@@ -27,13 +27,13 @@ class RunVC: UIViewController {
     let db = DB()
     
     // Timers
-    var runTimer: Timer?
-    var userTrackTimer: Timer?
-    var opponenetTimer: Timer?
+     var runTimer: Timer?
+     var userTrackTimer: Timer?
+     var opponenetTimer: Timer?
     
     // calculation
     var runCalculation : RunCalculation?  // initialized in viewDidLoad()
-    let CONST_TIME: Double = 1.0;
+    let CONST_TIME: Double = 2.0;
     var lastDrawnPolyLine: MKOverlay?
     
     var friendsList = [Friend]()
@@ -45,14 +45,9 @@ class RunVC: UIViewController {
     var GhostObjList: [GhostObj?] = []
     
     // Navigation declaration
-    var navigation: Navigator?
-    
-    var opponentRun: Run?; // NEEDS TO BE INITIALIZED
+     var navigation: Navigator?
+     var opponentRun: Run?; // NEEDS TO BE INITIALIZED
    
-    
-
-    
-
   
     // Storyboard Outlets
     @IBOutlet weak var mapView: MKMapView!
@@ -123,7 +118,7 @@ class RunVC: UIViewController {
         // RunCalculation init
         // There are 2: one for single-ghost, and another for N ghosts
         // The one below is for single opponent
-        //runCalculation = RunCalculation(opponentRun: opponentRun ?? Run(runSnapshotList: [RunSnapshot](), runID: "null"));
+        runCalculation = RunCalculation(opponentRun: opponentRun ?? Run(runSnapshotList: [RunSnapshot](), runID: "null"));
         
         // Add the initially selected Ghost to the selectedGhosts list (if the user selected a target)
         // The user can add more ghosts via "Add Ghost"
@@ -133,7 +128,7 @@ class RunVC: UIViewController {
         }
         
         // Set up observer in background
-        NotificationCenter.default.addObserver(self, selector: #selector(resumeObservingUser), name: UIApplication.willEnterForegroundNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(resumeObservingUser), name: UIApplication.willEnterForegroundNotification, object: nil)
         
         // In case user did not enable location, this will ask again, stalling our user/ghost functions
         let authorizeLocQueue = DispatchQueue(label: "authorizelocation")
@@ -154,6 +149,8 @@ class RunVC: UIViewController {
     
     // Deinit notification for when app enters foreground
     deinit {
+        
+        print("RUN VC is DOESNT thave a Retain cycle => GOOD")
         NotificationCenter.default.removeObserver(self, name: UIApplication.willEnterForegroundNotification, object: nil)
 
     }
@@ -174,18 +171,18 @@ class RunVC: UIViewController {
     
     
     func getUserRunData()  {
-        self.db.runDb.getUserRunList(completion: { (ghostOptions) in
+        self.db.runDb.getUserRunList(completion: { [weak self] (ghostOptions) in
             DispatchQueue.main.async {
-                self.ghostOptions = ghostOptions
-                print("recived value is : \(self.ghostOptions.count)")
+                self?.ghostOptions = ghostOptions
+                print("recived value is : \(self?.ghostOptions.count)")
             }
        })
     }
     
     func getFriendsList()  {
-        self.db.friendDb.getAllFriends(completion: { (friendList) in
+        self.db.friendDb.getAllFriends(completion: { [weak self](friendList) in
             DispatchQueue.main.async {
-                self.friendsList = friendList
+                self?.friendsList = friendList
             }
        })
     }
@@ -219,11 +216,8 @@ class RunVC: UIViewController {
     // #######################################
     
 
-    // TO BE REMOVED
-    func beginGhostAnimation() {
-        runTimer = Timer.scheduledTimer(timeInterval: CONST_TIME, target: self, selector: #selector(updateOpponentLocation), userInfo: nil, repeats: true)
-        //updateOpponentLocation
-    }
+ 
+
     
     // Original function for only one opponent
 //    @objc func updateOpponentLocation()  {
@@ -292,21 +286,22 @@ class RunVC: UIViewController {
     // #######################################
     
     @objc func intervalUpdate() {
-        //let snap = opponentRun!.getNextRunLocation();
-        //runCalculation?.updateOwnRunAndGetOpponentLocation(runSnapshot: snap)
+     
+        print("is moving \(!isUserMoving(locationManager: locationManager))")
+       // if(!isUserMoving(locationManager: locationManager)) {return}
+        
+       
+        
         let gps = GPS(locationManager: locationManager);
-
-        // if stationarty dont update anything
-        if(!isUserMoving(locationManager: locationManager)) {return} // NEEDS TESTING
-
+        
         // NOTE: The function currently doesn't do anything for opponent location; it only updates user location
         runCalculation?.updateOwnRunAndGetOpponentLocation(runSnapshot: RunSnapshot(gps: gps))
         
         // Polyline update; NOTE: CURRENTLY NOT COMPATIBLE WITH MULTIPLE GHOSTS
-        //updateOwnPolyLine()
+       // updateOwnPolyLine()
         
         // Updates all ghosts
-        updateOpponentLocation()
+        //updateOpponentLocation()
         centerMapToCurrentLocation() // LOCK THE USER TO ONLY THAT LOCATION , CANT ZOOM OUT/IN
     }
 
@@ -331,9 +326,7 @@ class RunVC: UIViewController {
         openTableView()
     }
     
-    @IBAction func animateOpponent() {
-        beginGhostAnimation();
-    }
+
     
     @IBAction func beginEndToggle(_ sender: UIButton) {
         if runToggleState == 0 {
@@ -373,7 +366,7 @@ class RunVC: UIViewController {
         
         runTimer?.invalidate()
         
-        //saveRunData()
+        saveRunData()
         locationManager.showsBackgroundLocationIndicator = false
         // disable listner for background GPS change
         locationManager.stopUpdatingHeading();
@@ -385,7 +378,7 @@ class RunVC: UIViewController {
     // NOTE: app continues to send "finished the run" repeatedly 
     @IBAction func backButton(_ sender: UIButton) {
         runTimer?.invalidate()
-        navigation?.goToHome()
+        navigation?.goBack()
     }
 }
 
@@ -399,7 +392,7 @@ extension RunVC: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last {
-          //  print("New location is \(location)")
+           print("New location is \(location)")
         }
     }
 }

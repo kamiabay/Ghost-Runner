@@ -31,12 +31,12 @@ class FriendVC: UIViewController {
     
 
     func getAllFriends()  {
-        db.friendDb.getAllFriends(completion: { (friendList) in
+        db.friendDb.getAllFriends(completion: { [weak self] (friendList) in
             DispatchQueue.main.async {
-                self.friendList = friendList
+                self?.friendList = friendList
                 print("\(friendList[0].code)")
                 print("data recived")
-                self.friendTable.reloadData()
+                self?.friendTable.reloadData()
             }
            
         })
@@ -74,7 +74,7 @@ extension FriendVC: UITableViewDataSource {
         return headerView
     }
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.friendList.count
+        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

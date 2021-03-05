@@ -92,13 +92,13 @@ class HomeVC: UIViewController {
         greetingLabel.text = greetingStr
     }
     func getUserRunData()  {
-        self.db.runDb.getUserRunList(completion: { (runList) in
+        self.db.runDb.getUserRunList(completion: { [weak self] (runList) in
             DispatchQueue.main.async {
-                self.runList = runList
-                print(" recived value is : \(self.runList.count)")
-                self.runsTable.reloadData()
+                self?.runList = runList
+                print(" recived value is : \(self?.runList.count)")
+                self?.runsTable.reloadData()
                 if runList.count > 0 {
-                    self.runsTable.reloadSections(IndexSet(integersIn: 0...runList.count-1), with: .top)
+                    self?.runsTable.reloadSections(IndexSet(integersIn: 0...runList.count-1), with: .top)
                 }
             }
        })
