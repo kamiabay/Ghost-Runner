@@ -23,6 +23,7 @@ class Navigator  {
         let home = "homeRoute"
         let run = "runRoute"
         let profile = "profileRoute"
+        let friendSearchSheet = "friendSearchSheet"
     }
     
     let route = RouteNames()
@@ -84,6 +85,16 @@ class Navigator  {
             return
         }
         currentViewController?.navigationController?.pushViewController(profileVC, animated: true)
+    }
+    
+    func presentSearchFriendSheet()  {
+        let storyboard = UIStoryboard(name: "Home", bundle: nil)
+        guard let friendSheet = storyboard.instantiateViewController(identifier: route.friendSearchSheet) as? FriendSearchVC else {
+            assertionFailure("couldnt find this controller")
+            return
+        }
+        
+       // present(FriendSearchVC(), animated: true);
     }
     
     func goBack()  {
