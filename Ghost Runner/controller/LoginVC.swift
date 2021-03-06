@@ -15,6 +15,7 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
 //    @IBOutlet weak var signUpButton: UIButton!
 //    @IBOutlet weak var loginButton: UIButton!
 //    @IBOutlet weak var appleLoginButton: UIButton!
+    @IBOutlet weak var optionsButton: UIButton!
     
     @IBOutlet weak var googleLoginButton: UIButton!
     
@@ -44,7 +45,7 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        optionsButton.isHidden = true
        
         // order matters
         navigation = Navigator(currentViewController: self)

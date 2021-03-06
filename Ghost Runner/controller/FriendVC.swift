@@ -24,7 +24,7 @@ class FriendVC: UIViewController {
         super.viewDidLoad()
         navigation = Navigator(currentViewController: self)
         friendTable.dataSource = self
-        friendTable.backgroundColor = .red
+        friendTable.backgroundColor = .lightGray
         getAllFriends()
     }
     
@@ -34,7 +34,7 @@ class FriendVC: UIViewController {
         db.friendDb.getAllFriends(completion: { [weak self] (friendList) in
             DispatchQueue.main.async {
                 self?.friendList = friendList
-                print("\(friendList[0].code)")
+//                print("\(friendList[0].code)")
                 print("data recived")
                 self?.friendTable.reloadData()
             }
