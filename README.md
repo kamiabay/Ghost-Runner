@@ -10,7 +10,7 @@
 
 > Nikita Andrikanis
 
-# Website: https://ghostsrunner.web.app/#/
+# https://ghostsrunner.web.app
 
 ### Our proposal:
 
