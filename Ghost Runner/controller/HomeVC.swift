@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 import CoreLocation
 import MapKit
+import MaterialComponents.MaterialButtons
 
 
 
@@ -20,8 +21,15 @@ class HomeVC: UIViewController {
     var navigation: Navigator?
     var totalRuns: Int? = 0
     let locationManager = CLLocationManager()
-    
     var selectedRun: Run?
+    let fab = MDCFloatingButton()
+    let cancelButton: MDCButton = {
+      let cancelButton = MDCButton()
+      cancelButton.translatesAutoresizingMaskIntoConstraints = false
+      cancelButton.setTitle("CANCEL", for: .normal)
+      //cancelButton.addTarget(self, action: #selector(didTapCancel(sender:)), for: .touchUpInside)
+      return cancelButton
+    }()
     
     @IBOutlet weak var runViewButton: UIButton!
     @IBOutlet weak var runsTable: UITableView!
@@ -38,10 +46,12 @@ class HomeVC: UIViewController {
         
         // General View Styling
         view.backgroundColor =  .systemBackground
+
+        view.addSubview(cancelButton)
+        //fab.minimumSize = CGSize(width: 64, height: 48)
         
         // Init navigation
         navigation = Navigator(currentViewController: self)
-        
         // Get data from DB
         getUserData();
         getUserRunData();
