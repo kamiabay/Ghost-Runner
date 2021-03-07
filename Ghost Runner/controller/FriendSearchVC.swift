@@ -17,10 +17,18 @@ class FriendSearchVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor =  .blue
-        searchBar.delegate = self
+        addedFriend.text = ""
+        NotificationCenter.default.addObserver( self,selector:#selector(self.keyboardDidShow), name: UITextField.textDidChangeNotification, object: searchBar)
     }
     
+    @objc func keyboardDidShow(notifcation: NSNotification) {
+        if searchBar.text?.count == 5 {
+            guard let code = searchBar.text else {
+                return
+            }
+            getFriend(code: code)
+        }
+     }
     
     func addFriend(friend: Friend)  {
         db.friendDb.addFriend(friend: friend)
@@ -32,29 +40,15 @@ class FriendSearchVC: UIViewController {
         db.friendDb.findFriendUsingCode(code: code, completion: { [weak self] (friend) in
         DispatchQueue.main.async {
             print(friend.toJSON())
-            
+
             self?.addFriend(friend: friend);
             self?.addedFriend.text = "added: \(friend.name) to your friends list";
             }
-        });
-        
+        })
+        searchBar.text = ""
     }
     
 
 }
 
-
-
-
-// MARK: - UITextField Delegate
-extension FriendSearchVC: UITextFieldDelegate{
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if textField.text?.count == 5 {
-            let code = (textField.text ?? "") as String
-            getFriend(code: code)
-        }
-        
-        return true
-    }
-}
 
