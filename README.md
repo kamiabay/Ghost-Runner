@@ -24,7 +24,7 @@ The core of the app lies in our algorithm, which would take the geo-data and tim
 General Responsibilities:
 - Dylan: core run algorithm
 - Ziyu: authentication pipeline and accounts
-- Kami: back-end, data pipeline, authentication, run algorithm
+- Kami: back-end, data pipeline, authentication, run algorithm, website
 - Nikita: main UI, map/time-sector, graphics design
 
 ### Meeting/Sprint Planning Notes:
