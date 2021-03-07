@@ -23,6 +23,8 @@ class FriendSearchVC: UIViewController {
     
     @objc func keyboardDidShow(notifcation: NSNotification) {
         if searchBar.text?.count == 5 {
+            print("code is \(searchBar.text)")
+
             guard let code = searchBar.text else {
                 return
             }
@@ -40,7 +42,7 @@ class FriendSearchVC: UIViewController {
         db.friendDb.findFriendUsingCode(code: code, completion: { [weak self] (friend) in
         DispatchQueue.main.async {
             print(friend.toJSON())
-
+            
             self?.addFriend(friend: friend);
             self?.addedFriend.text = "added: \(friend.name) to your friends list";
             }
@@ -50,5 +52,3 @@ class FriendSearchVC: UIViewController {
     
 
 }
-
-
