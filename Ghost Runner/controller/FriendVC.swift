@@ -35,7 +35,7 @@ class FriendVC: UIViewController {
             DispatchQueue.main.async {
                 self?.friendList = friendList
 //                print("\(friendList[0].code)")
-                print("data recived")
+                print("data received")
                 self?.friendTable.reloadData()
             }
            
@@ -73,6 +73,7 @@ extension FriendVC: UITableViewDataSource {
         headerView.backgroundColor = UIColor.clear
         return headerView
     }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }

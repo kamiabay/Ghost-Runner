@@ -189,34 +189,47 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WGF-QQ-FwD">
-                                <rect key="frame" x="20" y="144" width="374" height="34"/>
+                                <rect key="frame" x="20" y="102" width="374" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter their Friend Code." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kRs-8K-IkX">
-                                <rect key="frame" x="20" y="64" width="274.5" height="30"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="friend" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Idg-FY-GFA">
+                                <rect key="frame" x="20" y="144" width="374" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.55634254220000001" green="0.97934550050000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="friend" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Idg-FY-GFA">
-                                <rect key="frame" x="20" y="186" width="374" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IIs-tV-SST">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                <color key="barTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <textAttributes key="titleTextAttributes">
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </textAttributes>
+                                <items>
+                                    <navigationItem title="Add Friends" id="x4S-8O-Nhy"/>
+                                </items>
+                            </navigationBar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter Friend Code." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VSh-Uq-4iB">
+                                <rect key="frame" x="20" y="64" width="215" height="30"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                <color key="textColor" red="0.55634254220000001" green="0.97934550050000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="BJM-pG-J61"/>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="VSh-Uq-4iB" firstAttribute="top" secondItem="IIs-tV-SST" secondAttribute="bottom" constant="20" id="59s-aN-0kd"/>
                             <constraint firstItem="Idg-FY-GFA" firstAttribute="centerX" secondItem="B3g-ce-xXF" secondAttribute="centerX" id="DMd-Sn-lxg"/>
-                            <constraint firstItem="kRs-8K-IkX" firstAttribute="top" secondItem="BJM-pG-J61" secondAttribute="top" constant="20" id="Gh5-rn-NAv"/>
-                            <constraint firstItem="kRs-8K-IkX" firstAttribute="leading" secondItem="BJM-pG-J61" secondAttribute="leading" constant="20" id="Hhh-fg-dpf"/>
+                            <constraint firstItem="VSh-Uq-4iB" firstAttribute="leading" secondItem="BJM-pG-J61" secondAttribute="leading" constant="20" id="H69-q1-dR3"/>
+                            <constraint firstAttribute="trailing" secondItem="IIs-tV-SST" secondAttribute="trailing" id="Iah-vm-ZzN"/>
+                            <constraint firstItem="WGF-QQ-FwD" firstAttribute="top" secondItem="VSh-Uq-4iB" secondAttribute="bottom" constant="8" symbolic="YES" id="K4R-j2-RO0"/>
+                            <constraint firstItem="BJM-pG-J61" firstAttribute="trailing" secondItem="WGF-QQ-FwD" secondAttribute="trailing" constant="20" id="LjP-sg-4Bz"/>
                             <constraint firstItem="WGF-QQ-FwD" firstAttribute="leading" secondItem="BJM-pG-J61" secondAttribute="leading" constant="20" id="OVS-UW-HPP"/>
-                            <constraint firstItem="WGF-QQ-FwD" firstAttribute="centerX" secondItem="B3g-ce-xXF" secondAttribute="centerX" id="Q6r-Vt-r7L"/>
-                            <constraint firstItem="Idg-FY-GFA" firstAttribute="top" secondItem="WGF-QQ-FwD" secondAttribute="bottom" constant="8" symbolic="YES" id="UNL-5a-GYx"/>
+                            <constraint firstItem="IIs-tV-SST" firstAttribute="top" secondItem="B3g-ce-xXF" secondAttribute="top" id="SLb-oE-zgs"/>
                             <constraint firstItem="Idg-FY-GFA" firstAttribute="leading" secondItem="BJM-pG-J61" secondAttribute="leading" constant="20" id="ZHg-YY-9Zw"/>
-                            <constraint firstItem="WGF-QQ-FwD" firstAttribute="top" secondItem="kRs-8K-IkX" secondAttribute="bottom" constant="50" id="lGW-o4-2Jl"/>
+                            <constraint firstItem="IIs-tV-SST" firstAttribute="leading" secondItem="B3g-ce-xXF" secondAttribute="leading" id="sfU-BO-qdp"/>
+                            <constraint firstItem="Idg-FY-GFA" firstAttribute="top" secondItem="WGF-QQ-FwD" secondAttribute="bottom" constant="8" symbolic="YES" id="wvG-qI-hWz"/>
                         </constraints>
                     </view>
                     <connections>
