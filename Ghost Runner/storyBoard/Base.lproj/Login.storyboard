@@ -70,6 +70,7 @@
                     <navigationItem key="navigationItem" id="Qse-eC-Jau"/>
                     <connections>
                         <outlet property="googleLoginButton" destination="bYR-ez-dZn" id="N79-Rm-cfM"/>
+                        <outlet property="optionsButton" destination="zZC-qR-YFE" id="SMQ-Wd-b5g"/>
                         <outlet property="pageControl" destination="hdI-oG-U4z" id="JII-jY-F5b"/>
                         <outlet property="scrollView" destination="NT9-uH-aYZ" id="KbT-kZ-izl"/>
                     </connections>

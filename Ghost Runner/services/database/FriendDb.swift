@@ -24,18 +24,32 @@ class FriendDb {
         async.enter()
         
         ref.getDocuments { (QuerySnapshot, Error ) in
-            let snapShots = QuerySnapshot?.documents;
-            let snap = snapShots?[0]
-            let data = snap?.data() as! [String : Any];
-            let friend = Friend.init(data: data);
-            async.leave()
-            async.notify(queue: .main) {
-                  completion(friend)
+            if let err = Error {
+                print("Error getting documents: \(err)")
+                async.leave()
+            } else {
+                let snapShots = QuerySnapshot?.documents;
+                // if not empty
+                if (!(snapShots?.isEmpty ?? true)) {
+                    let snap = snapShots?[0]
+                    let data = snap?.data() as! [String : Any];
+                    print("user data is \(data)");
+                    let friend = Friend.init(data: data);
+                    async.leave()
+                    async.notify(queue: .main) {
+                          completion(friend)
+                        }
                 }
+
+            }
+
         }
     }
     
     func addFriend(friend: Friend) {
+        // cant add yourself
+        if (LocalStorage().getUser().uid == friend.uid) { return }
+        print("adding \(friend.name)")
         let ref = path.eachFriend(friendUID: friend.uid)
         ref.setData(friend.toJSON(), merge: true);
     }

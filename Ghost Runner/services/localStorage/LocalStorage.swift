@@ -65,15 +65,23 @@ class LocalStorage {
     }
     
     func getUser() -> User {
-        let name = Storage.name ?? "no name";
-        let uid = Storage.uid ?? "no uid";
+        let name = Storage.name ?? "";
+        let uid = Storage.uid ?? "";
         let photoURL = Storage.photoURL ?? "";
         let code = Storage.code ?? "";
         return User.init(name: name, photoURL: photoURL, uid: uid, code: code);
     }
     
     func userExist () -> Bool {
-        return (Storage.uid != "")
+        print(" user uid in here => : \(Storage.uid)")
+
+        if (Storage.uid == "") {
+            return false
+        }
+        else if (Storage.uid == nil) {
+            return false
+        }
+        else {return true}
     }
     
     func deleteUser() {

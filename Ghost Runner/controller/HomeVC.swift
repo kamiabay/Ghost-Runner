@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 import CoreLocation
 import MapKit
+import MaterialComponents.MaterialButtons
 
 
 
@@ -20,8 +21,15 @@ class HomeVC: UIViewController {
     var navigation: Navigator?
     var totalRuns: Int? = 0
     let locationManager = CLLocationManager()
-    
     var selectedRun: Run?
+    let fab = MDCFloatingButton()
+    let cancelButton: MDCButton = {
+      let cancelButton = MDCButton()
+      cancelButton.translatesAutoresizingMaskIntoConstraints = false
+      cancelButton.setTitle("CANCEL", for: .normal)
+      //cancelButton.addTarget(self, action: #selector(didTapCancel(sender:)), for: .touchUpInside)
+      return cancelButton
+    }()
     
     @IBOutlet weak var runViewButton: UIButton!
     @IBOutlet weak var runsTable: UITableView!
@@ -38,10 +46,12 @@ class HomeVC: UIViewController {
         
         // General View Styling
         view.backgroundColor =  .systemBackground
+
+        view.addSubview(cancelButton)
+        //fab.minimumSize = CGSize(width: 64, height: 48)
         
         // Init navigation
         navigation = Navigator(currentViewController: self)
-        
         // Get data from DB
         getUserData();
         getUserRunData();
@@ -92,13 +102,13 @@ class HomeVC: UIViewController {
         greetingLabel.text = greetingStr
     }
     func getUserRunData()  {
-        self.db.runDb.getUserRunList(completion: { (runList) in
+        self.db.runDb.getUserRunList(completion: { [weak self] (runList) in
             DispatchQueue.main.async {
-                self.runList = runList
-                print(" recived value is : \(self.runList.count)")
-                self.runsTable.reloadData()
+                self?.runList = runList
+                print(" recived value is : \(self?.runList.count)")
+                self?.runsTable.reloadData()
                 if runList.count > 0 {
-                    self.runsTable.reloadSections(IndexSet(integersIn: 0...runList.count-1), with: .top)
+                    self?.runsTable.reloadSections(IndexSet(integersIn: 0...runList.count-1), with: .top)
                 }
             }
        })

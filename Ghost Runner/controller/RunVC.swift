@@ -27,13 +27,13 @@ class RunVC: UIViewController {
     let db = DB()
     
     // Timers
-    var runTimer: Timer?
-    var userTrackTimer: Timer?
-    var opponenetTimer: Timer?
+     var runTimer: Timer?
+     var userTrackTimer: Timer?
+     var opponenetTimer: Timer?
     
     // calculation
     var runCalculation : RunCalculation?  // initialized in viewDidLoad()
-    let CONST_TIME: Double = 1.0;
+    let CONST_TIME: Double = 2.0;
     var lastDrawnPolyLine: MKOverlay?
     
     var friendsList = [Friend]()
@@ -45,9 +45,8 @@ class RunVC: UIViewController {
     var GhostObjList: [GhostObj?] = []
     
     // Navigation declaration
-    var navigation: Navigator?
-    
-    var opponentRun: Run?; // NEEDS TO BE INITIALIZED
+     var navigation: Navigator?
+     var opponentRun: Run?; // NEEDS TO BE INITIALIZED
    
 
     // Storyboard Outlets
@@ -157,18 +156,18 @@ class RunVC: UIViewController {
     // #######################################
     
     func getUserRunData()  {
-        self.db.runDb.getUserRunList(completion: { (ghostOptions) in
+        self.db.runDb.getUserRunList(completion: { [weak self] (ghostOptions) in
             DispatchQueue.main.async {
-                self.ghostOptions = ghostOptions
-                print("recived value is : \(self.ghostOptions.count)")
+                self?.ghostOptions = ghostOptions
+                print("recived value is : \(self?.ghostOptions.count)")
             }
        })
     }
     
     func getFriendsList()  {
-        self.db.friendDb.getAllFriends(completion: { (friendList) in
+        self.db.friendDb.getAllFriends(completion: { [weak self](friendList) in
             DispatchQueue.main.async {
-                self.friendsList = friendList
+                self?.friendsList = friendList
             }
        })
     }
@@ -254,13 +253,14 @@ class RunVC: UIViewController {
     
     // Key function; calls most of the animation/GPS update functions
     @objc func intervalUpdate() {
-        //let snap = opponentRun!.getNextRunLocation();
-        //runCalculation?.updateOwnRunAndGetOpponentLocation(runSnapshot: snap)
+     
+        print("is moving \(!isUserMoving(locationManager: locationManager))")
+       // if(!isUserMoving(locationManager: locationManager)) {return}
+        
+       
+        
         let gps = GPS(locationManager: locationManager);
-
-        // Don't update anything if user is STATIONARY
-        if(!isUserMoving(locationManager: locationManager)) {return} // NEEDS TESTING
-
+        
         // NOTE: The function currently doesn't do anything for opponent location; it only updates user location
         runCalculation?.updateOwnRunAndGetOpponentLocation(runSnapshot: RunSnapshot(gps: gps))
         
