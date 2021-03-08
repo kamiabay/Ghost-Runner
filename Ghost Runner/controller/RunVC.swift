@@ -49,11 +49,7 @@ class RunVC: UIViewController {
     
     var opponentRun: Run?; // NEEDS TO BE INITIALIZED
    
-    
 
-    
-
-  
     // Storyboard Outlets
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var runToggleOutlet: UIButton!
@@ -79,9 +75,10 @@ class RunVC: UIViewController {
     // 2 -> user ended run, option to save replay; title says "Save Replay?"
     var runToggleState: Int = 0
    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Init navigation
         navigation = Navigator(currentViewController: self)
         
         // DELEGATES
@@ -102,9 +99,6 @@ class RunVC: UIViewController {
         topPanel.layer.cornerRadius = 15
         topPanel.layer.masksToBounds = true
         topPanel.layer.backgroundColor = UIColor.systemBackground.cgColor
-//        topPanel.layer.shadowColor = UIColor.black.cgColor
-//        topPanel.layer.shadowOpacity = 1.0
-//        topPanel.layer.shadowRadius = 3.0
         
         // Popup styling
         popupView.layer.cornerRadius = 15
@@ -113,17 +107,10 @@ class RunVC: UIViewController {
         // MapView Styling
         mapView.layoutMargins = UIEdgeInsets(top: topPanel.bounds.height + 20, left: 0, bottom: 0, right: 8)
         
-        // Init navigation
-        
-        
-
-        
-
-        
         // RunCalculation init
         // There are 2: one for single-ghost, and another for N ghosts
         // The one below is for single opponent
-        //runCalculation = RunCalculation(opponentRun: opponentRun ?? Run(runSnapshotList: [RunSnapshot](), runID: "null"));
+        runCalculation = RunCalculation(opponentRun: opponentRun ?? Run(runSnapshotList: [RunSnapshot](), runID: "null"));
         
         // Add the initially selected Ghost to the selectedGhosts list (if the user selected a target)
         // The user can add more ghosts via "Add Ghost"
@@ -131,9 +118,6 @@ class RunVC: UIViewController {
             selectedGhosts.append(opp)
             beginAddingGhosts()  // this will refresh the GhostObjList with the initially selected run
         }
-        
-        // Set up observer in background
-        NotificationCenter.default.addObserver(self, selector: #selector(resumeObservingUser), name: UIApplication.willEnterForegroundNotification, object: nil)
         
         // In case user did not enable location, this will ask again, stalling our user/ghost functions
         let authorizeLocQueue = DispatchQueue(label: "authorizelocation")
@@ -152,26 +136,25 @@ class RunVC: UIViewController {
         }
     }
     
-    // Deinit notification for when app enters foreground
-    deinit {
-        NotificationCenter.default.removeObserver(self, name: UIApplication.willEnterForegroundNotification, object: nil)
-
-    }
+    // #######################################
+    // Set-up/refresh Ghost objects
+    // #######################################
     
     func beginAddingGhosts() {
         // Build the list (assuming getUserRunData() has completed
-        
         // Reset GhostObjList; this is because if the user wants to add another ghost, we want to avoid double-dipping into selectedGhosts
         GhostObjList = []
         selectedGhosts.forEach {g in
             let runCalc = RunCalculation(opponentRun: g ?? Run(runSnapshotList: [RunSnapshot](), runID: "null"))
-            //dynamic let anno = MKPointAnnotation()
             dynamic let anno = MKPointAnnotation()
             self.mapView.addAnnotation(anno)
             GhostObjList.append(GhostObj(runCalc: runCalc, anno: anno))
         }
     }
     
+    // #######################################
+    // Database & data
+    // #######################################
     
     func getUserRunData()  {
         self.db.runDb.getUserRunList(completion: { (ghostOptions) in
@@ -191,7 +174,7 @@ class RunVC: UIViewController {
     }
     
     // #######################################
-    // Adding N ghosts
+    // Table view to add ghosts
     // #######################################
     
     func openTableView() {
@@ -212,31 +195,15 @@ class RunVC: UIViewController {
         }
     }
     
-
-    
     // #######################################
     // Ghost/Opponent Functions
     // #######################################
     
-
-    // TO BE REMOVED
     func beginGhostAnimation() {
         runTimer = Timer.scheduledTimer(timeInterval: CONST_TIME, target: self, selector: #selector(updateOpponentLocation), userInfo: nil, repeats: true)
         //updateOpponentLocation
     }
     
-    // Original function for only one opponent
-//    @objc func updateOpponentLocation()  {
-//        if (isFirstRun()) {return} // i.e NO OPPONENT i.e FIRST RUN
-//
-//        if let nextCoord = runCalculation?.getOpponentNextRunsnapshot().get2DCordinate() {
-//            UIView.animate(withDuration: CONST_TIME) {
-//                self.ghostDot.coordinate.latitude = nextCoord.latitude
-//                self.ghostDot.coordinate.longitude = nextCoord.longitude
-//            }
-//        }
-//    }
-    // Now supports N-ghosts
     @objc func updateOpponentLocation()  {
         //if (isFirstRun()) {return} // i.e NO OPPONENT i.e FIRST RUN
         print("here")
@@ -274,11 +241,6 @@ class RunVC: UIViewController {
         }
     }
     
-
-    @objc func resumeObservingUser() {
-      //  self.startObservingUser()
-    }
-    
     func centerMapToCurrentLocation() {
         if let currLoc = locationManager.location?.coordinate {
             mapView.setCenter(currLoc, animated: true)
@@ -286,32 +248,30 @@ class RunVC: UIViewController {
         }
     }
     
-    
     // #######################################
     // User Run/Snapshot Recording
     // #######################################
     
+    // Key function; calls most of the animation/GPS update functions
     @objc func intervalUpdate() {
         //let snap = opponentRun!.getNextRunLocation();
         //runCalculation?.updateOwnRunAndGetOpponentLocation(runSnapshot: snap)
         let gps = GPS(locationManager: locationManager);
 
-        // if stationarty dont update anything
+        // Don't update anything if user is STATIONARY
         if(!isUserMoving(locationManager: locationManager)) {return} // NEEDS TESTING
 
         // NOTE: The function currently doesn't do anything for opponent location; it only updates user location
         runCalculation?.updateOwnRunAndGetOpponentLocation(runSnapshot: RunSnapshot(gps: gps))
         
         // Polyline update; NOTE: CURRENTLY NOT COMPATIBLE WITH MULTIPLE GHOSTS
-        //updateOwnPolyLine()
+        updateOwnPolyLine()
         
         // Updates all ghosts
         updateOpponentLocation()
         centerMapToCurrentLocation() // LOCK THE USER TO ONLY THAT LOCATION , CANT ZOOM OUT/IN
     }
 
-    
-    
     func saveRunData()  {
         let ownRunList = runCalculation!.getOwnFinalRunList();
         if (!ownRunList.isEmpty) {
@@ -319,18 +279,15 @@ class RunVC: UIViewController {
         }
     }
     
-
-    
-    
-    
     // #######################################
-    // Buttons
+    // Buttons and helpers
     // #######################################
     
     @IBAction func addGhostButtonPress(_ sender: UIButton) {
         openTableView()
     }
     
+    // ONLY FOR DEBUG
     @IBAction func animateOpponent() {
         beginGhostAnimation();
     }
@@ -373,7 +330,7 @@ class RunVC: UIViewController {
         
         runTimer?.invalidate()
         
-        //saveRunData()
+        saveRunData()
         locationManager.showsBackgroundLocationIndicator = false
         // disable listner for background GPS change
         locationManager.stopUpdatingHeading();
@@ -385,7 +342,7 @@ class RunVC: UIViewController {
     // NOTE: app continues to send "finished the run" repeatedly 
     @IBAction func backButton(_ sender: UIButton) {
         runTimer?.invalidate()
-        navigation?.goToHome()
+        navigation?.goBack()
     }
 }
 
