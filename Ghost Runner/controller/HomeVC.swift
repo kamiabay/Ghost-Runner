@@ -132,7 +132,7 @@ class HomeVC: UIViewController {
 
 
 
-// LOCATION MANAGER
+// MARK: - LOCATION MANAGER
 extension HomeVC: CLLocationManagerDelegate {
   // handle delegate methods of location manager here
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -166,7 +166,7 @@ extension HomeVC: CLLocationManagerDelegate {
 }
 
 
-// Table View Functions
+// MARK: - Table View Functions
 extension HomeVC: UITableViewDataSource, UITableViewDelegate  {
     
     class RunCell: UITableViewCell {
@@ -259,7 +259,7 @@ extension HomeVC: UITableViewDataSource, UITableViewDelegate  {
     
 }
 
-
+// MARK: - Map View Delegate
 extension HomeVC: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {

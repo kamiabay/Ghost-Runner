@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="hdI-oG-U4z">
-                                <rect key="frame" x="153" y="749" width="122" height="28"/>
+                                <rect key="frame" x="153" y="761" width="122" height="28"/>
                             </pageControl>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zZC-qR-YFE">
                                 <rect key="frame" x="164.66666666666666" y="862" width="98.999999999999972" height="30"/>
@@ -31,7 +31,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bYR-ez-dZn">
-                                <rect key="frame" x="20" y="797" width="388" height="45"/>
+                                <rect key="frame" x="20" y="809" width="388" height="45"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="6UN-ym-rjd"/>
@@ -64,7 +64,7 @@
                             <constraint firstItem="hdI-oG-U4z" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="gdB-x2-Rc4"/>
                             <constraint firstItem="NT9-uH-aYZ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="iWk-jr-JHT"/>
                             <constraint firstItem="zZC-qR-YFE" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="sam-Qb-nYQ"/>
-                            <constraint firstItem="zZC-qR-YFE" firstAttribute="top" secondItem="bYR-ez-dZn" secondAttribute="bottom" constant="20" id="tRp-7l-frZ"/>
+                            <constraint firstItem="zZC-qR-YFE" firstAttribute="top" secondItem="bYR-ez-dZn" secondAttribute="bottom" constant="8" symbolic="YES" id="tRp-7l-frZ"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Qse-eC-Jau"/>
