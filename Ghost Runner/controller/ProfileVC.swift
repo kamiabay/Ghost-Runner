@@ -37,15 +37,12 @@ class ProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
     ]
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        
-        // Testing
-        let notifications = NotificationManager()
-        notifications.playOpponentPassedAudio()
-        notifications.pushFriendCreatedNewRun()
-        
+        super.viewDidLoad()        
         navigation = Navigator(currentViewController: self)
+        
+        let notification = NotificationManager()
+        
+        notification.playRunDifferenceAudio(ghostName: "Madison", spacialDifference: 5.5, speedDifference: 2.1)
         
         self.infoTable.delegate = self
         self.infoTable.dataSource = self
