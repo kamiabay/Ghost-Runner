@@ -42,7 +42,8 @@ class ProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         
         let notification = NotificationManager()
         
-        notification.playRunDifferenceAudio(ghostName: "Madison", spacialDifference: 5.5, speedDifference: 2.1)
+        notification.playRunDifferenceAudio(ghostName: "Dylan", spacialDifference: -5.5, speedDifference: 2.1)
+        notification.pushFriendCreatedNewRun()
         
         self.infoTable.delegate = self
         self.infoTable.dataSource = self
@@ -105,7 +106,7 @@ class ProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         present(pc, animated: true, completion: nil)
     }
     
-    // Here we save and display the actual image information
+    // Save and display the actual image information
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
             profileImage.image = image

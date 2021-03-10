@@ -14,7 +14,10 @@ import AVFoundation // For audio notifications
 class NotificationManager {
     let center = UNUserNotificationCenter.current()
     let content = UNMutableNotificationContent()
+    let synthesizer = AVSpeechSynthesizer()
     var audioPlayer: AVAudioPlayer?
+    var utterance = AVSpeechUtterance(string: "")
+    var utterance_one = AVSpeechUtterance(string: "")
         
     init() {
         // Request authorization for push notifications
@@ -23,9 +26,23 @@ class NotificationManager {
                 // Let user know how to change later and maybe let them know how notifications let the user know when friends have completed runs
             }
         }
+        
+        // Choosing voice for synthesizer
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+        //utterance.voice = AVSpeechSynthesisVoice(identifier: "Karen") // if we wanted to specify a voice
+        
+        // Setting audio to play during silent mode
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
+            try AVAudioSession.sharedInstance().setActive(true)
+        }
+        catch {
+            print("error initializing AVAudio settings")
+        }
     }
     
     // Not currently used but may be useful eventually
+    // Loads and play an audio file from the main bundle
     private func playAudioFile(fileName: String, fileExtension: String) {
         guard let path = Bundle.main.path(forResource: fileName, ofType: fileExtension) else {
             print("cannot find \(fileName)")
@@ -47,58 +64,68 @@ class NotificationManager {
         }
     }
     
-    func playRunDifferenceAudio(ghostName: String = "Opponent", spacialDifference: Double, speedDifference: Double?) {
-        
-        // tell user how far away opponent is
-        if spacialDifference > 0 {
-            let utterance = AVSpeechUtterance(string: "You are \(spacialDifference) meters ahead of \(ghostName)")
-            utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-            let synthesizer = AVSpeechSynthesizer()
-            synthesizer.speak(utterance)
+    // Plays audio which provides user with opponent run comparison information
+    func playRunDifferenceAudio(ghostName: String = "Opponent", spacialDifference: Double, speedDifference: Double) {
+        let absSpacialDifference = abs(spacialDifference)
+        let absSpeedDifference = abs(speedDifference)
+        let onPaceThreshold = 0.1
+
+        if spacialDifference > 0 && speedDifference > 0 {
+            self.utterance = AVSpeechUtterance(string: "You are \(spacialDifference) meters ahead of \(ghostName). Your speed is \(speedDifference) meters per second faster than \(ghostName).")
+            self.synthesizer.speak(utterance)
         }
-        else if spacialDifference < 0 {
-            let utterance = AVSpeechUtterance(string: "\(ghostName) is \(spacialDifference) meters ahead of you")
-            utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-            let synthesizer = AVSpeechSynthesizer()
-            synthesizer.speak(utterance)
+        else if spacialDifference < 0 && speedDifference > 0 {
+            self.utterance = AVSpeechUtterance(string: "\(ghostName) is \(absSpacialDifference) meters ahead of you. Your speed is \(speedDifference) meters per second faster than \(ghostName).")
+            self.synthesizer.speak(utterance)
+        }
+        else if spacialDifference > 0 && speedDifference < 0 {
+            self.utterance = AVSpeechUtterance(string: "\(ghostName) is \(absSpacialDifference) meters ahead of you. Your speed is \(absSpeedDifference) meters per second slower than \(ghostName).")
+            self.synthesizer.speak(utterance)
+        }
+        else if spacialDifference < 0 && speedDifference < 0 {
+            self.utterance = AVSpeechUtterance(string: "\(ghostName) is \(absSpacialDifference) meters ahead of you. Your speed is \(absSpeedDifference) meters per second slower than \(ghostName).")
+            self.synthesizer.speak(utterance)
+        }
+        else if spacialDifference > 0 && absSpeedDifference < onPaceThreshold {
+            self.utterance = AVSpeechUtterance(string: "\(ghostName) is \(absSpacialDifference) meters ahead of you. You are on pace with \(ghostName).")
+            self.synthesizer.speak(utterance)
+        }
+        else if spacialDifference < 0 && absSpeedDifference < onPaceThreshold {
+            self.utterance = AVSpeechUtterance(string: "\(ghostName) is \(absSpacialDifference) meters ahead of you. You are on pace with \(ghostName).")
+            self.synthesizer.speak(utterance)
         }
         
+        // The utterances here are not be queued up for some reason, so they were included above
         // if value is provided, tell user how much faster/slower opponent is
-        if let speedDiff = speedDifference {
+        /*if let speedDiff = speedDifference {
+            let absSpeedDifference = abs(speedDiff)
+
             if speedDiff > 0 {
-                let utterance = AVSpeechUtterance(string: "Your speed is \(speedDiff) meters per second faster than \(ghostName)")
-                utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-                let synthesizer = AVSpeechSynthesizer()
-                synthesizer.speak(utterance)
+                self.utterance_one = AVSpeechUtterance(string: "Your speed is \(speedDiff) meters per second faster than \(ghostName).")
+                self.synthesizer.speak(utterance_one)
+                print("got here")
+
             }
             else if speedDiff < 0 {
-                let utterance = AVSpeechUtterance(string: "Your speed is \(speedDiff) meters per second slower than \(ghostName)")
-                utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-                let synthesizer = AVSpeechSynthesizer()
-                synthesizer.speak(utterance)
+                self.utterance = AVSpeechUtterance(string: "Your speed is \(absSpeedDifference) meters per second slower than \(ghostName).")
+                self.synthesizer.speak(utterance)
             }
             else {
-                let utterance = AVSpeechUtterance(string: "You are on pace with \(ghostName)")
-                utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-                let synthesizer = AVSpeechSynthesizer()
-                synthesizer.speak(utterance)
+                self.utterance = AVSpeechUtterance(string: "You are on pace with \(ghostName).")
+                self.synthesizer.speak(utterance)
             }
-        }
+        }*/
     }
     
     func playOpponentPassedAudio(ghostName: String = "Opponent") {
-        let utterance = AVSpeechUtterance(string: "\(ghostName) has passed you")
-        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-        let synthesizer = AVSpeechSynthesizer()
-        synthesizer.speak(utterance)
+        self.utterance = AVSpeechUtterance(string: "\(ghostName) has passed you")
+        self.synthesizer.speak(utterance)
         //self.playAudioFile(fileName: "opponentPassedVoiceAudio", fileExtension: "m4a")
     }
     
     func playUserPassedAudio(ghostName: String = "Opponent") {
-        let utterance = AVSpeechUtterance(string: "You have passed \(ghostName)")
-        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-        let synthesizer = AVSpeechSynthesizer()
-        synthesizer.speak(utterance)
+        self.utterance = AVSpeechUtterance(string: "You have passed \(ghostName)")
+        self.synthesizer.speak(utterance)
         //self.playAudioFile(fileName: "userPassedVoiceAudio", fileExtension: "m4a")
     }
     
