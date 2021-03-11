@@ -10,6 +10,10 @@
 
 > Nikita Andrikanis
 
+## [*FOR DEMO*] Build instructions:
+> Please use the following to switch to the working commit:
+> git checkout 7d6d64cd7ae0bfba26c631c9048457afccb66b41
+
 # https://ghostsrunner.web.app
 
 ### Our proposal:
