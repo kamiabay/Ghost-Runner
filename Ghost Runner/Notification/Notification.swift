@@ -7,6 +7,9 @@
 
 // A BUTTON TO LET THEM KNOW WHAT THE OPPONENT IS DOING! "UPDATE"
 // as well as periodically update them
+
+// Still need to determine if notifications will play when phone is locked
+
 import Foundation
 import UserNotifications // For push notifications
 import AVFoundation // For audio notifications
@@ -33,7 +36,7 @@ class NotificationManager {
         
         // Setting audio to play during silent mode
         do {
-            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .voicePrompt)
             try AVAudioSession.sharedInstance().setActive(true)
         }
         catch {
