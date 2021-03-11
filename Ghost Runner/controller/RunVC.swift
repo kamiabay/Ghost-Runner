@@ -150,7 +150,7 @@ class RunVC: UIViewController {
     // Deinit notification for when app enters foreground
     deinit {
         
-        print("RUN VC is DOESNT thave a Retain cycle => GOOD")
+        print("RUN VC DOESNT thave a Retain cycle => GOOD")
         NotificationCenter.default.removeObserver(self, name: UIApplication.willEnterForegroundNotification, object: nil)
 
     }
