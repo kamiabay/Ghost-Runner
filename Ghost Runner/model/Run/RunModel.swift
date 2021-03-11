@@ -15,18 +15,20 @@ class Run {
     private let CALORIE_PER_SECONDS = 0.5; // just an idea
     private let date = Date();
     private var currentLocationIndex = 0;
+    var runName: String;
     
     init(runSnapshotList: [RunSnapshot], runID: String) {
         self.runSnapshotList = runSnapshotList;
         self.runID = runID;
+        self.runName = "Afternoon Run";
     }
 
-    func avgSpeed() -> Double {
-        let calendar = Calendar.current
-        let time = totalDuration();
-        let second = calendar.component(.second, from: time)
-        return totalDistance() / Double(second);  // check later
-    }
+//    func avgSpeed() -> Double {
+//        let calendar = Calendar.current
+//        let time = totalDuration();
+//        let second = calendar.component(.second, from: time)
+//        return totalDistance() / Double(second);  // check later
+//    }
     
     // AT INITIATION
     func totalDistance() -> Double {
@@ -97,11 +99,21 @@ class Run {
         
     }
     
-    func totalDuration() -> Date {
+    func totalDuration() -> TimeInterval {
         let startTime = runSnapshotList[0].time;
         let endTime = runSnapshotList[runSnapshotList.count - 1].time;
+        print(startTime)
+        print(endTime)
+        let formatter = DateComponentsFormatter()
+        formatter.allowedUnits = [.hour, .minute]
+        print(formatter.string(from: startTime, to: endTime)!)
         
-        return Date.init(timeInterval: startTime.timeIntervalSince1970, since: endTime); // wrong
+        //return Date.init(timeInterval: startTime.timeIntervalSince1970, since: endTime); // wrong
+        
+        
+        print(startTime)
+        print(endTime)
+        return endTime.timeIntervalSince(startTime)
     }
     
 

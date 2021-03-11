@@ -22,32 +22,51 @@ class HomeVC: UIViewController {
     var totalRuns: Int? = 0
     let locationManager = CLLocationManager()
     var selectedRun: Run?
-    let fab = MDCFloatingButton()
-    let cancelButton: MDCButton = {
-      let cancelButton = MDCButton()
-      cancelButton.translatesAutoresizingMaskIntoConstraints = false
-      cancelButton.setTitle("CANCEL", for: .normal)
-      //cancelButton.addTarget(self, action: #selector(didTapCancel(sender:)), for: .touchUpInside)
-      return cancelButton
-    }()
+
+//    let cancelButton: MDCButton = {
+//      let cancelButton = MDCButton()
+//      cancelButton.translatesAutoresizingMaskIntoConstraints = false
+//      cancelButton.setTitle("CANCEL", for: .normal)
+//      //cancelButton.addTarget(self, action: #selector(didTapCancel(sender:)), for: .touchUpInside)
+//      return cancelButton
+//    }()
+    
+    
+//    let fab = MDCFloatingButton()
+//    let cancelButton: MDCButton = {
+//      let cancelButton = MDCButton()
+//      cancelButton.translatesAutoresizingMaskIntoConstraints = false
+//      cancelButton.setTitle("CANCEL", for: .normal)
+//      //cancelButton.addTarget(self, action: #selector(didTapCancel(sender:)), for: .touchUpInside)
+//      return cancelButton
+//    }()
     
     @IBOutlet weak var runViewButton: UIButton!
     @IBOutlet weak var runsTable: UITableView!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var selectRunButton: UIButton!
     @IBOutlet weak var greetingLabel: UILabel!
-    @IBOutlet weak var profileButton: UIButton!
+    @IBOutlet weak var profileImage: UIImageView!
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //runsTable.register(RunCell.self, forCellReuseIdentifier: "runCell")
-        
         // General View Styling
-        view.backgroundColor =  .systemBackground
+//        view.backgroundColor =  .systemBackground
+//        let screenSize = UIScreen.main.bounds.size;
+//        let fab : MDCFloatingButton  = {
+//         let fab = MDCFloatingButton()
+//            fab.translatesAutoresizingMaskIntoConstraints = false
+//            fab.setTitle("Add", for: .normal)
+//            
+//        //cancelButton.addTarget(self, action: #selector(didTapCancel(sender:)), for: .touchUpInside)
+//        return fab
+//        }();
+////        fab.frame = CGRect(x: 20, y: 20);
+//        view.addSubview(fab);
 
-        view.addSubview(cancelButton)
+        //view.addSubview(cancelButton)
         //fab.minimumSize = CGSize(width: 64, height: 48)
         
         // Init navigation
@@ -78,14 +97,27 @@ class HomeVC: UIViewController {
         // Button Styling
         selectRunButton.layer.cornerRadius = 10
         runViewButton.layer.cornerRadius = 10
-        profileButton.layer.cornerRadius = 10
+        
+        profileImage.layer.borderWidth = 2.0
+        profileImage.layer.masksToBounds = false
+        profileImage.layer.borderColor = UIColor.lightGray.cgColor
+        profileImage.layer.cornerRadius = profileImage.frame.size.width/2
+        profileImage.clipsToBounds = true
+        
+        // Profile image tap support
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(profileTap))
+        profileImage.isUserInteractionEnabled = true
+        profileImage.addGestureRecognizer(tapGestureRecognizer)
         
         // Prevent user interaction with SelectRun button initially
         selectRunButton.isUserInteractionEnabled = false
         
-        
-        
+        // Request always authorization
         alwaysAuthorization()
+        
+        
+        
+        
     }
 
     func alwaysAuthorization(){
@@ -97,16 +129,25 @@ class HomeVC: UIViewController {
     // Database functions
     func getUserData()  {
         print(LocalStorage().getUser().toJSON())
-        let username = LocalStorage().getUser().name
-        let greetingStr = "What's up, \(username) 👻"
+        let localStorage = LocalStorage()
+        let username = localStorage.getUser().name
+        let greetingStr = "Hey, \(username) 👻"
+        let ghostImage = localStorage.getUser().photoURL
+        
+        guard let url = URL(string: ghostImage) else {return}
+        let data = try? Data(contentsOf: url)
+        if let imageData = data {
+            profileImage.image = UIImage(data: imageData)
+        }
         greetingLabel.text = greetingStr
     }
+    
     func getUserRunData()  {
         self.db.runDb.getUserRunList(completion: { [weak self] (runList) in
             DispatchQueue.main.async {
                 self?.runList = runList
                 print(" recived value is : \(self?.runList.count)")
-                self?.runsTable.reloadData()
+                self?.runsTable.reloadData()  // prevent a crash by .reloadSections
                 if runList.count > 0 {
                     self?.runsTable.reloadSections(IndexSet(integersIn: 0...runList.count-1), with: .top)
                 }
@@ -116,16 +157,15 @@ class HomeVC: UIViewController {
     
     // Buttons
     @IBAction func runViewButtonPress(_ sender: UIButton) {
-        navigation?.goToRunView(opponentRun: nil)
-    }
-    @IBAction func profileViewButtonPress(_ sender: UIButton) {
-        navigation?.goToProfileView()
+       // navigation?.goToRunView(opponentRun: nil)
     }
     @IBAction func selectRunButtonPress(_ sender: UIButton) {
-        navigation?.goToRunView(opponentRun: selectedRun);
+        navigation?.goToRunView(opponentRun: selectedRun!); // NO !
+    }
+    @objc func profileTap() {
+        navigation?.goToProfileView()
     }
     
-
 }
 
 
@@ -153,6 +193,8 @@ extension HomeVC: CLLocationManagerDelegate {
         case .notDetermined:
             alwaysAuthorization()
             print("the location permission dialog haven't shown before, user haven't tap allow/disallow")
+        @unknown default:
+            fatalError("[HomeVC]: CLLocationManager fatal error")
         }
     }
     
@@ -168,10 +210,6 @@ extension HomeVC: CLLocationManagerDelegate {
 
 // MARK: - Table View Functions
 extension HomeVC: UITableViewDataSource, UITableViewDelegate  {
-    
-    class RunCell: UITableViewCell {
-        
-    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.runList.count
@@ -204,23 +242,17 @@ extension HomeVC: UITableViewDataSource, UITableViewDelegate  {
         let df = DateFormatter()
         df.dateFormat = "hh:mm:ss"
         
-        //cell.textLabel?.text = "SF Downtown Run \(df.string(from: cell_data.totalDuration()))"
-        
         let runTitle = cell.contentView.viewWithTag(101) as? UILabel
         runTitle?.text = "\(indexPath.section)"
         
         let runDetails = cell.contentView.viewWithTag(102) as? UILabel
-        runDetails?.text = "D: \(df.string(from: cell_data.totalDuration()))"
+        runDetails?.text = "D: \(cell_data.totalDuration())"
         
         cell.backgroundColor = .systemBackground
         cell.layer.borderColor = UIColor.darkGray.cgColor
         cell.layer.borderWidth = 1
         cell.layer.cornerRadius = 15
-        //cell.layer.shadowOffset = CGSize(width: 0, height: 3)
-        //cell.layer.shadowRadius = 1
-        //cell.layer.shadowOpacity = 0.7
-        //cell.layer.shadowColor = UIColor.black.cgColor
-        //cell.clipsToBounds = true
+        
         
         return cell
         

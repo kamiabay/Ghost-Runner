@@ -28,7 +28,7 @@ class RunDb {
         };
         
         ref.addDocument(data: [
-            "runData": FieldValue.arrayUnion(jsonList), // MIGHT NOT WORK
+            "runData": FieldValue.arrayUnion(jsonList),
             "creationTime": FieldValue.serverTimestamp(),
         ]);
     }
@@ -61,12 +61,13 @@ class RunDb {
                     }
             }
         }
-        
-
-        
-       
-      
-        
     }
+    
+    
+    
+    
+
+    
+    
 
 }

@@ -14,9 +14,10 @@ import MapKit
 
 struct GhostObj {
     var runCalc: RunCalculation
-    dynamic var anno: MKPointAnnotation
+    dynamic var anno: GhostAnno
     
-    init(runCalc: RunCalculation, anno: MKPointAnnotation) {
+    
+    init(runCalc: RunCalculation, anno: GhostAnno) {
         self.runCalc = runCalc
         self.anno = anno
     }
@@ -24,48 +25,58 @@ struct GhostObj {
 
 
 class RunVC: UIViewController {
+
     let db = DB()
     
     // Timers
      var runTimer: Timer?
-     var userTrackTimer: Timer?
-     var opponenetTimer: Timer?
     
     // calculation
     var runCalculation : RunCalculation?  // initialized in viewDidLoad()
-    let CONST_TIME: Double = 2.0;
+    let CONST_TIME: Double = 0.25//2.0;
     var lastDrawnPolyLine: MKOverlay?
+    var runCalculationList: [RunCalculation?] = []
+    var ghostList = [GhostRun]()
+    
+
     
     var friendsList = [Friend]()
-    
     // Adding N ghosts vars
     var ghostOptions = [Run]()  // will init all options tied to the user
     var selectedGhosts: [Run?] = []  // this will replace opponentRun below
-    var runCalculationList: [RunCalculation?] = []
+   
     var GhostObjList: [GhostObj?] = []
     
     // Navigation declaration
      var navigation: Navigator?
      var opponentRun: Run?; // NEEDS TO BE INITIALIZED
    
-  
+
     // Storyboard Outlets
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var runToggleOutlet: UIButton!
     @IBOutlet weak var topPanel: UIVisualEffectView!
     @IBOutlet weak var cancelButtonOutlet: UIButton!
-    @IBOutlet weak var addGhostButtonOutlet: UIButton!
     @IBOutlet var popupView: UIView!
     @IBOutlet weak var addGhostTable: UITableView!
+    @IBOutlet weak var addGhostSymbol: UIButton!
+    
+    @IBOutlet weak var headingButton: UIImageView!
+    
+    @IBOutlet weak var gi0: UIImageView!
+    @IBOutlet weak var gi1: UIImageView!
+    @IBOutlet weak var gi2: UIImageView!
+    @IBOutlet weak var gi3: UIImageView!
+    @IBOutlet weak var gi4: UIImageView!
+    @IBOutlet weak var gi5: UIImageView!
+    
+    private var confirmPopupView: UIView!
+    
+    var giList: [UIImageView?] = []
+    var maxGhosts: Int = 0
     
     // CoreLocation Location Manager instance
     let locationManager = CLLocationManager()
-    
-    // Ghost location
-    dynamic var ghostDot = MKPointAnnotation()
-    dynamic var ghostDot1 = MKPointAnnotation()
-    dynamic var ghostDot2 = MKPointAnnotation()
-    //dynamic var ghosts: [MKPointAnnotation?] = []
     
     
     // Run recording toggle
@@ -74,9 +85,10 @@ class RunVC: UIViewController {
     // 2 -> user ended run, option to save replay; title says "Save Replay?"
     var runToggleState: Int = 0
    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Init navigation
         navigation = Navigator(currentViewController: self)
         
         // DELEGATES
@@ -85,6 +97,30 @@ class RunVC: UIViewController {
         addGhostTable.delegate = self
         addGhostTable.dataSource = self
         
+        // Initialize the top panel ghost icons
+        giList = [gi0, gi1, gi2, gi3, gi4, gi5]
+        maxGhosts = giList.count
+        giList.forEach {gi in
+            gi?.layer.cornerRadius = (gi?.layer.frame.size.width ?? 22.5)/2
+            gi?.layer.borderWidth = 1.0
+            gi?.layer.borderColor = UIColor.clear.cgColor
+            gi?.layer.masksToBounds = true
+            gi?.alpha = 0
+        }
+        
+        headingButton.layer.borderWidth = 2.0
+        headingButton.layer.masksToBounds = false
+        headingButton.layer.borderColor = UIColor.white.cgColor
+        headingButton.layer.cornerRadius = headingButton.frame.size.width/2
+        headingButton.clipsToBounds = true
+        
+        // Heading image tap support
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(headingTap))
+        headingButton.isUserInteractionEnabled = true
+        headingButton.addGestureRecognizer(tapGestureRecognizer)
+        
+        
+        
         // load data
         self.getUserRunData()
         self.getFriendsList()
@@ -92,43 +128,25 @@ class RunVC: UIViewController {
         // View Styling
         view.backgroundColor =  .darkGray
         runToggleOutlet.layer.cornerRadius = 10
-        addGhostButtonOutlet.layer.cornerRadius = 10
         cancelButtonOutlet.layer.cornerRadius = 10
         topPanel.layer.cornerRadius = 15
         topPanel.layer.masksToBounds = true
         topPanel.layer.backgroundColor = UIColor.systemBackground.cgColor
-//        topPanel.layer.shadowColor = UIColor.black.cgColor
-//        topPanel.layer.shadowOpacity = 1.0
-//        topPanel.layer.shadowRadius = 3.0
         
         // Popup styling
         popupView.layer.cornerRadius = 15
         popupView.layer.masksToBounds = true
         
         // MapView Styling
-        mapView.layoutMargins = UIEdgeInsets(top: topPanel.bounds.height + 20, left: 0, bottom: 0, right: 8)
+        mapView.layoutMargins = UIEdgeInsets(top: topPanel.bounds.height + 7, left: 0, bottom: 0, right: 8)
         
-        // Init navigation
-        
-        
-
-        
-
+//        let zoomRange = MKMapView.CameraZoomRange(minCenterCoordinateDistance: CLLocationDistance.init(2000), maxCenterCoordinateDistance: CLLocationDistance.init(2000))
+//        mapView.setCameraZoomRange(zoomRange, animated: true)
         
         // RunCalculation init
-        // There are 2: one for single-ghost, and another for N ghosts
-        // The one below is for single opponent
-        runCalculation = RunCalculation(opponentRun: opponentRun ?? Run(runSnapshotList: [RunSnapshot](), runID: "null"));
-        
-        // Add the initially selected Ghost to the selectedGhosts list (if the user selected a target)
-        // The user can add more ghosts via "Add Ghost"
-        if let opp = opponentRun {
-            selectedGhosts.append(opp)
-            beginAddingGhosts()  // this will refresh the GhostObjList with the initially selected run
-        }
-        
-        // Set up observer in background
-//        NotificationCenter.default.addObserver(self, selector: #selector(resumeObservingUser), name: UIApplication.willEnterForegroundNotification, object: nil)
+        // This is only for the user run
+        // Note: passing the opponentRun is deprecated, thus an empty run is passed
+        runCalculation = RunCalculation(opponentRun: Run(runSnapshotList: [RunSnapshot](), runID: "null"))
         
         // In case user did not enable location, this will ask again, stalling our user/ghost functions
         let authorizeLocQueue = DispatchQueue(label: "authorizelocation")
@@ -145,30 +163,72 @@ class RunVC: UIViewController {
             self.CLandMapKitSetup()
             self.initiateMapSetup()
         }
+        
+//        let confirmPopupFrame = CGRect(x:0, y:0, width: view.frame.width/2, height: view.frame.height/2)
+//        confirmPopupView = UIView(frame: confirmPopupFrame)
+//        view.addSubview(confirmPopupView)
+//        confirmPopupView.isHidden = true
+        
     }
     
-    // Deinit notification for when app enters foreground
-    deinit {
-        
-        print("RUN VC is DOESNT thave a Retain cycle => GOOD")
-        NotificationCenter.default.removeObserver(self, name: UIApplication.willEnterForegroundNotification, object: nil)
-
-    }
+    // #######################################
+    // Set-up/refresh Ghost objects
+    // #######################################
     
     func beginAddingGhosts() {
         // Build the list (assuming getUserRunData() has completed
-        
         // Reset GhostObjList; this is because if the user wants to add another ghost, we want to avoid double-dipping into selectedGhosts
         GhostObjList = []
+        
+        giList.forEach {gi in
+            gi?.image = nil
+            gi?.layer.borderColor = UIColor.clear.cgColor
+        }
+        
+        var i = 0
         selectedGhosts.forEach {g in
             let runCalc = RunCalculation(opponentRun: g ?? Run(runSnapshotList: [RunSnapshot](), runID: "null"))
             //dynamic let anno = MKPointAnnotation()
-            dynamic let anno = MKPointAnnotation()
+            dynamic let anno = GhostAnno()
+            
+            if i == 0 {
+                if let url = URL(string: LocalStorage().getUser().photoURL) {
+                    let data = try? Data(contentsOf: url)
+                    if let imageData = data {
+                        let im = UIImage(data: imageData)
+                        anno.image = im
+                        giList[i]?.image = im
+                        giList[i]?.layer.borderColor = UIColor.white.cgColor
+                    }
+                }
+            } else {
+                if let url = URL(string: friendsList[0].photoURL) {
+                    let data = try? Data(contentsOf: url)
+                    if let imageData = data {
+                        let im = UIImage(data: imageData)
+                        anno.image = im
+                        giList[i]?.image = im
+                        giList[i]?.layer.borderColor = UIColor.white.cgColor
+                    }
+                }
+            }
+            
             self.mapView.addAnnotation(anno)
             GhostObjList.append(GhostObj(runCalc: runCalc, anno: anno))
+            i += 1
         }
+        
+        giList.forEach {gi in
+            UIView.animate(withDuration: 1) {
+                gi?.alpha = 1
+            }
+        }
+        
     }
     
+    // #######################################
+    // Database & data
+    // #######################################
     
     func getUserRunData()  {
         self.db.runDb.getUserRunList(completion: { [weak self] (ghostOptions) in
@@ -180,26 +240,33 @@ class RunVC: UIViewController {
     }
     
     func getFriendsList()  {
-        self.db.friendDb.getAllFriends(completion: { [weak self](friendList) in
+        
+        self.db.friendDb.getAllFriends(completion: { [weak self] (friendList) in
             DispatchQueue.main.async {
                 self?.friendsList = friendList
+    
+        
+                if let opp = self?.opponentRun {
+                    self?.selectedGhosts.append(opp)
+                    self?.beginAddingGhosts()  // this will refresh the GhostObjList with the initially selected run
+                }
             }
        })
     }
     
     // #######################################
-    // Adding N ghosts
+    // Table view to add ghosts
     // #######################################
     
-    func openTableView() {
-        popupView.center = view.center
-        popupView.alpha = 0
-        //popupView.transform = CGAffineTransform(scaleX: 0.8, y: 1.2)
-        self.view.addSubview(popupView)
-        UIView.animate(withDuration: 0.5) {
-            self.popupView.alpha = 1
-        }
-    }
+//    func openTableView() {
+//        popupView.center = view.center
+//        popupView.alpha = 0
+//        //popupView.transform = CGAffineTransform(scaleX: 0.8, y: 1.2)
+//        self.view.addSubview(popupView)
+//        UIView.animate(withDuration: 0.5) {
+//            self.popupView.alpha = 1
+//        }
+//    }
     
     func closeTableView() {
         UIView.animate(withDuration: 0.25, animations: {
@@ -209,32 +276,30 @@ class RunVC: UIViewController {
         }
     }
     
-
-    
     // #######################################
     // Ghost/Opponent Functions
     // #######################################
     
-
- 
-
+    func beginGhostAnimation() {
+        runTimer = Timer.scheduledTimer(timeInterval: CONST_TIME, target: self, selector: #selector(updateOpponentLocation), userInfo: nil, repeats: true)
+        //updateOpponentLocation
+    }
     
-    // Original function for only one opponent
-//    @objc func updateOpponentLocation()  {
-//        if (isFirstRun()) {return} // i.e NO OPPONENT i.e FIRST RUN
-//
-//        if let nextCoord = runCalculation?.getOpponentNextRunsnapshot().get2DCordinate() {
-//            UIView.animate(withDuration: CONST_TIME) {
-//                self.ghostDot.coordinate.latitude = nextCoord.latitude
-//                self.ghostDot.coordinate.longitude = nextCoord.longitude
-//            }
-//        }
-//    }
-    // Now supports N-ghosts
     @objc func updateOpponentLocation()  {
         //if (isFirstRun()) {return} // i.e NO OPPONENT i.e FIRST RUN
         print("here")
         print(GhostObjList.count)
+        
+//        ghostList.forEach { g in
+//            if let nextCoord =
+//                g.run.getNextRunLocation().getCordinate() {
+//                UIView.animate(withDuration: CONST_TIME) {
+//                    g?.anno.coordinate.latitude = nextCoord.latitude
+//                    g?.anno.coordinate.longitude = nextCoord.longitude
+//                }
+//            }
+//        }
+        
         GhostObjList.forEach { g in
             if let nextCoord =
                 g?.runCalc.getOpponentNextRunsnapshot().get2DCordinate() {
@@ -252,7 +317,7 @@ class RunVC: UIViewController {
             self.mapView.removeOverlay(previous)
             lastDrawnPolyLine = nil
         }
-        let currPolyLine = runCalculation!.getOwnCurrentPolyLine();
+        let currPolyLine = runCalculation!.getOwnCurrentPolyLine(); // REMOVE !
         self.mapView.addOverlay(currPolyLine)
         lastDrawnPolyLine = currPolyLine;
     }
@@ -263,14 +328,9 @@ class RunVC: UIViewController {
     
     func setInitialZoom() {
         if let currLoc = locationManager.location?.coordinate {
-            let zoomRegion = MKCoordinateRegion(center: currLoc, latitudinalMeters: CLLocationDistance(exactly: 1000) ?? 0, longitudinalMeters: CLLocationDistance(exactly: 1000) ?? 0)
+            let zoomRegion = MKCoordinateRegion(center: currLoc, latitudinalMeters: CLLocationDistance(exactly: 400) ?? 0, longitudinalMeters: CLLocationDistance(exactly: 400) ?? 0)
             mapView.setRegion(mapView.regionThatFits(zoomRegion), animated: false)
         }
-    }
-    
-
-    @objc func resumeObservingUser() {
-      //  self.startObservingUser()
     }
     
     func centerMapToCurrentLocation() {
@@ -280,17 +340,15 @@ class RunVC: UIViewController {
         }
     }
     
-    
     // #######################################
     // User Run/Snapshot Recording
     // #######################################
     
+    // Key function; calls most of the animation/GPS update functions
     @objc func intervalUpdate() {
      
-        print("is moving \(!isUserMoving(locationManager: locationManager))")
+        //print("is moving \(!isUserMoving(locationManager: locationManager))")
        // if(!isUserMoving(locationManager: locationManager)) {return}
-        
-       
         
         let gps = GPS(locationManager: locationManager);
         
@@ -298,15 +356,15 @@ class RunVC: UIViewController {
         runCalculation?.updateOwnRunAndGetOpponentLocation(runSnapshot: RunSnapshot(gps: gps))
         
         // Polyline update; NOTE: CURRENTLY NOT COMPATIBLE WITH MULTIPLE GHOSTS
-       // updateOwnPolyLine()
+        updateOwnPolyLine()
         
         // Updates all ghosts
-        //updateOpponentLocation()
-        centerMapToCurrentLocation() // LOCK THE USER TO ONLY THAT LOCATION , CANT ZOOM OUT/IN
+        updateOpponentLocation()
+        
+        // NO LONGER NECESSARY BECAUSE OF NEW HEADING TRACKING
+        //centerMapToCurrentLocation() // LOCKS THE USER TO ONLY THAT LOCATION , CANT ZOOM OUT/IN
     }
 
-    
-    
     func saveRunData()  {
         let ownRunList = runCalculation!.getOwnFinalRunList();
         if (!ownRunList.isEmpty) {
@@ -314,19 +372,27 @@ class RunVC: UIViewController {
         }
     }
     
-
-    
-    
-    
     // #######################################
-    // Buttons
+    // Buttons and helpers
     // #######################################
     
-    @IBAction func addGhostButtonPress(_ sender: UIButton) {
-        openTableView()
+    @objc func headingTap() {
+        self.mapView.setUserTrackingMode(MKUserTrackingMode.followWithHeading, animated: true)    }
+    
+    @IBAction func addGhostSymbolPress(_ sender: UIButton) {
+        if selectedGhosts.count < maxGhosts {
+            presentGhostsSheet();
+            //! CHNAGE TO TABLE
+            //openTableView()
+        } else {
+            print("Max ghosts added")
+        }
     }
     
-
+    // ONLY FOR DEBUG
+    @IBAction func animateOpponent() {
+        beginGhostAnimation();
+    }
     
     @IBAction func beginEndToggle(_ sender: UIButton) {
         if runToggleState == 0 {
@@ -339,6 +405,9 @@ class RunVC: UIViewController {
             endRun()
             runToggleState = 2
             runToggleOutlet.backgroundColor = .systemPurple
+            
+            // NOTE: THIS IS TEMPORARY (FOR DEMO); REMOVE BELOW LINE AFTER REPLAYS ARE IMPLEMENTED
+            navigation?.goBack()
         } else if runToggleState == 2 {
             // add option to save replay
             print("User wants to save replay")
@@ -359,12 +428,16 @@ class RunVC: UIViewController {
         
         // timer
         runTimer = Timer.scheduledTimer(timeInterval: CONST_TIME, target: self, selector: #selector(intervalUpdate), userInfo: nil, repeats: true)
+        
+        // NOTE: THE BELOW LINE WILL BE REMOVED AFTER DEMO, this will return the code to debugging
+        beginGhostAnimation()
     }
     
     func endRun() {
         view.backgroundColor = .darkGray
         
         runTimer?.invalidate()
+        runTimer = nil
         
         saveRunData()
         locationManager.showsBackgroundLocationIndicator = false
@@ -378,6 +451,7 @@ class RunVC: UIViewController {
     // NOTE: app continues to send "finished the run" repeatedly 
     @IBAction func backButton(_ sender: UIButton) {
         runTimer?.invalidate()
+        runTimer = nil
         navigation?.goBack()
     }
 }
@@ -386,35 +460,84 @@ class RunVC: UIViewController {
 
 extension RunVC: CLLocationManagerDelegate {
     
-    func locationManager(_ manager: CLLocationManager, didUpdateHeading heading: CLHeading) {
-        //print(heading.magneticHeading)
+    func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
+        mapView.camera.heading = newHeading.magneticHeading
+        mapView.setCamera(mapView.camera, animated: true)
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last {
-           print("New location is \(location)")
+          //  print("New location is \(location)")
         }
+       // centerMapToCurrentLocation()
     }
+    
+    
 }
 
+class GhostAnno : MKPointAnnotation {
+//    var coordinate: CLLocationCoordinate2D
+//    var title: String?
+//    var subtitle: String?
+    var image: UIImage?
+
+//    init(coordinate: CLLocationCoordinate2D, title: String, subtitle: String) {
+//        self.coordinate = coordinate
+//        self.title = title
+//        self.subtitle = subtitle
+//    }
+}
 
 extension RunVC: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        guard annotation is MKPointAnnotation else { return nil }
+        //guard annotation is MKPointAnnotation else { return nil }
+        guard annotation is GhostAnno else { return nil }
 
         let identifier = "Annotation"
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
 
         if annotationView == nil {
-            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-            annotationView!.canShowCallout = true
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            annotationView?.canShowCallout = true
         } else {
-            annotationView!.annotation = annotation
+            annotationView?.annotation = annotation
         }
         
-        // Give pin a custom image
-        annotationView?.image = UIImage(systemName: "circle.dashed.inset.fill")
+        let ghostAnno = annotation as? GhostAnno
+
+        if (ghostAnno?.image != nil) {
+            //annotationView?.image = ghostAnno?.image
+            
+            let im = ghostAnno?.image
+            
+            let size = CGSize(width: 25, height: 25)
+            UIGraphicsBeginImageContext(size)
+            im?.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+            let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+            
+//            annotationView?.image = resizedImage
+//            annotationView?.layer.borderWidth = 2.0
+//            annotationView?.layer.masksToBounds = false
+//            annotationView?.layer.borderColor = UIColor.lightGray.cgColor
+//            annotationView?.layer.cornerRadius = 12.5
+//            annotationView?.clipsToBounds = true
+            
+            let imView = UIImageView(frame: CGRect(x: 0, y: 0, width: 25, height: 25))
+            imView.image = resizedImage
+            imView.layer.cornerRadius = imView.layer.frame.size.width/2
+            imView.layer.borderWidth = 1.0
+            imView.layer.borderColor = UIColor.white.cgColor
+            imView.layer.masksToBounds = true
+            annotationView?.addSubview(imView)
+            
+            
+            
+        }
+        else {
+            annotationView?.image = UIImage(systemName: "leaf.fill")
+            //annotationView?.tintColor = UIColor.red
+        }
         
         return annotationView
     }
@@ -424,7 +547,7 @@ extension RunVC: MKMapViewDelegate {
         polylineRenderer.strokeColor = .systemBlue
         polylineRenderer.lineWidth = 5
         return polylineRenderer
-       }
+    }
     
 }
 
@@ -459,6 +582,62 @@ extension RunVC: UITableViewDelegate, UITableViewDataSource {
     
     
     
+    
+}
+
+
+extension RunVC {
+    func presentGhostsSheet()  {
+        guard let ghostSheet = storyboard?.instantiateViewController(identifier: "ghostSearchSheet") as? GhostSearchVC else {
+            assertionFailure("couldnt find this controller")
+            return
+        }
+        ghostSheet.delegate = self
+        present(ghostSheet, animated: true);
+    }
+}
+
+extension RunVC : ModalDelegate {
+    func GhostFriendGotSelected(ghost: GhostRun) {
+        print("recived the data thanks \(ghost.user.toJSON())")
+        ghostList.append(ghost);
+        addToTheListViewOfOpponents();
+    }
+    
+    func addToTheListViewOfOpponents()  {
+        giList.forEach {gi in
+            gi?.image = nil
+            gi?.layer.borderColor = UIColor.clear.cgColor
+        }
+        
+        var i = 0
+        ghostList.forEach { (ghostRun) in
+            dynamic let anno = GhostAnno()
+            
+            if let url = URL(string: ghostRun.user.photoURL) {
+
+                let data = try? Data(contentsOf: url)
+                if let imageData = data {
+                    let im = UIImage(data: imageData)
+                    anno.image = im
+                    giList[i]?.image = im
+                    giList[i]?.layer.borderColor = UIColor.white.cgColor
+                    
+                }
+               
+            }
+            self.mapView.addAnnotation(anno)
+            i += 1
+        }
+        
+        giList.forEach {gi in
+            UIView.animate(withDuration: 1) {
+                gi?.alpha = 1
+            }
+        }
+        
+    }
+
     
 }
 

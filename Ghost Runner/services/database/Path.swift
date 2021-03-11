@@ -44,6 +44,10 @@ class Path {
         return self.userPrivate().collection("run");
     }
     
+    func friendAllRuns(uid: String) -> FirebaseFirestore.CollectionReference {
+        return self.db.collection("user").document(uid).collection("run");
+    }
+    
     func userEachRun(runID: String) -> FirebaseFirestore.DocumentReference {
         return self.userPrivate().collection("run").document(runID);
     }
