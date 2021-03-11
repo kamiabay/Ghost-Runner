@@ -100,6 +100,11 @@ class Run {
     func totalDuration() -> Date {
         let startTime = runSnapshotList[0].time;
         let endTime = runSnapshotList[runSnapshotList.count - 1].time;
+        print(startTime)
+        print(endTime)
+        let formatter = DateComponentsFormatter()
+        formatter.allowedUnits = [.hour, .minute]
+        print(formatter.string(from: startTime, to: endTime)!)
         
         return Date.init(timeInterval: startTime.timeIntervalSince1970, since: endTime); // wrong
     }
