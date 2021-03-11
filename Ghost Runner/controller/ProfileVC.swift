@@ -41,8 +41,13 @@ class ProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         // Init navigation
         navigation = Navigator(currentViewController: self)
         
-        // View styling
-        view.backgroundColor = .systemBackground
+        let notification = NotificationManager()
+        
+        notification.playRunDifferenceAudio(ghostName: "Dylan", spacialDifference: -5.5, speedDifference: 2.1)
+        notification.pushFriendCreatedNewRun()
+        
+        self.infoTable.delegate = self
+        self.infoTable.dataSource = self
         
         addCodeButton.layer.cornerRadius = 18
         shareToSocialButton.layer.cornerRadius = 18

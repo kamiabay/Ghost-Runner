@@ -90,7 +90,13 @@ extension FriendVC: UITableViewDataSource {
         let content  = "  \(self.friendList[indexPath.row].name) "
         
         cell.textLabel?.text = content
-       
+        
+        guard let url = URL(string: self.friendList[indexPath.row].photoURL) else { return  UITableViewCell()}
+        let data = try? Data(contentsOf: url)
+        if let imageData = data {
+            cell.imageView?.image = UIImage(data: imageData)
+        }
+        
         return cell
     }
     
