@@ -13,14 +13,13 @@ import MessageUI
 // Save profile picture
 // Add download link to social media posts
 // Add extensions
-class ProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource {
+class ProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet var tapGestureRecognizer: UITapGestureRecognizer!
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var addCodeButton: UIButton!
     @IBOutlet weak var shareToSocialButton: UIButton!
-    @IBOutlet weak var infoTable: UITableView!
     
     var navigation: Navigator?
     let localStorage = LocalStorage()
@@ -29,26 +28,21 @@ class ProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
     var image: UIImage?
     var addMessage = ""
     var shareMessage = ""
-    var tableInfo = [
-        "Recent runs:",
-        "Run 1",
-        "Run 2",
-        "Run 3"
-    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        // Testing
-        let notifications = NotificationManager()
-        notifications.playOpponentPassedAudio()
-        notifications.pushFriendCreatedNewRun()
+        // Testing notifications
+        //let notifications = NotificationManager()
+        //notifications.playOpponentPassedAudio()
+        //notifications.pushFriendCreatedNewRun()
         
+        // Init navigation
         navigation = Navigator(currentViewController: self)
         
-        self.infoTable.delegate = self
-        self.infoTable.dataSource = self
+        // View styling
+        view.backgroundColor = .systemBackground
         
         addCodeButton.layer.cornerRadius = 18
         shareToSocialButton.layer.cornerRadius = 18
@@ -138,18 +132,6 @@ class ProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         let vc = UIActivityViewController(activityItems: [self.shareMessage], applicationActivities: nil)
         vc.excludedActivityTypes = [.addToReadingList, .airDrop, .assignToContact, .markupAsPDF, .openInIBooks, .postToFlickr, .postToTencentWeibo, .postToVimeo, .postToWeibo, .saveToCameraRoll, .message, .mail]
         present(vc, animated: true, completion: nil)
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = infoTable.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = self.tableInfo[indexPath.row]
-        cell.textLabel?.textColor = UIColor.white
-        
-        return cell
     }
     
     @IBAction func homeButtonPress(_ sender: UIButton) {
