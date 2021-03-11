@@ -33,11 +33,6 @@ class ProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        // Testing notifications
-        //let notifications = NotificationManager()
-        //notifications.playOpponentPassedAudio()
-        //notifications.pushFriendCreatedNewRun()
-        
         // Init navigation
         navigation = Navigator(currentViewController: self)
         
@@ -45,9 +40,6 @@ class ProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         
         notification.playRunDifferenceAudio(ghostName: "Dylan", spacialDifference: -5.5, speedDifference: 2.1)
         notification.pushFriendCreatedNewRun()
-        
-        self.infoTable.delegate = self
-        self.infoTable.dataSource = self
         
         addCodeButton.layer.cornerRadius = 18
         shareToSocialButton.layer.cornerRadius = 18
