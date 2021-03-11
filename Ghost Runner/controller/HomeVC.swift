@@ -157,10 +157,10 @@ class HomeVC: UIViewController {
     
     // Buttons
     @IBAction func runViewButtonPress(_ sender: UIButton) {
-        navigation?.goToRunView(opponentRun: nil)
+       // navigation?.goToRunView(opponentRun: nil)
     }
     @IBAction func selectRunButtonPress(_ sender: UIButton) {
-        navigation?.goToRunView(opponentRun: selectedRun);
+        navigation?.goToRunView(opponentRun: selectedRun!); // NO !
     }
     @objc func profileTap() {
         navigation?.goToProfileView()

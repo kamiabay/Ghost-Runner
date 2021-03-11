@@ -30,7 +30,7 @@ class FriendVC: UIViewController {
         
         // Delegates, data sources
         friendTable.dataSource = self
-        friendTable.dataSource = self
+        friendTable.delegate = self
         
         // Table styling
         friendTable.separatorStyle = UITableViewCell.SeparatorStyle.none
@@ -52,9 +52,7 @@ class FriendVC: UIViewController {
                 self?.friendList = friendList
                 print("data received")
                 self?.friendTable.reloadData()
-                if friendList.count > 0 {
-                    self?.friendTable.reloadSections(IndexSet(integersIn: 0...friendList.count-1), with: .top)
-                }
+                
             }
         })
     }
@@ -80,12 +78,12 @@ class FriendVC: UIViewController {
 extension FriendVC: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.friendList.count
+        return 1
     }
     
     // Table View: # rows
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return self.friendList.count
     }
     
     // Set the spacing between sections

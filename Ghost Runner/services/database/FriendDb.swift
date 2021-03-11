@@ -101,5 +101,39 @@ class FriendDb {
       
     }
     
+    func getFreindLastRun(uid: String, completion: @escaping((Run) -> ())) {
+        let ref = path.friendAllRuns(uid: uid)
+            .order(by: "creationTime", descending: true).limit(to: 1);
+        
+        let async = DispatchGroup()
+        async.enter()
+        ref.getDocuments { (QuerySnapshot, Error ) in
+            if let err = Error {
+                print("Error getting documents: \(err)")
+                async.leave()
+            } else {
+                let snapShots = QuerySnapshot?.documents;
+                var runSnapshotList = [RunSnapshot]();
+       
+                    if (!(snapShots?.isEmpty ?? true)) {
+                        let snap = snapShots?[0]
+                        
+                        let runData: [Any] = (snap?.data()["runData"]) as! [Any];
+                        runSnapshotList = runData.map { (run) -> RunSnapshot in
+                            return RunSnapshot(doc: run as! [String : Any]);
+                        }
+                       let run = Run(runSnapshotList: runSnapshotList, runID: "rand id")
+                   
+                        async.leave()
+                        async.notify(queue: .main) {
+                              completion(run)
+                            }
+                    }
+            }
+        }
+        
+    }
+    
+    
 
 }

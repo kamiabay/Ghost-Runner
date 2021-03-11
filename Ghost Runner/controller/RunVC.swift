@@ -25,6 +25,7 @@ struct GhostObj {
 
 
 class RunVC: UIViewController {
+
     let db = DB()
     
     // Timers
@@ -32,15 +33,18 @@ class RunVC: UIViewController {
     
     // calculation
     var runCalculation : RunCalculation?  // initialized in viewDidLoad()
-    let CONST_TIME: Double = 2.0;
+    let CONST_TIME: Double = 0.25//2.0;
     var lastDrawnPolyLine: MKOverlay?
+    var runCalculationList: [RunCalculation?] = []
+    var ghostList = [GhostRun]()
+    
+
     
     var friendsList = [Friend]()
-    
     // Adding N ghosts vars
     var ghostOptions = [Run]()  // will init all options tied to the user
     var selectedGhosts: [Run?] = []  // this will replace opponentRun below
-    var runCalculationList: [RunCalculation?] = []
+   
     var GhostObjList: [GhostObj?] = []
     
     // Navigation declaration
@@ -135,20 +139,14 @@ class RunVC: UIViewController {
         
         // MapView Styling
         mapView.layoutMargins = UIEdgeInsets(top: topPanel.bounds.height + 7, left: 0, bottom: 0, right: 8)
-        let zoomRange = MKMapView.CameraZoomRange(minCenterCoordinateDistance: CLLocationDistance.init(2000), maxCenterCoordinateDistance: CLLocationDistance.init(2000))
-        mapView.setCameraZoomRange(zoomRange, animated: true)
+        
+//        let zoomRange = MKMapView.CameraZoomRange(minCenterCoordinateDistance: CLLocationDistance.init(2000), maxCenterCoordinateDistance: CLLocationDistance.init(2000))
+//        mapView.setCameraZoomRange(zoomRange, animated: true)
         
         // RunCalculation init
         // This is only for the user run
         // Note: passing the opponentRun is deprecated, thus an empty run is passed
         runCalculation = RunCalculation(opponentRun: Run(runSnapshotList: [RunSnapshot](), runID: "null"))
-        
-        // Add the initially selected Ghost to the selectedGhosts list (if the user selected a target)
-        // The user can add more ghosts via "Add Ghost"
-//        if let opp = opponentRun {
-//            selectedGhosts.append(opp)
-//            beginAddingGhosts()  // this will refresh the GhostObjList with the initially selected run
-//        }
         
         // In case user did not enable location, this will ask again, stalling our user/ghost functions
         let authorizeLocQueue = DispatchQueue(label: "authorizelocation")
@@ -242,11 +240,12 @@ class RunVC: UIViewController {
     }
     
     func getFriendsList()  {
-        self.db.friendDb.getAllFriends(completion: { [weak self](friendList) in
+        
+        self.db.friendDb.getAllFriends(completion: { [weak self] (friendList) in
             DispatchQueue.main.async {
                 self?.friendsList = friendList
-                
-                
+    
+        
                 if let opp = self?.opponentRun {
                     self?.selectedGhosts.append(opp)
                     self?.beginAddingGhosts()  // this will refresh the GhostObjList with the initially selected run
@@ -259,15 +258,15 @@ class RunVC: UIViewController {
     // Table view to add ghosts
     // #######################################
     
-    func openTableView() {
-        popupView.center = view.center
-        popupView.alpha = 0
-        //popupView.transform = CGAffineTransform(scaleX: 0.8, y: 1.2)
-        self.view.addSubview(popupView)
-        UIView.animate(withDuration: 0.5) {
-            self.popupView.alpha = 1
-        }
-    }
+//    func openTableView() {
+//        popupView.center = view.center
+//        popupView.alpha = 0
+//        //popupView.transform = CGAffineTransform(scaleX: 0.8, y: 1.2)
+//        self.view.addSubview(popupView)
+//        UIView.animate(withDuration: 0.5) {
+//            self.popupView.alpha = 1
+//        }
+//    }
     
     func closeTableView() {
         UIView.animate(withDuration: 0.25, animations: {
@@ -290,6 +289,17 @@ class RunVC: UIViewController {
         //if (isFirstRun()) {return} // i.e NO OPPONENT i.e FIRST RUN
         print("here")
         print(GhostObjList.count)
+        
+//        ghostList.forEach { g in
+//            if let nextCoord =
+//                g.run.getNextRunLocation().getCordinate() {
+//                UIView.animate(withDuration: CONST_TIME) {
+//                    g?.anno.coordinate.latitude = nextCoord.latitude
+//                    g?.anno.coordinate.longitude = nextCoord.longitude
+//                }
+//            }
+//        }
+        
         GhostObjList.forEach { g in
             if let nextCoord =
                 g?.runCalc.getOpponentNextRunsnapshot().get2DCordinate() {
@@ -307,7 +317,7 @@ class RunVC: UIViewController {
             self.mapView.removeOverlay(previous)
             lastDrawnPolyLine = nil
         }
-        let currPolyLine = runCalculation!.getOwnCurrentPolyLine();
+        let currPolyLine = runCalculation!.getOwnCurrentPolyLine(); // REMOVE !
         self.mapView.addOverlay(currPolyLine)
         lastDrawnPolyLine = currPolyLine;
     }
@@ -352,7 +362,7 @@ class RunVC: UIViewController {
         updateOpponentLocation()
         
         // NO LONGER NECESSARY BECAUSE OF NEW HEADING TRACKING
-        //centerMapToCurrentLocation() // LOCK THE USER TO ONLY THAT LOCATION , CANT ZOOM OUT/IN
+        //centerMapToCurrentLocation() // LOCKS THE USER TO ONLY THAT LOCATION , CANT ZOOM OUT/IN
     }
 
     func saveRunData()  {
@@ -371,7 +381,9 @@ class RunVC: UIViewController {
     
     @IBAction func addGhostSymbolPress(_ sender: UIButton) {
         if selectedGhosts.count < maxGhosts {
-            openTableView()
+            presentGhostsSheet();
+            //! CHNAGE TO TABLE
+            //openTableView()
         } else {
             print("Max ghosts added")
         }
@@ -457,7 +469,7 @@ extension RunVC: CLLocationManagerDelegate {
         if let location = locations.last {
           //  print("New location is \(location)")
         }
-        centerMapToCurrentLocation()
+       // centerMapToCurrentLocation()
     }
     
     
@@ -570,6 +582,62 @@ extension RunVC: UITableViewDelegate, UITableViewDataSource {
     
     
     
+    
+}
+
+
+extension RunVC {
+    func presentGhostsSheet()  {
+        guard let ghostSheet = storyboard?.instantiateViewController(identifier: "ghostSearchSheet") as? GhostSearchVC else {
+            assertionFailure("couldnt find this controller")
+            return
+        }
+        ghostSheet.delegate = self
+        present(ghostSheet, animated: true);
+    }
+}
+
+extension RunVC : ModalDelegate {
+    func GhostFriendGotSelected(ghost: GhostRun) {
+        print("recived the data thanks \(ghost.user.toJSON())")
+        ghostList.append(ghost);
+        addToTheListViewOfOpponents();
+    }
+    
+    func addToTheListViewOfOpponents()  {
+        giList.forEach {gi in
+            gi?.image = nil
+            gi?.layer.borderColor = UIColor.clear.cgColor
+        }
+        
+        var i = 0
+        ghostList.forEach { (ghostRun) in
+            dynamic let anno = GhostAnno()
+            
+            if let url = URL(string: ghostRun.user.photoURL) {
+
+                let data = try? Data(contentsOf: url)
+                if let imageData = data {
+                    let im = UIImage(data: imageData)
+                    anno.image = im
+                    giList[i]?.image = im
+                    giList[i]?.layer.borderColor = UIColor.white.cgColor
+                    
+                }
+               
+            }
+            self.mapView.addAnnotation(anno)
+            i += 1
+        }
+        
+        giList.forEach {gi in
+            UIView.animate(withDuration: 1) {
+                gi?.alpha = 1
+            }
+        }
+        
+    }
+
     
 }
 

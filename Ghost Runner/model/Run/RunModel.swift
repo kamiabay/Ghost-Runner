@@ -15,10 +15,12 @@ class Run {
     private let CALORIE_PER_SECONDS = 0.5; // just an idea
     private let date = Date();
     private var currentLocationIndex = 0;
+    var runName: String;
     
     init(runSnapshotList: [RunSnapshot], runID: String) {
         self.runSnapshotList = runSnapshotList;
         self.runID = runID;
+        self.runName = "Afternoon Run";
     }
 
 //    func avgSpeed() -> Double {
