@@ -56,8 +56,8 @@ class RunVC: UIViewController {
     @IBOutlet var popupView: UIView!
     @IBOutlet weak var addGhostTable: UITableView!
     @IBOutlet weak var addGhostSymbol: UIButton!
-    @IBOutlet weak var recenterButton: UIButton!
     
+    @IBOutlet weak var headingButton: UIImageView!
     
     @IBOutlet weak var gi0: UIImageView!
     @IBOutlet weak var gi1: UIImageView!
@@ -104,6 +104,17 @@ class RunVC: UIViewController {
             gi?.alpha = 0
         }
         
+        headingButton.layer.borderWidth = 2.0
+        headingButton.layer.masksToBounds = false
+        headingButton.layer.borderColor = UIColor.white.cgColor
+        headingButton.layer.cornerRadius = headingButton.frame.size.width/2
+        headingButton.clipsToBounds = true
+        
+        // Heading image tap support
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(headingTap))
+        headingButton.isUserInteractionEnabled = true
+        headingButton.addGestureRecognizer(tapGestureRecognizer)
+        
         
         
         // load data
@@ -114,7 +125,6 @@ class RunVC: UIViewController {
         view.backgroundColor =  .darkGray
         runToggleOutlet.layer.cornerRadius = 10
         cancelButtonOutlet.layer.cornerRadius = 10
-        recenterButton.layer.cornerRadius = 10
         topPanel.layer.cornerRadius = 15
         topPanel.layer.masksToBounds = true
         topPanel.layer.backgroundColor = UIColor.systemBackground.cgColor
@@ -124,7 +134,7 @@ class RunVC: UIViewController {
         popupView.layer.masksToBounds = true
         
         // MapView Styling
-        mapView.layoutMargins = UIEdgeInsets(top: topPanel.bounds.height + 30, left: 0, bottom: 0, right: 8)
+        mapView.layoutMargins = UIEdgeInsets(top: topPanel.bounds.height + 7, left: 0, bottom: 0, right: 8)
         let zoomRange = MKMapView.CameraZoomRange(minCenterCoordinateDistance: CLLocationDistance.init(2000), maxCenterCoordinateDistance: CLLocationDistance.init(2000))
         mapView.setCameraZoomRange(zoomRange, animated: true)
         
@@ -156,10 +166,10 @@ class RunVC: UIViewController {
             self.initiateMapSetup()
         }
         
-        let confirmPopupFrame = CGRect(x:0, y:0, width: view.frame.width/2, height: view.frame.height/2)
-        confirmPopupView = UIView(frame: confirmPopupFrame)
-        view.addSubview(confirmPopupView)
-        confirmPopupView.isHidden = true
+//        let confirmPopupFrame = CGRect(x:0, y:0, width: view.frame.width/2, height: view.frame.height/2)
+//        confirmPopupView = UIView(frame: confirmPopupFrame)
+//        view.addSubview(confirmPopupView)
+//        confirmPopupView.isHidden = true
         
     }
     
@@ -327,10 +337,8 @@ class RunVC: UIViewController {
     // Key function; calls most of the animation/GPS update functions
     @objc func intervalUpdate() {
      
-        print("is moving \(!isUserMoving(locationManager: locationManager))")
+        //print("is moving \(!isUserMoving(locationManager: locationManager))")
        // if(!isUserMoving(locationManager: locationManager)) {return}
-        
-       
         
         let gps = GPS(locationManager: locationManager);
         
@@ -342,7 +350,9 @@ class RunVC: UIViewController {
         
         // Updates all ghosts
         updateOpponentLocation()
-        centerMapToCurrentLocation() // LOCK THE USER TO ONLY THAT LOCATION , CANT ZOOM OUT/IN
+        
+        // NO LONGER NECESSARY BECAUSE OF NEW HEADING TRACKING
+        //centerMapToCurrentLocation() // LOCK THE USER TO ONLY THAT LOCATION , CANT ZOOM OUT/IN
     }
 
     func saveRunData()  {
@@ -355,6 +365,9 @@ class RunVC: UIViewController {
     // #######################################
     // Buttons and helpers
     // #######################################
+    
+    @objc func headingTap() {
+        self.mapView.setUserTrackingMode(MKUserTrackingMode.followWithHeading, animated: true)    }
     
     @IBAction func addGhostSymbolPress(_ sender: UIButton) {
         if selectedGhosts.count < maxGhosts {
@@ -369,10 +382,6 @@ class RunVC: UIViewController {
         beginGhostAnimation();
     }
     
-    @IBAction func updateHeadingToggle(_ sender: UIButton) {
-        self.mapView.setUserTrackingMode(MKUserTrackingMode.followWithHeading, animated: true)
-    }
-    
     @IBAction func beginEndToggle(_ sender: UIButton) {
         if runToggleState == 0 {
             runToggleOutlet.setTitle("End Run", for: .normal)
@@ -384,6 +393,9 @@ class RunVC: UIViewController {
             endRun()
             runToggleState = 2
             runToggleOutlet.backgroundColor = .systemPurple
+            
+            // NOTE: THIS IS TEMPORARY (FOR DEMO); REMOVE BELOW LINE AFTER REPLAYS ARE IMPLEMENTED
+            navigation?.goBack()
         } else if runToggleState == 2 {
             // add option to save replay
             print("User wants to save replay")
@@ -404,6 +416,9 @@ class RunVC: UIViewController {
         
         // timer
         runTimer = Timer.scheduledTimer(timeInterval: CONST_TIME, target: self, selector: #selector(intervalUpdate), userInfo: nil, repeats: true)
+        
+        // NOTE: THE BELOW LINE WILL BE REMOVED AFTER DEMO, this will return the code to debugging
+        beginGhostAnimation()
     }
     
     func endRun() {

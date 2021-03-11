@@ -41,6 +41,8 @@ class Navigator  {
             return
         }
         
+        loginVC.userLoggedOut = true
+        
         // Sets loginVC to be top of stack; prevents Back button from appearing
         currentViewController?.navigationController?.setViewControllers([loginVC], animated: true)
     }
