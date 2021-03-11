@@ -12,6 +12,8 @@ import FirebaseAuth
 
 class LoginVC: UIViewController, UIScrollViewDelegate {
     
+    var userLoggedOut: Bool = false
+    
 //    @IBOutlet weak var signUpButton: UIButton!
 //    @IBOutlet weak var loginButton: UIButton!
 //    @IBOutlet weak var appleLoginButton: UIButton!
@@ -22,14 +24,14 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var pageControl: UIPageControl!
     
-    var imgListName: [String] = ["runner-1","biker","fb-icon"]
+    var imgListName: [String] = ["LoginVC_Image_1","LoginVC_Bike"]
     var frame = CGRect.zero
     
     var navigation: Navigator?
     
     var tester = Tester()
 
-    let gradientLayer = CAGradientLayer()
+    //let gradientLayer = CAGradientLayer()
     let rad: CGFloat = 20.0
      
     var containerView = UIView()
@@ -49,8 +51,10 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
        
         // order matters
         navigation = Navigator(currentViewController: self)
-        checkIfUserExist()
         
+        if !userLoggedOut {
+            checkIfUserExist()
+        }
         
         GIDSignIn.sharedInstance().delegate = self
         navigation?.currentViewController?.navigationController?.navigationBar.isHidden = true
@@ -66,10 +70,10 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
         
         googleLoginButton.layer.cornerRadius = rad
 
-        gradientLayer.colors = [UIColor(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)).cgColor, UIColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)).cgColor]
-        gradientLayer.locations = [0.0, 1.0]
-        gradientLayer.frame = self.view.bounds
-        self.view.layer.insertSublayer(gradientLayer, at:0)
+        //gradientLayer.colors = [UIColor(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)).cgColor, UIColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)).cgColor]
+        //gradientLayer.locations = [0.0, 1.0]
+        //gradientLayer.frame = self.view.bounds
+        //self.view.layer.insertSublayer(gradientLayer, at:0)
     }
     
 

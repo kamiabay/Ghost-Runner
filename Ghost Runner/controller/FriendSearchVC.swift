@@ -44,7 +44,7 @@ class FriendSearchVC: UIViewController {
             print(friend.toJSON())
             
             self?.addFriend(friend: friend);
-            self?.addedFriend.text = "added: \(friend.name) to your friends list";
+            self?.addedFriend.text = "Added: \(friend.name)! Try adding their ghosts during your next run!";
             }
         })
         searchBar.text = ""

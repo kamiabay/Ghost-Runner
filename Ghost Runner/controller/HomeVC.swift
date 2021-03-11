@@ -95,6 +95,10 @@ class HomeVC: UIViewController {
         
         // Request always authorization
         alwaysAuthorization()
+        
+        
+        
+        
     }
 
     func alwaysAuthorization(){
@@ -223,7 +227,7 @@ extension HomeVC: UITableViewDataSource, UITableViewDelegate  {
         runTitle?.text = "\(indexPath.section)"
         
         let runDetails = cell.contentView.viewWithTag(102) as? UILabel
-        runDetails?.text = "D: \(df.string(from: cell_data.totalDuration()))"
+        runDetails?.text = "D: \(cell_data.totalDuration())"
         
         cell.backgroundColor = .systemBackground
         cell.layer.borderColor = UIColor.darkGray.cgColor

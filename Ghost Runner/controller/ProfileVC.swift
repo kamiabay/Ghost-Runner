@@ -20,6 +20,7 @@ class ProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var addCodeButton: UIButton!
     @IBOutlet weak var shareToSocialButton: UIButton!
+    @IBOutlet weak var logoutButton: UIButton!
     
     var navigation: Navigator?
     let localStorage = LocalStorage()
@@ -36,13 +37,13 @@ class ProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         // Init navigation
         navigation = Navigator(currentViewController: self)
         
-        let notification = NotificationManager()
-        
-        notification.playRunDifferenceAudio(ghostName: "Dylan", spacialDifference: -5.5, speedDifference: 2.1)
-        notification.pushFriendCreatedNewRun()
+        //let notification = NotificationManager()
+        //notification.playRunDifferenceAudio(ghostName: "Dylan", spacialDifference: -5.5, speedDifference: 2.1)
+        //notification.pushFriendCreatedNewRun()
         
         addCodeButton.layer.cornerRadius = 18
         shareToSocialButton.layer.cornerRadius = 18
+        logoutButton.layer.cornerRadius = 18
         profileImage.layer.cornerRadius = 70
         profileImage.layer.masksToBounds = true
         
@@ -133,6 +134,9 @@ class ProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
     
     @IBAction func homeButtonPress(_ sender: UIButton) {
         navigation?.goBack()
+    }
+    @IBAction func logoutButtonPress(_ sender: UIButton) {
+        navigation?.goToLogin()
     }
 }
 

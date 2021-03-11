@@ -40,12 +40,12 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="84a-Sx-qNw">
                                 <rect key="frame" x="59.5" y="462" width="295" height="38"/>
-                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                <color key="backgroundColor" red="0.21050083889999999" green="0.23857870840000001" blue="0.36435395079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="38" id="Ced-ti-TSf"/>
                                     <constraint firstAttribute="width" constant="295" id="Ohd-27-Inf"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <state key="normal" title="Send a friend your add code">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -55,12 +55,12 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WXS-Su-ziV">
                                 <rect key="frame" x="59.5" y="523" width="295" height="38"/>
-                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                <color key="backgroundColor" red="0.21050083889999999" green="0.23857870840000001" blue="0.36435395079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="295" id="M9K-ff-Jzv"/>
                                     <constraint firstAttribute="height" constant="38" id="rmr-5v-6Lf"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <state key="normal" title="Share to social media">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -93,11 +93,27 @@
                                     <action selector="homeButtonPress:" destination="4cF-N1-UP6" eventType="touchUpInside" id="wKN-p1-HgX"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BNY-lh-VWP">
+                                <rect key="frame" x="154.5" y="611" width="105" height="39"/>
+                                <color key="backgroundColor" red="0.64236992390000003" green="0.036041884670000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="105" id="Rfx-l7-oo3"/>
+                                    <constraint firstAttribute="height" constant="39" id="yry-dI-WCM"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Log out" image="lock.fill" catalog="system">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="logoutButtonPress:" destination="4cF-N1-UP6" eventType="touchUpInside" id="Hsd-m2-aer"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="sTd-WZ-6Ic"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="HQq-hl-k4y" firstAttribute="top" secondItem="Ls5-1H-igP" secondAttribute="bottom" constant="139" id="24i-PP-fE9"/>
+                            <constraint firstItem="BNY-lh-VWP" firstAttribute="centerX" secondItem="DJO-Fc-OAa" secondAttribute="centerX" id="28F-qi-19j"/>
                             <constraint firstItem="WXS-Su-ziV" firstAttribute="top" secondItem="84a-Sx-qNw" secondAttribute="bottom" constant="23" id="4Bj-K7-aPz"/>
                             <constraint firstItem="HQq-hl-k4y" firstAttribute="centerX" secondItem="DJO-Fc-OAa" secondAttribute="centerX" id="5YD-Kz-U7f"/>
                             <constraint firstItem="84a-Sx-qNw" firstAttribute="top" secondItem="6LG-Bx-ple" secondAttribute="bottom" constant="50" id="6uv-Or-MuM"/>
@@ -108,11 +124,13 @@
                             <constraint firstItem="Ls5-1H-igP" firstAttribute="top" secondItem="sTd-WZ-6Ic" secondAttribute="top" constant="17" id="Oho-U5-2hq"/>
                             <constraint firstItem="Mu2-Ig-ui1" firstAttribute="top" secondItem="sTd-WZ-6Ic" secondAttribute="top" constant="12" id="lfF-JC-0LZ"/>
                             <constraint firstItem="WXS-Su-ziV" firstAttribute="centerX" secondItem="DJO-Fc-OAa" secondAttribute="centerX" id="lr6-eA-h19"/>
+                            <constraint firstItem="BNY-lh-VWP" firstAttribute="top" secondItem="WXS-Su-ziV" secondAttribute="bottom" constant="50" id="oBU-q1-es1"/>
                             <constraint firstItem="6LG-Bx-ple" firstAttribute="centerX" secondItem="DJO-Fc-OAa" secondAttribute="centerX" id="xYO-cy-5Na"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="addCodeButton" destination="84a-Sx-qNw" id="fKh-5I-9MU"/>
+                        <outlet property="logoutButton" destination="BNY-lh-VWP" id="akc-MI-ByR"/>
                         <outlet property="profileImage" destination="HQq-hl-k4y" id="eha-gl-ctv"/>
                         <outlet property="shareToSocialButton" destination="WXS-Su-ziV" id="DcR-WH-Azg"/>
                         <outlet property="tapGestureRecognizer" destination="O8u-zc-GBy" id="Vbp-9u-BqZ"/>
@@ -131,15 +149,13 @@
     </scenes>
     <resources>
         <image name="chevron.backward" catalog="system" width="96" height="128"/>
+        <image name="lock.fill" catalog="system" width="128" height="128"/>
         <image name="person.circle" catalog="system" width="128" height="121"/>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemIndigoColor">
-            <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="tertiarySystemFillColor">
             <color red="0.46274509803921571" green="0.46274509803921571" blue="0.50196078431372548" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>
