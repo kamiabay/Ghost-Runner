@@ -13,14 +13,13 @@ import MessageUI
 // Save profile picture
 // Add download link to social media posts
 // Add extensions
-class ProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource {
+class ProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet var tapGestureRecognizer: UITapGestureRecognizer!
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var addCodeButton: UIButton!
     @IBOutlet weak var shareToSocialButton: UIButton!
-    @IBOutlet weak var infoTable: UITableView!
     
     var navigation: Navigator?
     let localStorage = LocalStorage()
@@ -29,24 +28,18 @@ class ProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
     var image: UIImage?
     var addMessage = ""
     var shareMessage = ""
-    var tableInfo = [
-        "Recent runs:",
-        "Run 1",
-        "Run 2",
-        "Run 3"
-    ]
     
     override func viewDidLoad() {
-        super.viewDidLoad()        
+        super.viewDidLoad()
+        // Do any additional setup after loading the view.
+        
+        // Init navigation
         navigation = Navigator(currentViewController: self)
         
         let notification = NotificationManager()
         
         notification.playRunDifferenceAudio(ghostName: "Dylan", spacialDifference: -5.5, speedDifference: 2.1)
         notification.pushFriendCreatedNewRun()
-        
-        self.infoTable.delegate = self
-        self.infoTable.dataSource = self
         
         addCodeButton.layer.cornerRadius = 18
         shareToSocialButton.layer.cornerRadius = 18
@@ -106,7 +99,7 @@ class ProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         present(pc, animated: true, completion: nil)
     }
     
-    // Save and display the actual image information
+    // Here we save and display the actual image information
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
             profileImage.image = image
@@ -136,18 +129,6 @@ class ProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         let vc = UIActivityViewController(activityItems: [self.shareMessage], applicationActivities: nil)
         vc.excludedActivityTypes = [.addToReadingList, .airDrop, .assignToContact, .markupAsPDF, .openInIBooks, .postToFlickr, .postToTencentWeibo, .postToVimeo, .postToWeibo, .saveToCameraRoll, .message, .mail]
         present(vc, animated: true, completion: nil)
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = infoTable.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = self.tableInfo[indexPath.row]
-        cell.textLabel?.textColor = UIColor.white
-        
-        return cell
     }
     
     @IBAction func homeButtonPress(_ sender: UIButton) {
