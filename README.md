@@ -1,4 +1,5 @@
 # Ghost Runner on iOS :ghost:
+https://ghostsrunner.web.app
 
 > Developed by Team DZKN:
 
@@ -9,12 +10,6 @@
 > Kamyab Ayanifard
 
 > Nikita Andrikanis
-
-## [*FOR DEMO*] Build instructions:
-> Please use the following to switch to the working commit:
-> git checkout 7d6d64cd7ae0bfba26c631c9048457afccb66b41
-
-# https://ghostsrunner.web.app
 
 ### Our proposal:
 
@@ -39,13 +34,15 @@ General Responsibilities:
 
 25 February 2021 - [Sprint Planning 3](https://docs.google.com/document/d/1W977kMpqJkgv5KH4pijB8ygc9R7gZMIT5jJi9BzREAg/edit?usp=sharing)
 
-1 March 2021 - [Sprint Planning 4](https://docs.google.com/document/d/1mfccGnBMsnO_ylIYfPCAjiATX0Gm9TYbMSQI34YTee0/edit?usp=sharing) ***NEW!***
+1 March 2021 - [Sprint Planning 4](https://docs.google.com/document/d/1mfccGnBMsnO_ylIYfPCAjiATX0Gm9TYbMSQI34YTee0/edit?usp=sharing)
+
+11 March 2021 - [Sprint Planning 5](https://docs.google.com/document/d/14jFPHzd04NigO2q-CrvNjGCrvkJeEUzJ-lFWqiK57xw/edit?usp=sharing) ***NEW!***
 
 ### Milestones:
 
 22 February 2021 - [Milestone 1](https://docs.google.com/document/d/1cL5qjSXlPTK8lDtkn_iZbdCze0-BJGtdw--Mh1lu0pw/edit?usp=sharing)
 
-1 March 2021 - [Milestone 2](https://docs.google.com/document/d/1NXl5295iFcDbcbgTRkMIKKjs6uULBk3kL2gjudqogIo/edit?usp=sharing) ***NEW!***
+1 March 2021 - [Milestone 2](https://docs.google.com/document/d/1NXl5295iFcDbcbgTRkMIKKjs6uULBk3kL2gjudqogIo/edit?usp=sharing)
 
 ### Profile Links:
 
