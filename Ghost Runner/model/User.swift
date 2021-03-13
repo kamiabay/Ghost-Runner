@@ -23,12 +23,21 @@ class User {
         self.code = code
     }
     
+    
+    
     // from db
     init(data: [String : Any]) {
         self.name = (data["name"] as? String) ?? ""
         self.photoURL = (data["photoURL"] as? String) ?? ""
         self.uid = (data["uid"] as? String) ?? ""
         self.code = (data["code"] as? String) ?? ""
+    }
+    func getUIImage() -> UIImage {
+        
+        let url = URL(string: photoURL)
+        let data = try? Data(contentsOf: url!)
+        
+        return UIImage(data: data!)!; 
     }
     
     func toJSON () -> [String: Any] {

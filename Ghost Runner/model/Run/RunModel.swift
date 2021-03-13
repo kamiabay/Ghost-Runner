@@ -15,20 +15,17 @@ class Run {
     private let CALORIE_PER_SECONDS = 0.5; // just an idea
     private let date = Date();
     private var currentLocationIndex = 0;
+    private var distanceMetersTraveled: Double = 0.0;
+    private var currentSnapshot, prevSnapshot: RunSnapshot?;
     var runName: String;
     
-    init(runSnapshotList: [RunSnapshot], runID: String) {
+    init(runSnapshotList: [RunSnapshot], runID: String, runName: String) {
         self.runSnapshotList = runSnapshotList;
         self.runID = runID;
-        self.runName = "Afternoon Run";
+        self.runName = runName;
     }
 
-//    func avgSpeed() -> Double {
-//        let calendar = Calendar.current
-//        let time = totalDuration();
-//        let second = calendar.component(.second, from: time)
-//        return totalDistance() / Double(second);  // check later
-//    }
+
     
     // AT INITIATION
     func totalDistance() -> Double {
@@ -68,17 +65,22 @@ class Run {
         return runSnapshotList.last ?? RunSnapshot(doc: ["" : "Any"]);
     }
     
+    func distanceTraveledSoFar() -> Double {
+        return distanceMetersTraveled
+    }
+    
     // gets the location of runner
     func getNextRunLocation() -> RunSnapshot {
-        var currentSnapshot: RunSnapshot;
+        prevSnapshot = currentSnapshot;
         if (!isRunFinished()) {
             currentSnapshot = runSnapshotList[currentLocationIndex];
             currentLocationIndex += 1;
+            updateDistanceTraveled();
         }
         else {
             currentSnapshot = lastSnapshot(); // if finished just return thelast location
         }
-        return currentSnapshot;
+        return currentSnapshot ?? lastSnapshot();
     }
     
     func isRunFinished() -> Bool {
@@ -100,23 +102,32 @@ class Run {
     }
     
     func totalDuration() -> TimeInterval {
-        let startTime = runSnapshotList[0].time;
-        let endTime = runSnapshotList[runSnapshotList.count - 1].time;
-        print(startTime)
-        print(endTime)
+        let startTime = Date();
+        let endTime = Date();
+
         let formatter = DateComponentsFormatter()
         formatter.allowedUnits = [.hour, .minute]
-        print(formatter.string(from: startTime, to: endTime)!)
-        
-        //return Date.init(timeInterval: startTime.timeIntervalSince1970, since: endTime); // wrong
-        
-        
-        print(startTime)
-        print(endTime)
         return endTime.timeIntervalSince(startTime)
     }
     
-
     
 }
 
+
+
+
+
+extension Run {
+    
+    private func updateDistanceTraveled() {
+        var distance = 0.0;
+        if (prevSnapshot == nil || currentSnapshot == nil) {
+            distance = 0.0;
+        }
+        else {
+            distance = currentSnapshot?.getCordinate().distance(from: prevSnapshot?.getCordinate() ?? lastSnapshot().getCordinate()) ?? 0.0
+        }
+        
+        distanceMetersTraveled += distance ;
+    }
+}

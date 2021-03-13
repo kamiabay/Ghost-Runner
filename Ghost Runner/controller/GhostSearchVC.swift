@@ -92,7 +92,8 @@ extension GhostSearchVC: UITableViewDataSource, UITableViewDelegate {
         let friend = friendList[indexPath.row]
         db.friendDb.getFreindLastRun(uid: friend.uid) { [weak self] (Run) in 
             print(Run.lastSnapshot().toJSON())
-            self?.friendGhostRun = GhostRun(user: friend, run: Run);
+            
+            self?.friendGhostRun = GhostRun(user: friend, run: Run );
         }
     }
     

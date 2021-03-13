@@ -6,15 +6,17 @@
 //
 
 import Foundation
+import MapKit
 
-
-class GhostRun {
+class GhostRun: MKPointAnnotation {
     var run: Run
     var user: User
+    var image: UIImage
     
-    init(user: User, run:Run) {
+    init(user: User, run: Run) {
         self.user = user
         self.run = run
+        self.image = user.getUIImage()
     }
     
 }
