@@ -76,7 +76,7 @@ class Navigator  {
             assertionFailure("couldnt find this controller")
             return
         }
-        runVC.opponentRun = opponentRun;
+        
         let user = LocalStorage().getUser();
         let ghost = GhostRun(user: user, run: opponentRun); // bad
         runVC.ghostList.append(ghost)

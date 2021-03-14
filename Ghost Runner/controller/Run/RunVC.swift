@@ -63,6 +63,34 @@ class RunVC: UIViewController {
         initiateMapSetup()
 
         runCalculation = RunCalculation(opponentList: ghostList)
+        
+        
+        addToTheListViewOfOpponents()
+    }
+    
+    
+    func addToTheListViewOfOpponents()  {
+        giList.forEach {gi in
+            gi?.image = nil
+            gi?.layer.borderColor = UIColor.clear.cgColor
+        }
+        
+        var i = 0
+        ghostList.forEach { (ghostRun) in
+            
+            giList[i]?.image = ghostRun.image
+            giList[i]?.layer.borderColor = UIColor.white.cgColor
+            
+            self.mapView.addAnnotation(ghostRun)
+            i += 1
+        }
+        
+        giList.forEach {gi in
+            UIView.animate(withDuration: 1) {
+                gi?.alpha = 1
+            }
+        }
+        
     }
     
     

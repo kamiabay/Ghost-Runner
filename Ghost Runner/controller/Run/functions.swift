@@ -30,12 +30,12 @@ extension RunVC {
     }
     
     func isFirstRun() -> Bool {
-        return opponentRun == nil
+        return ghostList.isEmpty == true
     }
     
     
     func pickTheWinner() {
-        if (opponentRun == nil) {return} // i.e NO OPPONENT i.e FIRST RUN
+        if (ghostList.isEmpty) {return} // i.e NO OPPONENT i.e FIRST RUN
     }
     
     func startRun() {
