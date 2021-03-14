@@ -25,11 +25,10 @@ class RunVC: UIViewController {
     
     // calculation
     var runCalculation : RunCalculation?  // initialized in viewDidLoad()
-    let CONST_TIME: Double = 0.25//2.0;
+    let CONST_TIME: Double = 2.25//2.0;
     var lastDrawnPolyLine: MKOverlay?
-    var runCalculationList: [RunCalculation?] = []
     var ghostList = [GhostRun]()
-    
+    var userLocationList = [UserSnapshot]()
     //
     var runToggleState: Int = 0
     var giList: [UIImageView?] = []
@@ -68,25 +67,27 @@ class RunVC: UIViewController {
     }
     
     
+    @objc func updateOpponentsLocation()  {
+        
+        if (isFirstRun()) {return} // i.e NO OPPONENT i.e FIRST RUN
 
-    
-    
-    func beginGhostAnimation() {
-        runTimer = Timer.scheduledTimer(timeInterval: CONST_TIME, target: self, selector: #selector(updateOpponentLocation), userInfo: nil, repeats: true)
-        //updateOpponentLocation
-    }
-    
-    @objc func updateOpponentLocation()  {
-         if (isFirstRun()) {return} // i.e NO OPPONENT i.e FIRST RUN
-
+        userLocationList.forEach { (UserSnapshot) in
+             let nextCoord = UserSnapshot.snapShot.get2DCordinate()
+                UIView.animate(withDuration: CONST_TIME) {
+                    UserSnapshot.coordinate.latitude = nextCoord.latitude
+                    UserSnapshot.coordinate.longitude = nextCoord.longitude
+                }
+            
+        }
        
     }
     
     @objc func intervalUpdate() {
         let gps = GPS(locationManager: locationManager);
-        runCalculation?.updateOwnLocation(runSnapshot: RunSnapshot(gps: gps))
+        let usersLocation = runCalculation?.updateOwnGetOpponentsNextLocation(runSnapshot: RunSnapshot(gps: gps))
+        userLocationList = usersLocation ?? [UserSnapshot]();
         updateOwnPolyLine()
-        updateOpponentLocation()
+        updateOpponentsLocation()
     }
 
 
@@ -145,7 +146,7 @@ extension RunVC {
     
     // ONLY FOR DEBUG
     @IBAction func animateOpponent() {
-        beginGhostAnimation();
+        //beginGhostAnimation();
     }
     
     @IBAction func beginEndToggle(_ sender: UIButton) {

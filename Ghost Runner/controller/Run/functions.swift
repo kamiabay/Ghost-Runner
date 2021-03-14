@@ -10,9 +10,8 @@ import Foundation
 
 extension RunVC {
     
-    
     func saveRunData()  {
-        let ownRunList = runCalculation!.getOwnFinalRunList();
+        let ownRunList = runCalculation!.ownCurrentRun.getFinalRunList();
         if (!ownRunList.isEmpty) {
             db.runDb.saveRunSnapShot(runSnapShotList: ownRunList);
         }
@@ -24,7 +23,7 @@ extension RunVC {
             self.mapView.removeOverlay(previous)
             lastDrawnPolyLine = nil
         }
-        let currPolyLine = runCalculation!.getOwnCurrentPolyLine(); // REMOVE !
+        let currPolyLine = runCalculation!.ownCurrentRun.getCurrentPolyLine(); // REMOVE !
         self.mapView.addOverlay(currPolyLine)
         lastDrawnPolyLine = currPolyLine;
     }
@@ -42,7 +41,7 @@ extension RunVC {
         view.backgroundColor =  .systemGreen
         
         locationManager.showsBackgroundLocationIndicator = true
-        runCalculation?.deleteOwnRunList()
+        runCalculation?.ownCurrentRun.deleteRunList()
        
         // enable listner for background GPS change
         locationManager.startUpdatingLocation()
@@ -52,7 +51,7 @@ extension RunVC {
         runTimer = Timer.scheduledTimer(timeInterval: CONST_TIME, target: self, selector: #selector(intervalUpdate), userInfo: nil, repeats: true)
     
         // NOTE: THE BELOW LINE WILL BE REMOVED AFTER DEMO, this will return the code to debugging
-        beginGhostAnimation()
+        //beginGhostAnimation()
     }
     
     func endRun() {

@@ -26,11 +26,11 @@ class Run {
     }
 
     func initialSnapshot() -> RunSnapshot {
-       return runSnapshotList.first ?? RunSnapshot(doc: ["" : "Any"]);
+        return runSnapshotList.first ?? RunSnapshot(doc: ["" : "Any"]);
     }
     
     func halfWaySanpshot() -> RunSnapshot {
-       let halfWayIndex = runSnapshotList.count / 2;
+        let halfWayIndex = runSnapshotList.count / 2;
         return runSnapshotList[halfWayIndex];
     }
     

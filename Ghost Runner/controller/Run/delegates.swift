@@ -24,7 +24,7 @@ extension RunVC: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         //guard annotation is MKPointAnnotation else { return nil }
-        guard annotation is GhostRun else { return nil }
+        guard annotation is UserSnapshot else { return nil }
 
         let identifier = "Annotation"
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
@@ -36,7 +36,7 @@ extension RunVC: MKMapViewDelegate {
             annotationView?.annotation = annotation
         }
         
-        let ghostAnno = annotation as? GhostRun
+        let ghostAnno = annotation as? UserSnapshot
 
         if (ghostAnno?.image != nil) {
             

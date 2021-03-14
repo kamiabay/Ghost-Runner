@@ -22,7 +22,6 @@ class RunData {
         runSnapshotList = runModel.runSnapshotList
     }
     
-    
     func distanceTraveledSoFar() -> Double {
         return distanceMetersTraveled
     }
@@ -64,7 +63,6 @@ extension RunData {
         else {
             distance = currentSnapshot?.getCordinate().distance(from: prevSnapshot?.getCordinate() ?? runModel.lastSnapshot().getCordinate()) ?? 0.0
         }
-        
         distanceMetersTraveled += distance ;
     }
 }
