@@ -14,9 +14,11 @@ class Opponent {
 }
 
 class RunCalculation {
+    
     private var opponentList: [GhostRun];
     private var ownRunList = [RunSnapshot](); // EMPRY LIST ??
     private var ownPolyLineList = [CLLocationCoordinate2D]()
+    
     init (opponentList: [GhostRun]) {
         self.opponentList = opponentList;
     }
@@ -44,7 +46,7 @@ class RunCalculation {
     
     func getOpponentNextRunsnapshot() -> [RunSnapshot] {
         return opponentList.map { (GhostRun) -> RunSnapshot in
-            GhostRun.run.getNextRunLocation()
+            GhostRun.runData.getNextRunSnapShot()
         }
 
     }

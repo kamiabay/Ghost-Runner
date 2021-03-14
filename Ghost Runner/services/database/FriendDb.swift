@@ -93,7 +93,7 @@ class FriendDb {
                 return RunSnapshot(doc: run as! [String : Any]);
             }
             // TODO ADD RUN NAME
-            let bestRun = Run(runSnapshotList: runSnapShot, runID: "rand id", runName: "runName")
+            let bestRun = Run(runSnapshotList: runSnapShot, runID: "rand id", runName: "runName", totalDistance: 55.0)
             async.leave()
             async.notify(queue: .main) {
                   completion(bestRun)
@@ -123,7 +123,7 @@ class FriendDb {
                         runSnapshotList = runData.map { (run) -> RunSnapshot in
                             return RunSnapshot(doc: run as! [String : Any]);
                         }
-                       let run = Run(runSnapshotList: runSnapshotList, runID: "rand id", runName: "runName")
+                       let run = Run(runSnapshotList: runSnapshotList, runID: "rand id", runName: "runName", totalDistance: 55.0)
                    
                         async.leave()
                         async.notify(queue: .main) {

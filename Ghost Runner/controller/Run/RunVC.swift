@@ -64,12 +64,38 @@ class RunVC: UIViewController {
 
         runCalculation = RunCalculation(opponentList: ghostList)
         
-        
         addToTheListViewOfOpponents()
     }
     
     
-    func addToTheListViewOfOpponents()  {
+
+    
+    
+    func beginGhostAnimation() {
+        runTimer = Timer.scheduledTimer(timeInterval: CONST_TIME, target: self, selector: #selector(updateOpponentLocation), userInfo: nil, repeats: true)
+        //updateOpponentLocation
+    }
+    
+    @objc func updateOpponentLocation()  {
+         if (isFirstRun()) {return} // i.e NO OPPONENT i.e FIRST RUN
+
+       
+    }
+    
+    @objc func intervalUpdate() {
+        let gps = GPS(locationManager: locationManager);
+        runCalculation?.updateOwnLocation(runSnapshot: RunSnapshot(gps: gps))
+        updateOwnPolyLine()
+        updateOpponentLocation()
+    }
+
+
+    @objc func headingTap() {
+        self.mapView.setUserTrackingMode(MKUserTrackingMode.followWithHeading, animated: true)
+    }
+    
+    func addToTheListViewOfOpponents()  { // TODO refactor this later
+        
         giList.forEach {gi in
             gi?.image = nil
             gi?.layer.borderColor = UIColor.clear.cgColor
@@ -91,30 +117,6 @@ class RunVC: UIViewController {
             }
         }
         
-    }
-    
-    
-    func beginGhostAnimation() {
-        runTimer = Timer.scheduledTimer(timeInterval: CONST_TIME, target: self, selector: #selector(updateOpponentLocation), userInfo: nil, repeats: true)
-        //updateOpponentLocation
-    }
-    
-    @objc func updateOpponentLocation()  {
-        //if (isFirstRun()) {return} // i.e NO OPPONENT i.e FIRST RUN
-
-       
-    }
-    
-    @objc func intervalUpdate() {
-        let gps = GPS(locationManager: locationManager);
-        runCalculation?.updateOwnLocation(runSnapshot: RunSnapshot(gps: gps))
-        updateOwnPolyLine()
-        updateOpponentLocation()
-    }
-
-
-    @objc func headingTap() {
-        self.mapView.setUserTrackingMode(MKUserTrackingMode.followWithHeading, animated: true)
     }
     
 

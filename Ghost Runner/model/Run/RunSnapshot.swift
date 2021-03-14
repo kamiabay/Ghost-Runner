@@ -12,7 +12,6 @@ class RunSnapshot {
     var gps: GPS;
     
     
-    
     // get from db
     init(doc: [String : Any]) {
         self.gps = GPS(doc: doc["gps"] as? [String : Any] ?? ["" : ""]);

@@ -56,7 +56,7 @@ class RunDb {
                     snap = runData.map { (run) -> RunSnapshot in
                         return RunSnapshot(doc: run as! [String : Any]);
                     }
-                    runList.append(Run(runSnapshotList: snap, runID: documentID, runName: runName))
+                    runList.append(Run(runSnapshotList: snap, runID: documentID, runName: runName, totalDistance: 55.0))
                 }
                 async.leave()
                 async.notify(queue: .main) {
