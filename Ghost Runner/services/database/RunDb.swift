@@ -33,6 +33,7 @@ class RunDb {
         ]);
     }
     
+    
     func getUserRunList(completion: @escaping(([Run]) -> ())) {
         let ref = path.userAllRuns().order(by: "creationTime", descending: true);
        
@@ -48,12 +49,14 @@ class RunDb {
             } else {
                 var snap = [RunSnapshot]();
                 for document in querySnapshot!.documents {
-                  
+                    let documentID = document.documentID;
+                    let doc = document.data() as! [String : Any];
                     let runData: [Any] = (document.data()["runData"]) as! [Any];
+                    let runName = (doc["runName"] ?? "Afternoon Run") as! String
                     snap = runData.map { (run) -> RunSnapshot in
                         return RunSnapshot(doc: run as! [String : Any]);
                     }
-                    runList.append(Run(runSnapshotList: snap, runID: "rand id"))
+                    runList.append(Run(runSnapshotList: snap, runID: documentID, runName: runName, totalDistance: 55.0))
                 }
                 async.leave()
                 async.notify(queue: .main) {
@@ -64,10 +67,10 @@ class RunDb {
     }
     
     
-    
-    
-
-    
+    func deleteRun(runID: String)  {
+        let ref = path.userEachRun(runID: runID);
+        ref.delete();
+    }
     
 
 }

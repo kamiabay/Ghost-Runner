@@ -92,7 +92,8 @@ class FriendDb {
             let runSnapShot = runData.map { (run) -> RunSnapshot in
                 return RunSnapshot(doc: run as! [String : Any]);
             }
-            let bestRun = Run(runSnapshotList: runSnapShot, runID: "rand id")
+            // TODO ADD RUN NAME
+            let bestRun = Run(runSnapshotList: runSnapShot, runID: "rand id", runName: "runName", totalDistance: 55.0)
             async.leave()
             async.notify(queue: .main) {
                   completion(bestRun)
@@ -100,7 +101,7 @@ class FriendDb {
         }
       
     }
-    
+    // TODO ADD RUN NAME
     func getFreindLastRun(uid: String, completion: @escaping((Run) -> ())) {
         let ref = path.friendAllRuns(uid: uid)
             .order(by: "creationTime", descending: true).limit(to: 1);
@@ -122,7 +123,7 @@ class FriendDb {
                         runSnapshotList = runData.map { (run) -> RunSnapshot in
                             return RunSnapshot(doc: run as! [String : Any]);
                         }
-                       let run = Run(runSnapshotList: runSnapshotList, runID: "rand id")
+                       let run = Run(runSnapshotList: runSnapshotList, runID: "rand id", runName: "runName", totalDistance: 55.0)
                    
                         async.leave()
                         async.notify(queue: .main) {

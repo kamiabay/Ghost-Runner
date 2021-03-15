@@ -16,6 +16,12 @@
 		3C13A8E725DB772500C9D7F6 /* RunModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C13A8E625DB772500C9D7F6 /* RunModel.swift */; };
 		3C13A8EA25DB774B00C9D7F6 /* RunSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C13A8E925DB774B00C9D7F6 /* RunSnapshot.swift */; };
 		3C13A8ED25DB77C500C9D7F6 /* UserDb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C13A8EC25DB77C500C9D7F6 /* UserDb.swift */; };
+		3C2ED5DD25FCB91B0041B3D3 /* RunVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2ED5DC25FCB91B0041B3D3 /* RunVC.swift */; };
+		3C2ED5E325FCB9A30041B3D3 /* functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2ED5E225FCB9A30041B3D3 /* functions.swift */; };
+		3C2ED5E625FCB9B40041B3D3 /* delegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2ED5E525FCB9B40041B3D3 /* delegates.swift */; };
+		3C2ED5E925FCBD830041B3D3 /* setUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2ED5E825FCBD830041B3D3 /* setUp.swift */; };
+		3C2ED5EC25FDFB9F0041B3D3 /* RunData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2ED5EB25FDFB9F0041B3D3 /* RunData.swift */; };
+		3C2ED5EF25FE04880041B3D3 /* UserSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2ED5EE25FE04880041B3D3 /* UserSnapshot.swift */; };
 		3C319D9425E58BAB00868267 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C319D9325E58BAB00868267 /* ProfileVC.swift */; };
 		3C319D9825E58C5D00868267 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C319D9725E58C5D00868267 /* Notification.swift */; };
 		3C4D6BE625D5D1C2009CEBE1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4D6BE525D5D1C2009CEBE1 /* AppDelegate.swift */; };
@@ -43,7 +49,6 @@
 		3CDFE92625DF0BA800742EF2 /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDFE92525DF0BA800742EF2 /* Navigation.swift */; };
 		3CDFE92925DF15CB00742EF2 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDFE92825DF15CB00742EF2 /* LoginVC.swift */; };
 		3CDFE92C25DF16D600742EF2 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDFE92B25DF16D600742EF2 /* HomeVC.swift */; };
-		3CDFE93125DF1F9600742EF2 /* RunVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDFE93025DF1F9600742EF2 /* RunVC.swift */; };
 		3CDFE93525DF8C6F00742EF2 /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDFE93425DF8C6F00742EF2 /* SignUp.swift */; };
 		5023811574EF1E5C3359D874 /* Pods_Ghost_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4A245072B07B61AE8759005 /* Pods_Ghost_Runner.framework */; };
 		8C1B1AB025F19C49003DC505 /* opponentPassedVoiceAudio.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 8C1B1AAF25F19C49003DC505 /* opponentPassedVoiceAudio.m4a */; };
@@ -60,6 +65,12 @@
 		3C13A8E625DB772500C9D7F6 /* RunModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunModel.swift; sourceTree = "<group>"; };
 		3C13A8E925DB774B00C9D7F6 /* RunSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunSnapshot.swift; sourceTree = "<group>"; };
 		3C13A8EC25DB77C500C9D7F6 /* UserDb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDb.swift; sourceTree = "<group>"; };
+		3C2ED5DC25FCB91B0041B3D3 /* RunVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunVC.swift; sourceTree = "<group>"; };
+		3C2ED5E225FCB9A30041B3D3 /* functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = functions.swift; sourceTree = "<group>"; };
+		3C2ED5E525FCB9B40041B3D3 /* delegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = delegates.swift; sourceTree = "<group>"; };
+		3C2ED5E825FCBD830041B3D3 /* setUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = setUp.swift; sourceTree = "<group>"; };
+		3C2ED5EB25FDFB9F0041B3D3 /* RunData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunData.swift; sourceTree = "<group>"; };
+		3C2ED5EE25FE04880041B3D3 /* UserSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSnapshot.swift; sourceTree = "<group>"; };
 		3C319D9325E58BAB00868267 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		3C319D9725E58C5D00868267 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		3C4D6BE225D5D1C2009CEBE1 /* Ghost Runner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ghost Runner.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -89,7 +100,6 @@
 		3CDFE92525DF0BA800742EF2 /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
 		3CDFE92825DF15CB00742EF2 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		3CDFE92B25DF16D600742EF2 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
-		3CDFE93025DF1F9600742EF2 /* RunVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunVC.swift; sourceTree = "<group>"; };
 		3CDFE93425DF8C6F00742EF2 /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
 		766E69240DE493E8126D4C20 /* Pods-Ghost Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ghost Runner.release.xcconfig"; path = "Target Support Files/Pods-Ghost Runner/Pods-Ghost Runner.release.xcconfig"; sourceTree = "<group>"; };
 		8C1B1AAF25F19C49003DC505 /* opponentPassedVoiceAudio.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = opponentPassedVoiceAudio.m4a; sourceTree = "<group>"; };
@@ -124,6 +134,18 @@
 				3C13A8E625DB772500C9D7F6 /* RunModel.swift */,
 				3C13A8E925DB774B00C9D7F6 /* RunSnapshot.swift */,
 				3CA78ACE25FA010D00B86027 /* GhostRun.swift */,
+				3C2ED5EE25FE04880041B3D3 /* UserSnapshot.swift */,
+			);
+			path = Run;
+			sourceTree = "<group>";
+		};
+		3C2ED5E025FCB96F0041B3D3 /* Run */ = {
+			isa = PBXGroup;
+			children = (
+				3C2ED5DC25FCB91B0041B3D3 /* RunVC.swift */,
+				3C2ED5E225FCB9A30041B3D3 /* functions.swift */,
+				3C2ED5E525FCB9B40041B3D3 /* delegates.swift */,
+				3C2ED5E825FCBD830041B3D3 /* setUp.swift */,
 			);
 			path = Run;
 			sourceTree = "<group>";
@@ -187,10 +209,10 @@
 		3C4D6BFD25D5D4C5009CEBE1 /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				3C2ED5E025FCB96F0041B3D3 /* Run */,
 				3C4D6BE925D5D1C2009CEBE1 /* ViewController.swift */,
 				3CDFE92825DF15CB00742EF2 /* LoginVC.swift */,
 				3CDFE92B25DF16D600742EF2 /* HomeVC.swift */,
-				3CDFE93025DF1F9600742EF2 /* RunVC.swift */,
 				3CDFE93425DF8C6F00742EF2 /* SignUp.swift */,
 				3C319D9325E58BAB00868267 /* ProfileVC.swift */,
 				DBF6EAC525EDA6E800210649 /* EmailLoginViewController.swift */,
@@ -285,6 +307,7 @@
 			isa = PBXGroup;
 			children = (
 				3CDFE92025DE82C600742EF2 /* RunCalculation.swift */,
+				3C2ED5EB25FDFB9F0041B3D3 /* RunData.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -447,6 +470,7 @@
 				3C13A8EA25DB774B00C9D7F6 /* RunSnapshot.swift in Sources */,
 				DBF6EAC625EDA6E800210649 /* EmailLoginViewController.swift in Sources */,
 				3C6922D225EDF326001BA185 /* FriendDb.swift in Sources */,
+				3C2ED5E325FCB9A30041B3D3 /* functions.swift in Sources */,
 				3C13A8E225DB76D100C9D7F6 /* GPS.swift in Sources */,
 				3CA78ACC25F9EFB700B86027 /* GhostSearchVC.swift in Sources */,
 				3C13A8ED25DB77C500C9D7F6 /* UserDb.swift in Sources */,
@@ -458,17 +482,21 @@
 				3C4D6BEA25D5D1C2009CEBE1 /* ViewController.swift in Sources */,
 				118B4DC425E0AD8900A8628C /* tester.swift in Sources */,
 				3C6922D625EDF466001BA185 /* Friend.swift in Sources */,
+				3C2ED5E925FCBD830041B3D3 /* setUp.swift in Sources */,
 				3CB524FC25DB2443004421D9 /* DB.swift in Sources */,
 				3CB5250125DB24C2004421D9 /* LocalStorage.swift in Sources */,
 				3CDFE93525DF8C6F00742EF2 /* SignUp.swift in Sources */,
 				3CB5250825DB3B2C004421D9 /* RunDb.swift in Sources */,
 				3CDFE92125DE82C600742EF2 /* RunCalculation.swift in Sources */,
 				3C4D6BE625D5D1C2009CEBE1 /* AppDelegate.swift in Sources */,
+				3C2ED5EC25FDFB9F0041B3D3 /* RunData.swift in Sources */,
 				3CDFE92625DF0BA800742EF2 /* Navigation.swift in Sources */,
 				3C4D6BE825D5D1C2009CEBE1 /* SceneDelegate.swift in Sources */,
-				3CDFE93125DF1F9600742EF2 /* RunVC.swift in Sources */,
 				3C7168E725F1C0AD00A23521 /* FriendSearchVC.swift in Sources */,
+				3C2ED5DD25FCB91B0041B3D3 /* RunVC.swift in Sources */,
 				3CB5250325DB24DF004421D9 /* CloudStorage.swift in Sources */,
+				3C2ED5EF25FE04880041B3D3 /* UserSnapshot.swift in Sources */,
+				3C2ED5E625FCB9B40041B3D3 /* delegates.swift in Sources */,
 				3CB5250A25DB3F51004421D9 /* Path.swift in Sources */,
 				3CDFE92925DF15CB00742EF2 /* LoginVC.swift in Sources */,
 				3C319D9425E58BAB00868267 /* ProfileVC.swift in Sources */,

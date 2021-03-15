@@ -8,108 +8,74 @@
 import Foundation
 import CoreLocation
 import MapKit
+
 // RUNS HAVE TO BE SAVE AT THE SAME EXACT INTERVAL => we can play with this idea more
 
+
 class RunCalculation {
-    private var opponentRun: Run;
-    private var ownRunList = [RunSnapshot](); // EMPRY LIST ??
-    private var ownPolyLineList = [CLLocationCoordinate2D]()
-    init (opponentRun: Run) {
-        self.opponentRun = opponentRun;
+    
+    private var opponentList: [GhostRun];    
+    let ownCurrentRun = OwnCurrentRun()
+    
+    init (opponentList: [GhostRun]) {
+        self.opponentList = opponentList;
     }
 
-    
-    // DYLAN'S FUNCTIONS
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    // KAMI FUNCTIONS
-    
-    
-    // OPPONENT
-    func getOwnCurrentPolyLine() -> MKPolyline {
-        return MKPolyline(coordinates: ownPolyLineList, count: ownPolyLineList.count)
-    }
 
-    func getOpponentFullMKPolyline() -> MKPolyline {
-        return opponentRun.getFullMKPolyline()
+    func getOpponentFullMKPolyline() -> [MKPolyline] {
+        return opponentList.map { (GhostRun) -> MKPolyline in
+            GhostRun.run.getFullMKPolyline()
+        }
     }
     
-    func isOpponentBehind() -> Bool {
+    func amIAhead() -> Bool {
         // check distance traveled by OWN and OPONNENT
         return true;
     }
     
-    func hasOpponenetFinishedRun() -> Bool {
-        return opponentRun.isRunFinished();
+    
+    func updateOwnGetOpponentsNextLocation(runSnapshot: RunSnapshot) -> [UserSnapshot] {
+        ownCurrentRun.updateLocation(runSnapshot: runSnapshot);
+        return getOpponentNextRunsnapshot()
     }
     
-    func getOpponentNextRunsnapshot() -> RunSnapshot {
-        return opponentRun.getNextRunLocation()
+    private func getOpponentNextRunsnapshot() -> [UserSnapshot] {
+        return opponentList.map { (GhostRun) -> UserSnapshot in
+            return UserSnapshot(user: GhostRun.user, runSnapshot: GhostRun.runData.getNextRunSnapShot())
+        }
+
     }
     
-    // OWN
+
+}
+
+class OwnCurrentRun {
+    private var ownRunList = [RunSnapshot]();
+    private var ownPolyLineList = [CLLocationCoordinate2D]()
     
     
-    // UPDATE AT INTERVAL: every 1-5 seconds
-    func updateOwnRunAndGetOpponentLocation(runSnapshot: RunSnapshot) {
+    func getCurrentPolyLine() -> MKPolyline {
+        return MKPolyline(coordinates: ownPolyLineList, count: ownPolyLineList.count)
+    }
+
+    
+    func updateLocation(runSnapshot: RunSnapshot) {
         ownRunList.append(runSnapshot);
         updateCurrentPolyLine(runSnapshot: runSnapshot)
-       // return opponentRun.getNextRunLocation();
     }
     
     
-    func getOwnFinalRunList() -> [RunSnapshot] {
+    func getFinalRunList() -> [RunSnapshot] {
         return ownRunList;
     }
     
-    func deleteOwnRunList() {
+    func deleteRunList() {
         ownRunList.removeAll()
     }
     
-    func updateCurrentPolyLine(runSnapshot: RunSnapshot) {
+    private func updateCurrentPolyLine(runSnapshot: RunSnapshot) {
         ownPolyLineList.append(runSnapshot.get2DCordinate())
     }
-    
     
 }
  
