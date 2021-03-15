@@ -71,7 +71,7 @@ class NotificationManager {
     func playRunDifferenceAudio(ghostName: String = "Opponent", spacialDifference: Double, speedDifference: Double) {
         let absSpacialDifference = abs(spacialDifference)
         let absSpeedDifference = abs(speedDifference)
-        let onPaceThreshold = 0.1
+        let onPaceThreshold = 0.01
 
         if spacialDifference > 0 && speedDifference > 0 {
             self.utterance = AVSpeechUtterance(string: "You are \(spacialDifference) meters ahead of \(ghostName). Your speed is \(speedDifference) meters per second faster than \(ghostName).")
