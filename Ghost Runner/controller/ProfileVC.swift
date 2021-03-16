@@ -63,7 +63,7 @@ class ProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         }
         
         self.addMessage = "Add your friend \(self.user) on GhostRunner using the following code: \(self.uid)"
-        self.shareMessage = "Try to beat my time on GhostRunner! Add me using the following code: \(self.uid)"
+        self.shareMessage = "Try to beat my time on GhostRunner! Add me using the following code: \(userInfo.code)"
     }
     
     @IBAction func tapProfileImage(_ sender: Any) {
