@@ -14,9 +14,6 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
     
     var userLoggedOut: Bool = false
     
-//    @IBOutlet weak var signUpButton: UIButton!
-//    @IBOutlet weak var loginButton: UIButton!
-//    @IBOutlet weak var appleLoginButton: UIButton!
     @IBOutlet weak var optionsButton: UIButton!
     
     @IBOutlet weak var googleLoginButton: UIButton!
@@ -31,7 +28,6 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
     
     var tester = Tester()
 
-    //let gradientLayer = CAGradientLayer()
     let rad: CGFloat = 20.0
      
     var containerView = UIView()
@@ -70,10 +66,6 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
         
         googleLoginButton.layer.cornerRadius = rad
 
-        //gradientLayer.colors = [UIColor(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)).cgColor, UIColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)).cgColor]
-        //gradientLayer.locations = [0.0, 1.0]
-        //gradientLayer.frame = self.view.bounds
-        //self.view.layer.insertSublayer(gradientLayer, at:0)
     }
     
 
@@ -82,11 +74,6 @@ class LoginVC: UIViewController, UIScrollViewDelegate {
     
     func initializeBUttons() {
         let screenSize = UIScreen.main.bounds.size
-//        let buttonHeight: CGFloat = 45
-//        let widthOffset: CGFloat = 40
-//        let leadingX: CGFloat = 20
-//        let topY: CGFloat = 20
-//        let inbetween: CGFloat = 20
         
         loginButton.frame = CGRect(x: 20, y: 20, width: screenSize.width-40, height: 45)
         loginButton.backgroundColor = .systemGreen
@@ -242,7 +229,7 @@ extension UITextField {
 extension LoginVC : GIDSignInDelegate{
     
     
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
+    func sign(_ signIn: GIDSignIn, didSignInFor user: GIDGoogleUser, withError error: Error?) {
        
       if let error = error {
         print(error)
@@ -295,7 +282,7 @@ extension LoginVC : GIDSignInDelegate{
         }
     }
 
-    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
+    func sign(_ signIn: GIDSignIn, didDisconnectWith user: GIDGoogleUser, withError error: Error!) {
         // Perform any operations when the user disconnects from app here.
         // ...
     }

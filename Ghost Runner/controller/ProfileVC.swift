@@ -52,7 +52,7 @@ class ProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         self.user = userInfo.name
         self.uid = userInfo.uid
         self.userName.text = "\(user)"
-        
+                
         guard let url = URL(string: userInfo.photoURL) else { return  }
         let data = try? Data(contentsOf: url)
         if let imageData = data {

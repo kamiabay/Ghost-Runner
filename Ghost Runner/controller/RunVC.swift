@@ -143,13 +143,6 @@ class RunVC: UIViewController {
         // Note: passing the opponentRun is deprecated, thus an empty run is passed
         runCalculation = RunCalculation(opponentRun: Run(runSnapshotList: [RunSnapshot](), runID: "null"))
         
-        // Add the initially selected Ghost to the selectedGhosts list (if the user selected a target)
-        // The user can add more ghosts via "Add Ghost"
-//        if let opp = opponentRun {
-//            selectedGhosts.append(opp)
-//            beginAddingGhosts()  // this will refresh the GhostObjList with the initially selected run
-//        }
-        
         // In case user did not enable location, this will ask again, stalling our user/ghost functions
         let authorizeLocQueue = DispatchQueue(label: "authorizelocation")
         authorizeLocQueue.async {
@@ -165,11 +158,6 @@ class RunVC: UIViewController {
             self.CLandMapKitSetup()
             self.initiateMapSetup()
         }
-        
-//        let confirmPopupFrame = CGRect(x:0, y:0, width: view.frame.width/2, height: view.frame.height/2)
-//        confirmPopupView = UIView(frame: confirmPopupFrame)
-//        view.addSubview(confirmPopupView)
-//        confirmPopupView.isHidden = true
         
     }
     
@@ -307,9 +295,10 @@ class RunVC: UIViewController {
             self.mapView.removeOverlay(previous)
             lastDrawnPolyLine = nil
         }
-        let currPolyLine = runCalculation!.getOwnCurrentPolyLine();
-        self.mapView.addOverlay(currPolyLine)
-        lastDrawnPolyLine = currPolyLine;
+        if let currPolyLine = runCalculation?.getOwnCurrentPolyLine() {
+            self.mapView.addOverlay(currPolyLine)
+            lastDrawnPolyLine = currPolyLine;
+        }
     }
     
     // #######################################
@@ -336,9 +325,6 @@ class RunVC: UIViewController {
     
     // Key function; calls most of the animation/GPS update functions
     @objc func intervalUpdate() {
-     
-        //print("is moving \(!isUserMoving(locationManager: locationManager))")
-       // if(!isUserMoving(locationManager: locationManager)) {return}
         
         let gps = GPS(locationManager: locationManager);
         
@@ -356,9 +342,10 @@ class RunVC: UIViewController {
     }
 
     func saveRunData()  {
-        let ownRunList = runCalculation!.getOwnFinalRunList();
-        if (!ownRunList.isEmpty) {
-            db.runDb.saveRunSnapShot(runSnapShotList: ownRunList);
+        if let ownRunList = runCalculation?.getOwnFinalRunList() {
+            if (!ownRunList.isEmpty) {
+                db.runDb.saveRunSnapShot(runSnapShotList: ownRunList);
+            }
         }
     }
     
@@ -370,6 +357,7 @@ class RunVC: UIViewController {
         self.mapView.setUserTrackingMode(MKUserTrackingMode.followWithHeading, animated: true)    }
     
     @IBAction func addGhostSymbolPress(_ sender: UIButton) {
+        // Note for Sam King: for our submission, the key function of the app is to compete against your own Ghost. Because of that, we disabled adding additional ghosts to make this version's user-flow much simpler and easier to use.
 //        if selectedGhosts.count < maxGhosts {
 //            openTableView()
 //        } else {
@@ -503,13 +491,6 @@ extension RunVC: MKMapViewDelegate {
             UIGraphicsBeginImageContext(size)
             im?.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
             let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
-            
-//            annotationView?.image = resizedImage
-//            annotationView?.layer.borderWidth = 2.0
-//            annotationView?.layer.masksToBounds = false
-//            annotationView?.layer.borderColor = UIColor.lightGray.cgColor
-//            annotationView?.layer.cornerRadius = 12.5
-//            annotationView?.clipsToBounds = true
             
             let imView = UIImageView(frame: CGRect(x: 0, y: 0, width: 25, height: 25))
             imView.image = resizedImage

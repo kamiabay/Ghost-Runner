@@ -53,21 +53,8 @@ class HomeVC: UIViewController {
         super.viewDidLoad()
         
         // General View Styling
-//        view.backgroundColor =  .systemBackground
-//        let screenSize = UIScreen.main.bounds.size;
-//        let fab : MDCFloatingButton  = {
-//         let fab = MDCFloatingButton()
-//            fab.translatesAutoresizingMaskIntoConstraints = false
-//            fab.setTitle("Add", for: .normal)
-//            
-//        //cancelButton.addTarget(self, action: #selector(didTapCancel(sender:)), for: .touchUpInside)
-//        return fab
-//        }();
-////        fab.frame = CGRect(x: 20, y: 20);
-//        view.addSubview(fab);
+        view.backgroundColor =  .systemBackground
 
-        //view.addSubview(cancelButton)
-        //fab.minimumSize = CGSize(width: 64, height: 48)
         
         // Init navigation
         navigation = Navigator(currentViewController: self)
@@ -307,9 +294,9 @@ extension HomeVC: MKMapViewDelegate {
 
         if annotationView == nil {
             annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-            annotationView!.canShowCallout = true
+            annotationView?.canShowCallout = true
         } else {
-            annotationView!.annotation = annotation
+            annotationView?.annotation = annotation
         }
         
         // Give pin a custom image
