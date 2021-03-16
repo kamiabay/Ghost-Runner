@@ -6,21 +6,17 @@
 //
 
 // A BUTTON TO LET THEM KNOW WHAT THE OPPONENT IS DOING! "UPDATE"
-// as well as periodically update them
+// as well as periodically update them 
 
 // Still need to determine if notifications will play when phone is locked
 
 import Foundation
-import UserNotifications // For push notifications
-import AVFoundation // For audio notifications
+import UserNotifications
 
 class NotificationManager {
     let center = UNUserNotificationCenter.current()
     let content = UNMutableNotificationContent()
-    let synthesizer = AVSpeechSynthesizer()
-    var audioPlayer: AVAudioPlayer?
-    var utterance = AVSpeechUtterance(string: "")
-    var utterance_one = AVSpeechUtterance(string: "")
+    let audio = AudioManager()
         
     init() {
         // Request authorization for push notifications
@@ -29,107 +25,18 @@ class NotificationManager {
                 // Let user know how to change later and maybe let them know how notifications let the user know when friends have completed runs
             }
         }
-        
-        // Choosing voice for synthesizer
-        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-        //utterance.voice = AVSpeechSynthesisVoice(identifier: "Karen") // if we wanted to specify a voice
-        
-        // Setting audio to play during silent mode
-        do {
-            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .voicePrompt)
-            try AVAudioSession.sharedInstance().setActive(true)
-        }
-        catch {
-            print("error initializing AVAudio settings")
-        }
     }
     
-    // Not currently used but may be useful eventually
-    // Loads and play an audio file from the main bundle
-    private func playAudioFile(fileName: String, fileExtension: String) {
-        guard let path = Bundle.main.path(forResource: fileName, ofType: fileExtension) else {
-            print("cannot find \(fileName)")
-            return
-        }
-        
-        let url = URL(fileURLWithPath: path)
-        
-        do {
-            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
-            try AVAudioSession.sharedInstance().setActive(true)
-            
-            self.audioPlayer = try AVAudioPlayer(contentsOf: url)
-            self.audioPlayer?.play()
-            print("playing \(fileName)")
-        }
-        catch {
-            print("could not load audio")
-        }
-    }
-    
-    // Plays audio which provides user with opponent run comparison information
     func playRunDifferenceAudio(ghostName: String = "Opponent", spacialDifference: Double, speedDifference: Double) {
-        let absSpacialDifference = abs(spacialDifference)
-        let absSpeedDifference = abs(speedDifference)
-        let onPaceThreshold = 0.01
-
-        if spacialDifference > 0 && speedDifference > 0 {
-            self.utterance = AVSpeechUtterance(string: "You are \(spacialDifference) meters ahead of \(ghostName). Your speed is \(speedDifference) meters per second faster than \(ghostName).")
-            self.synthesizer.speak(utterance)
-        }
-        else if spacialDifference < 0 && speedDifference > 0 {
-            self.utterance = AVSpeechUtterance(string: "\(ghostName) is \(absSpacialDifference) meters ahead of you. Your speed is \(speedDifference) meters per second faster than \(ghostName).")
-            self.synthesizer.speak(utterance)
-        }
-        else if spacialDifference > 0 && speedDifference < 0 {
-            self.utterance = AVSpeechUtterance(string: "\(ghostName) is \(absSpacialDifference) meters ahead of you. Your speed is \(absSpeedDifference) meters per second slower than \(ghostName).")
-            self.synthesizer.speak(utterance)
-        }
-        else if spacialDifference < 0 && speedDifference < 0 {
-            self.utterance = AVSpeechUtterance(string: "\(ghostName) is \(absSpacialDifference) meters ahead of you. Your speed is \(absSpeedDifference) meters per second slower than \(ghostName).")
-            self.synthesizer.speak(utterance)
-        }
-        else if spacialDifference > 0 && absSpeedDifference < onPaceThreshold {
-            self.utterance = AVSpeechUtterance(string: "\(ghostName) is \(absSpacialDifference) meters ahead of you. You are on pace with \(ghostName).")
-            self.synthesizer.speak(utterance)
-        }
-        else if spacialDifference < 0 && absSpeedDifference < onPaceThreshold {
-            self.utterance = AVSpeechUtterance(string: "\(ghostName) is \(absSpacialDifference) meters ahead of you. You are on pace with \(ghostName).")
-            self.synthesizer.speak(utterance)
-        }
-        
-        // The utterances here are not be queued up for some reason, so they were included above
-        // if value is provided, tell user how much faster/slower opponent is
-        /*if let speedDiff = speedDifference {
-            let absSpeedDifference = abs(speedDiff)
-
-            if speedDiff > 0 {
-                self.utterance_one = AVSpeechUtterance(string: "Your speed is \(speedDiff) meters per second faster than \(ghostName).")
-                self.synthesizer.speak(utterance_one)
-                print("got here")
-
-            }
-            else if speedDiff < 0 {
-                self.utterance = AVSpeechUtterance(string: "Your speed is \(absSpeedDifference) meters per second slower than \(ghostName).")
-                self.synthesizer.speak(utterance)
-            }
-            else {
-                self.utterance = AVSpeechUtterance(string: "You are on pace with \(ghostName).")
-                self.synthesizer.speak(utterance)
-            }
-        }*/
+        audio.playRunDifferenceAudio(ghostName: ghostName, spacialDifference: spacialDifference, speedDifference: speedDifference)
     }
     
     func playOpponentPassedAudio(ghostName: String = "Opponent") {
-        self.utterance = AVSpeechUtterance(string: "\(ghostName) has passed you")
-        self.synthesizer.speak(utterance)
-        //self.playAudioFile(fileName: "opponentPassedVoiceAudio", fileExtension: "m4a")
+        audio.playOpponentPassedAudio(ghostName: ghostName)
     }
     
     func playUserPassedAudio(ghostName: String = "Opponent") {
-        self.utterance = AVSpeechUtterance(string: "You have passed \(ghostName)")
-        self.synthesizer.speak(utterance)
-        //self.playAudioFile(fileName: "userPassedVoiceAudio", fileExtension: "m4a")
+        audio.playUserPassedAudio(ghostName: ghostName)
     }
     
     func pushFriendCompetedAgainstUser() {
@@ -144,6 +51,8 @@ class NotificationManager {
         pushNotification()
     }
     
+    
+    // Notifications occur only if notification is triggered and app is put to background within the timeIntervalSinceNow value below
     private func pushNotification() {
         var dateComponents = DateComponents()
         let date = Date(timeIntervalSinceNow: 10)
