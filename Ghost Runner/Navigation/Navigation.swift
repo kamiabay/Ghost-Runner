@@ -70,7 +70,7 @@ class Navigator  {
     
     // For testing purposes, I added an optional to the Run type of the parameter
     // When we implement the full run data pipeline, we can switch it back to Run only, no optional
-    func goToRunView(opponentRun: Run) {
+    func goToRunView(opponentRun: Run?) {
         let storyboard = UIStoryboard(name: "Run", bundle: nil)
         guard let runVC = storyboard.instantiateViewController(identifier: route.run) as? RunVC else {
             assertionFailure("couldnt find this controller")
@@ -78,8 +78,12 @@ class Navigator  {
         }
         
         let user = LocalStorage().getUser();
-        let ghost = GhostRun(user: user, run: opponentRun); // bad
-        runVC.ghostList.append(ghost)
+        
+        if let op = opponentRun {
+            let ghost = GhostRun(user: user, run: op)
+            runVC.ghostList.append(ghost)
+        }
+        
         currentViewController?.navigationController?.pushViewController(runVC, animated: true)
     }
     

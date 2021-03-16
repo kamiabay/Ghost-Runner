@@ -53,21 +53,7 @@ class HomeVC: UIViewController {
         super.viewDidLoad()
         
         // General View Styling
-//        view.backgroundColor =  .systemBackground
-//        let screenSize = UIScreen.main.bounds.size;
-//        let fab : MDCFloatingButton  = {
-//         let fab = MDCFloatingButton()
-//            fab.translatesAutoresizingMaskIntoConstraints = false
-//            fab.setTitle("Add", for: .normal)
-//            
-//        //cancelButton.addTarget(self, action: #selector(didTapCancel(sender:)), for: .touchUpInside)
-//        return fab
-//        }();
-////        fab.frame = CGRect(x: 20, y: 20);
-//        view.addSubview(fab);
-
-        //view.addSubview(cancelButton)
-        //fab.minimumSize = CGSize(width: 64, height: 48)
+        view.backgroundColor =  .systemBackground
         
         // Init navigation
         navigation = Navigator(currentViewController: self)
@@ -115,9 +101,11 @@ class HomeVC: UIViewController {
         // Request always authorization
         alwaysAuthorization()
         
-        
-        
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        getUserRunData()
     }
 
     func alwaysAuthorization(){
@@ -157,10 +145,11 @@ class HomeVC: UIViewController {
     
     // Buttons
     @IBAction func runViewButtonPress(_ sender: UIButton) {
-       // navigation?.goToRunView(opponentRun: nil)
+        //navigation?.goToRunView(opponentRun: Run(runSnapshotList: [RunSnapshot](), runID: "", runName: "", totalDistance: 0))
+        navigation?.goToRunView(opponentRun: nil)
     }
     @IBAction func selectRunButtonPress(_ sender: UIButton) {
-        navigation?.goToRunView(opponentRun: selectedRun!); // NO !
+        navigation?.goToRunView(opponentRun: selectedRun); // NO !
     }
     @objc func profileTap() {
         navigation?.goToProfileView()

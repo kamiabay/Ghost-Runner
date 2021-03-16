@@ -40,8 +40,10 @@ class FriendVC: UIViewController {
         // Function calls
         getAllFriends()
         
-        
-        
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        getAllFriends()
     }
     
     
@@ -52,7 +54,6 @@ class FriendVC: UIViewController {
                 self?.friendList = friendList
                 print("data received")
                 self?.friendTable.reloadData()
-                
             }
         })
     }
@@ -66,6 +67,7 @@ class FriendVC: UIViewController {
             assertionFailure("couldnt find this controller")
             return
         }
+        friendSheet.modalPresentationStyle = .fullScreen
         present(friendSheet, animated: true);
     }
     
