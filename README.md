@@ -1,4 +1,5 @@
 # Ghost Runner on iOS :ghost:
+https://ghostsrunner.web.app
 
 > Developed by Team DZKN:
 
@@ -10,7 +11,12 @@
 
 > Nikita Andrikanis
 
-# https://ghostsrunner.web.app
+### Final Submission Remarks:
+
+Hello all! This is the branch for our submission for the class. While we were extremely ambitious with our features, we definitely had to focus on a smaller set of features for the scope of this class. Thus, this version fully supports recording your own ghost-runs and competing against them, but does not include your friends' ghosts. To build the project, please use this "submission" branch. Additionally, one source of error that we experienced is Signing Certificates. In case our current Certificate causes an error, please navigate to "Ghost Runner.xcodeproj" and change the Bundle Identifier to be Runner.Ghost-Runner.YOUR_NAME and changing the Profile to be your own Apple ID.
+
+Thank you and enjoy our app (we will continue to develop this app and mold it into exactly what we envisioned, so stay tuned)!
+
 
 ### Our proposal:
 
@@ -35,13 +41,15 @@ General Responsibilities:
 
 25 February 2021 - [Sprint Planning 3](https://docs.google.com/document/d/1W977kMpqJkgv5KH4pijB8ygc9R7gZMIT5jJi9BzREAg/edit?usp=sharing)
 
-1 March 2021 - [Sprint Planning 4](https://docs.google.com/document/d/1mfccGnBMsnO_ylIYfPCAjiATX0Gm9TYbMSQI34YTee0/edit?usp=sharing) ***NEW!***
+1 March 2021 - [Sprint Planning 4](https://docs.google.com/document/d/1mfccGnBMsnO_ylIYfPCAjiATX0Gm9TYbMSQI34YTee0/edit?usp=sharing)
+
+11 March 2021 - [Sprint Planning 5](https://docs.google.com/document/d/14jFPHzd04NigO2q-CrvNjGCrvkJeEUzJ-lFWqiK57xw/edit?usp=sharing)
 
 ### Milestones:
 
 22 February 2021 - [Milestone 1](https://docs.google.com/document/d/1cL5qjSXlPTK8lDtkn_iZbdCze0-BJGtdw--Mh1lu0pw/edit?usp=sharing)
 
-1 March 2021 - [Milestone 2](https://docs.google.com/document/d/1NXl5295iFcDbcbgTRkMIKKjs6uULBk3kL2gjudqogIo/edit?usp=sharing) ***NEW!***
+1 March 2021 - [Milestone 2](https://docs.google.com/document/d/1NXl5295iFcDbcbgTRkMIKKjs6uULBk3kL2gjudqogIo/edit?usp=sharing)
 
 ### Profile Links:
 
