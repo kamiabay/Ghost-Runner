@@ -21,26 +21,7 @@ class Run {
         self.runID = runID;
     }
 
-//    func avgSpeed() -> Double {
-//        let calendar = Calendar.current
-//        let time = totalDuration();
-//        let second = calendar.component(.second, from: time)
-//        return totalDistance() / Double(second);  // check later
-//    }
-    
-    // AT INITIATION
-    func totalDistance() -> Double {
-        var prevCordinate: CLLocation?;
-        var distance = 0.0;
-        runSnapshotList.forEach{ (runSnapshot) in
-            prevCordinate = runSnapshot.getCordinate();
-            // WRONG => NO !
-            let distanceInMeters = prevCordinate!.distance(from: prevCordinate!)
-            distance = distance + distanceInMeters;
-        };
-        
-        return distance;
-    }
+
     
     // AT INITIATION
     func getFullMKPolyline() -> MKPolyline   {

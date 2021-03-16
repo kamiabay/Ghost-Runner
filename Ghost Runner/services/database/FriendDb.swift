@@ -32,7 +32,7 @@ class FriendDb {
                 // if not empty
                 if (!(snapShots?.isEmpty ?? true)) {
                     let snap = snapShots?[0]
-                    let data = snap?.data() as! [String : Any];
+                    let data = snap?.data() as? [String : Any] ?? ["": []];
                     print("user data is \(data)");
                     let friend = Friend.init(data: data);
                     async.leave()
@@ -65,12 +65,13 @@ class FriendDb {
                 print("Error getting documents: \(err)")
                 async.leave()
             } else {
-                for document in querySnapshot!.documents {
-                  
-                    let friendData = document.data() as! [String : Any];
+                
+                querySnapshot?.documents.forEach({ (document) in
+                    let friendData = document.data() as? [String : Any] ?? ["": []];
                     let friend = Friend(data: friendData);
                     friendList.append(friend)
-                }
+                
+                })
                 async.leave()
                 async.notify(queue: .main) {
                       completion(friendList)
@@ -88,10 +89,11 @@ class FriendDb {
         ref.getDocuments { (QuerySnapshot, Error ) in
             let snapShots = QuerySnapshot?.documents;
             let snap = snapShots?[0]
-            let runData: [Any] = (snap?.data()["runData"]) as! [Any];
+            let runData: [Any] = (snap?.data()["runData"]) as? [Any] ?? [];
             let runSnapShot = runData.map { (run) -> RunSnapshot in
-                return RunSnapshot(doc: run as! [String : Any]);
+                return RunSnapshot(doc: run as? [String : Any] ?? ["":[]]);
             }
+            // TODO ADD RUN NAME
             let bestRun = Run(runSnapshotList: runSnapShot, runID: "rand id")
             async.leave()
             async.notify(queue: .main) {
@@ -100,6 +102,40 @@ class FriendDb {
         }
       
     }
+    // TODO ADD RUN NAME
+    func getFreindLastRun(uid: String, completion: @escaping((Run) -> ())) {
+        let ref = path.friendAllRuns(friendUID: uid)
+            .order(by: "creationTime", descending: true).limit(to: 1);
+        
+        let async = DispatchGroup()
+        async.enter()
+        ref.getDocuments { (QuerySnapshot, Error ) in
+            if let err = Error {
+                print("Error getting documents: \(err)")
+                async.leave()
+            } else {
+                let snapShots = QuerySnapshot?.documents;
+                var runSnapshotList = [RunSnapshot]();
+       
+                    if (!(snapShots?.isEmpty ?? true)) {
+                        let snap = snapShots?[0]
+                        
+                        let runData: [Any] = (snap?.data()["runData"]) as? [Any] ?? [];
+                        runSnapshotList = runData.map { (run) -> RunSnapshot in
+                            return RunSnapshot(doc: run as? [String : Any] ?? ["":[]]);
+                        }
+                       let run = Run(runSnapshotList: runSnapshotList, runID: "rand id")
+                   
+                        async.leave()
+                        async.notify(queue: .main) {
+                              completion(run)
+                            }
+                    }
+            }
+        }
+        
+    }
+    
     
 
 }

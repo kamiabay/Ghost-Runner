@@ -21,12 +21,6 @@ class DB {
     }
     
     
-    
-    
-    private func checkUser() {
-        if (!LocalStorage().userExist()) {
-            // log out
-        }
-    }
+
     
 }

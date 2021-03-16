@@ -12,15 +12,14 @@ class GPS {
     var latitude: Double;
     var longitude: Double;
     var altitude: Double;
-    var location: CLLocation! // FORCED??
+    var location: CLLocation? // FORCED??
     var heading: CLHeading?
     
     init(locationManager: CLLocationManager) {
         location = locationManager.location;
-       // self.heading = locationManager.heading;
-        self.altitude = location.altitude;
-        self.latitude = location.coordinate.latitude;
-        self.longitude = location.coordinate.longitude;
+        self.altitude = location?.altitude ?? 0.0;
+        self.latitude = location?.coordinate.latitude ?? 0.0;
+        self.longitude = location?.coordinate.longitude ?? 0.0;
     }
     
     // get from db

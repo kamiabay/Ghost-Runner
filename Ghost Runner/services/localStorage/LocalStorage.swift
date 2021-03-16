@@ -88,6 +88,7 @@ class LocalStorage {
         Storage.uid = "";
         Storage.name = "";
         Storage.photoURL = "";
+        Storage.code = "";
     }
     
 }

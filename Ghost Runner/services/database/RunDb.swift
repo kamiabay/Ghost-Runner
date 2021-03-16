@@ -28,10 +28,11 @@ class RunDb {
         };
         
         ref.addDocument(data: [
-            "runData": FieldValue.arrayUnion(jsonList), // MIGHT NOT WORK
+            "runData": FieldValue.arrayUnion(jsonList),
             "creationTime": FieldValue.serverTimestamp(),
         ]);
     }
+    
     
     func getUserRunList(completion: @escaping(([Run]) -> ())) {
         let ref = path.userAllRuns().order(by: "creationTime", descending: true);
@@ -47,26 +48,29 @@ class RunDb {
                 async.leave()
             } else {
                 var snap = [RunSnapshot]();
-                for document in querySnapshot!.documents {
-                  
-                    let runData: [Any] = (document.data()["runData"]) as! [Any];
+                querySnapshot?.documents.forEach({ (document) in
+                    let documentID = document.documentID;
+                    let doc = document.data() as? [String : Any];
+                    let runData: [Any] = (document.data()["runData"]) as? [Any] ?? [];
+                    let runName = (doc?["runName"] ?? "Afternoon Run") as? String ?? ""
                     snap = runData.map { (run) -> RunSnapshot in
-                        return RunSnapshot(doc: run as! [String : Any]);
+                        return RunSnapshot(doc: run as? [String : Any] ??  ["": []]);
                     }
-                    runList.append(Run(runSnapshotList: snap, runID: "rand id"))
-                }
+                    runList.append(Run(runSnapshotList: snap, runID: documentID))
+                });
                 async.leave()
                 async.notify(queue: .main) {
                       completion(runList)
                     }
             }
         }
-        
-
-        
-       
-      
-        
     }
+    
+    
+    func deleteRun(runID: String)  {
+        let ref = path.userEachRun(runID: runID);
+        ref.delete();
+    }
+    
 
 }
