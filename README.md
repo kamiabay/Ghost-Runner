@@ -1,4 +1,4 @@
-# Ghost Runner on iOS :ghost:
+# To run please go to the submission branch
 https://ghostsrunner.web.app
 
 > Developed by Team DZKN:
