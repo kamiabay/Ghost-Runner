@@ -19,6 +19,13 @@ class FriendSearchVC: UIViewController {
         super.viewDidLoad()
         addedFriend.text = ""
         NotificationCenter.default.addObserver( self,selector:#selector(self.keyboardDidShow), name: UITextField.textDidChangeNotification, object: searchBar)
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissView))
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissView() {
+        dismiss(animated: true)
     }
     
     @objc func keyboardDidShow(notifcation: NSNotification) {

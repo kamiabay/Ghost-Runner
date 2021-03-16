@@ -119,6 +119,11 @@ class HomeVC: UIViewController {
         
         
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        getUserRunData()
+    }
 
     func alwaysAuthorization(){
         if CLLocationManager.locationServicesEnabled() && CLLocationManager.authorizationStatus() == .authorizedWhenInUse {

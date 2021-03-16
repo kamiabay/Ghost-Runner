@@ -37,10 +37,6 @@ class ProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         // Init navigation
         navigation = Navigator(currentViewController: self)
         
-        //let notification = NotificationManager()
-        //notification.playRunDifferenceAudio(ghostName: "Dylan", spacialDifference: -5.5, speedDifference: 2.1)
-        //notification.pushFriendCreatedNewRun()
-        
         addCodeButton.layer.cornerRadius = 18
         shareToSocialButton.layer.cornerRadius = 18
         logoutButton.layer.cornerRadius = 18
@@ -63,8 +59,8 @@ class ProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
             profileImage.image = UIImage(data: imageData)
         }
         
-        self.addMessage = "Add your friend \(self.user) on GhostRunner using the following code: \(self.uid)"
-        self.shareMessage = "Try to beat my time on GhostRunner! Add me using the following code: \(self.uid)"
+        self.addMessage = "Add your friend \(self.user) on GhostRunner using the following code: \(userInfo.code)"
+        self.shareMessage = "Try to beat my time on GhostRunner! Add me using the following code: \(userInfo.code)"
     }
     
     @IBAction func tapProfileImage(_ sender: Any) {

@@ -44,6 +44,12 @@ class FriendVC: UIViewController {
         
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        getAllFriends()
+        print("Here")
+    }
+    
     
 
     func getAllFriends()  {
@@ -68,6 +74,7 @@ class FriendVC: UIViewController {
             assertionFailure("couldnt find this controller")
             return
         }
+        friendSheet.modalPresentationStyle = .fullScreen
         present(friendSheet, animated: true);
     }
     
@@ -107,7 +114,7 @@ extension FriendVC: UITableViewDataSource, UITableViewDelegate {
         
         // Get cell data
         
-        let cell_data = friendList[indexPath.row]
+        let cell_data = friendList[indexPath.section]
         
         // Set friend's name
         
@@ -118,7 +125,7 @@ extension FriendVC: UITableViewDataSource, UITableViewDelegate {
         
         let friendPic = cell.contentView.viewWithTag(202) as? UIImageView
         
-        guard let url = URL(string: self.friendList[indexPath.row].photoURL) else { return  UITableViewCell()}
+        guard let url = URL(string: self.friendList[indexPath.section].photoURL) else { return  UITableViewCell()}
         let data = try? Data(contentsOf: url)
         if let imageData = data {
             friendPic?.image = UIImage(data: imageData)

@@ -370,11 +370,11 @@ class RunVC: UIViewController {
         self.mapView.setUserTrackingMode(MKUserTrackingMode.followWithHeading, animated: true)    }
     
     @IBAction func addGhostSymbolPress(_ sender: UIButton) {
-        if selectedGhosts.count < maxGhosts {
-            openTableView()
-        } else {
-            print("Max ghosts added")
-        }
+//        if selectedGhosts.count < maxGhosts {
+//            openTableView()
+//        } else {
+//            print("Max ghosts added")
+//        }
     }
     
     // ONLY FOR DEBUG
