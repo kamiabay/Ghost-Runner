@@ -22,24 +22,6 @@ class HomeVC: UIViewController {
     var totalRuns: Int? = 0
     let locationManager = CLLocationManager()
     var selectedRun: Run?
-
-//    let cancelButton: MDCButton = {
-//      let cancelButton = MDCButton()
-//      cancelButton.translatesAutoresizingMaskIntoConstraints = false
-//      cancelButton.setTitle("CANCEL", for: .normal)
-//      //cancelButton.addTarget(self, action: #selector(didTapCancel(sender:)), for: .touchUpInside)
-//      return cancelButton
-//    }()
-    
-    
-//    let fab = MDCFloatingButton()
-//    let cancelButton: MDCButton = {
-//      let cancelButton = MDCButton()
-//      cancelButton.translatesAutoresizingMaskIntoConstraints = false
-//      cancelButton.setTitle("CANCEL", for: .normal)
-//      //cancelButton.addTarget(self, action: #selector(didTapCancel(sender:)), for: .touchUpInside)
-//      return cancelButton
-//    }()
     
     @IBOutlet weak var runViewButton: UIButton!
     @IBOutlet weak var runsTable: UITableView!
@@ -235,10 +217,10 @@ extension HomeVC: UITableViewDataSource, UITableViewDelegate  {
         df.dateFormat = "hh:mm:ss"
         
         let runTitle = cell.contentView.viewWithTag(101) as? UILabel
-        runTitle?.text = "\(indexPath.section)"
+        runTitle?.text = "Run \(self.runList.count - indexPath.section)"
         
         let runDetails = cell.contentView.viewWithTag(102) as? UILabel
-        runDetails?.text = "D: \(cell_data.totalDuration())"
+        runDetails?.text = "Midday"
         
         cell.backgroundColor = .systemBackground
         cell.layer.borderColor = UIColor.darkGray.cgColor

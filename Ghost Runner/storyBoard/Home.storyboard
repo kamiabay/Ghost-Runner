@@ -214,7 +214,7 @@
                                     <color key="textColor" systemColor="labelColor"/>
                                 </textAttributes>
                                 <items>
-                                    <navigationItem title="Add Friends" id="x4S-8O-Nhy"/>
+                                    <navigationItem id="x4S-8O-Nhy"/>
                                 </items>
                             </navigationBar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Paste your friend's code:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VSh-Uq-4iB">
