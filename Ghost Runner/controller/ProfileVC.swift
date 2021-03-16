@@ -37,9 +37,6 @@ class ProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         // Init navigation
         navigation = Navigator(currentViewController: self)
         
-        let notification = NotificationManager()
-        notification.pushFriendCreatedNewRun()
-        
         addCodeButton.layer.cornerRadius = 18
         shareToSocialButton.layer.cornerRadius = 18
         logoutButton.layer.cornerRadius = 18

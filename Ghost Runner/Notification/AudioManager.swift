@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import AVFoundation // For audio notifications
+import AVFoundation
 
 class AudioManager {
     let synthesizer = AVSpeechSynthesizer()
@@ -21,7 +21,7 @@ class AudioManager {
         
         // Setting audio to play during silent mode
         do {
-            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .voicePrompt)
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .voicePrompt, options: [.duckOthers, .allowBluetooth, .allowBluetoothA2DP, .allowAirPlay])
             try AVAudioSession.sharedInstance().setActive(true)
         }
         catch {

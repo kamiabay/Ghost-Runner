@@ -51,7 +51,7 @@
 		3CDFE92C25DF16D600742EF2 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDFE92B25DF16D600742EF2 /* HomeVC.swift */; };
 		3CDFE93525DF8C6F00742EF2 /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDFE93425DF8C6F00742EF2 /* SignUp.swift */; };
 		5023811574EF1E5C3359D874 /* Pods_Ghost_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4A245072B07B61AE8759005 /* Pods_Ghost_Runner.framework */; };
-		8C1B1AB025F19C49003DC505 /* opponentPassedVoiceAudio.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 8C1B1AAF25F19C49003DC505 /* opponentPassedVoiceAudio.m4a */; };
+		8C9BECB52600449600349763 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9BECB42600449600349763 /* AudioManager.swift */; };
 		DBF6EAC625EDA6E800210649 /* EmailLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF6EAC525EDA6E800210649 /* EmailLoginViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -102,7 +102,7 @@
 		3CDFE92B25DF16D600742EF2 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		3CDFE93425DF8C6F00742EF2 /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
 		766E69240DE493E8126D4C20 /* Pods-Ghost Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ghost Runner.release.xcconfig"; path = "Target Support Files/Pods-Ghost Runner/Pods-Ghost Runner.release.xcconfig"; sourceTree = "<group>"; };
-		8C1B1AAF25F19C49003DC505 /* opponentPassedVoiceAudio.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = opponentPassedVoiceAudio.m4a; sourceTree = "<group>"; };
+		8C9BECB42600449600349763 /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 		A4104646307D6E68F33AE0EB /* Pods-Ghost Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ghost Runner.debug.xcconfig"; path = "Target Support Files/Pods-Ghost Runner/Pods-Ghost Runner.debug.xcconfig"; sourceTree = "<group>"; };
 		DBF6EAC525EDA6E800210649 /* EmailLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLoginViewController.swift; sourceTree = "<group>"; };
 		E4A245072B07B61AE8759005 /* Pods_Ghost_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Ghost_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -154,7 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				3C319D9725E58C5D00868267 /* Notification.swift */,
-				8C1B1AAF25F19C49003DC505 /* opponentPassedVoiceAudio.m4a */,
+				8C9BECB42600449600349763 /* AudioManager.swift */,
 			);
 			name = Notification;
 			path = "Ghost Runner/Notification";
@@ -394,7 +394,6 @@
 				118B4DD925E0C87F00A8628C /* Run.storyboard in Resources */,
 				3CB524F525DB1B03004421D9 /* GoogleService-Info.plist in Resources */,
 				118B4DD225E0C82E00A8628C /* SignUp.storyboard in Resources */,
-				8C1B1AB025F19C49003DC505 /* opponentPassedVoiceAudio.m4a in Resources */,
 				3C4D6BEF25D5D1C4009CEBE1 /* Assets.xcassets in Resources */,
 				1122CE6D25E5A23F0065B4B2 /* Profile.storyboard in Resources */,
 				3C4D6BED25D5D1C2009CEBE1 /* Login.storyboard in Resources */,
@@ -469,6 +468,7 @@
 			files = (
 				3C13A8EA25DB774B00C9D7F6 /* RunSnapshot.swift in Sources */,
 				DBF6EAC625EDA6E800210649 /* EmailLoginViewController.swift in Sources */,
+				8C9BECB52600449600349763 /* AudioManager.swift in Sources */,
 				3C6922D225EDF326001BA185 /* FriendDb.swift in Sources */,
 				3C2ED5E325FCB9A30041B3D3 /* functions.swift in Sources */,
 				3C13A8E225DB76D100C9D7F6 /* GPS.swift in Sources */,
@@ -652,14 +652,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 32ZQY2PA9J;
+				DEVELOPMENT_TEAM = AZ89PYB479;
 				INFOPLIST_FILE = "Ghost Runner/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Runner.Ghost-Runner.Kami";
+				PRODUCT_BUNDLE_IDENTIFIER = RunningFromGhosts;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -675,14 +675,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 32ZQY2PA9J;
+				DEVELOPMENT_TEAM = AZ89PYB479;
 				INFOPLIST_FILE = "Ghost Runner/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Runner.Ghost-Runner.Kami";
+				PRODUCT_BUNDLE_IDENTIFIER = RunningFromGhosts;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

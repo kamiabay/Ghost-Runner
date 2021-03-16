@@ -5,11 +5,6 @@
 //  Created by Kamyab Ayanifard on 2/23/21.
 //
 
-// A BUTTON TO LET THEM KNOW WHAT THE OPPONENT IS DOING! "UPDATE"
-// as well as periodically update them 
-
-// Still need to determine if notifications will play when phone is locked
-
 import Foundation
 import UserNotifications
 
