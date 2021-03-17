@@ -1,5 +1,4 @@
 # Ghost Runner on iOS :ghost:
-https://ghostsrunner.web.app
 
 > Developed by Team DZKN:
 
@@ -28,10 +27,10 @@ The core of the app lies in our algorithm, which would take the geo-data and tim
 [Link to Trello Board](https://trello.com/b/EvIk6hce/dzkn-ghost-runner)
 
 General Responsibilities:
-- Dylan: core run algorithm
+- Dylan: core run algorithm, audio notifications
 - Ziyu: authentication pipeline and accounts
 - Kami: back-end, data pipeline, authentication, run algorithm, website
-- Nikita: main UI, map/time-sector, graphics design
+- Nikita: UI/UX, Run View and map, full app styling, graphics design
 
 ### Meeting/Sprint Planning Notes:
 
