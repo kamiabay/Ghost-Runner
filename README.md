@@ -24,7 +24,7 @@ General Responsibilities:
 - Dylan: core run algorithm
 - Ziyu: authentication pipeline and accounts
 - Kami: back-end, data pipeline, authentication, run algorithm, website
-- Nikita: main UI, map/time-sector, graphics design
+- Nikita: UI/UX, Run View and map, full app styling, graphics design
 
 ### Meeting/Sprint Planning Notes:
 
